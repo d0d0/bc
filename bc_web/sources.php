@@ -24,7 +24,30 @@
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
-                    TODO
+                    <h3>Podobné bakalárske práce</h3>
+                    Ján Šilar- Testovanie kódu v C++ pri metodológii Test Driven Develpment<br>
+                    Pavol Leščinský- Interaktívna webová učebnica programovania v C++<br>
+                    D. Krajč- Webové vývojové prostredie pre jazyk C++<br>
+                    M. Letavay- Virtuálne prostredie pre tvorbu interaktívnych multimediálnych kurzov programovania
+                </div>
+                <div class="thumbnail">
+                    <h3>Existujúce riešenia pre online editory</h3>
+                    Google dokumenty<br>
+                    http://codebunk.com/<br>
+                    https://floobits.com/<br>
+                    https://codeanywhere.net/<br>
+                    https://c9.io/<br>
+                </div>
+                <div class="thumbnail">
+                    <h3>Dokumentácie k implementačnej časti</h3>
+                    http://laravel.com<br>
+                    http://nodejs.org<br>
+                    http://getbootstrap.com/<br>
+                    http://sourceforge.net/projects/cppunit/<br>
+                    http://mrzechonek.github.io/tut-framework/<br>
+                    http://sharejs.org/<br>
+                    http://ace.c9.io<br>
+                    http://www.raspberrypi.org/
                 </div>
             </div>
         </div>

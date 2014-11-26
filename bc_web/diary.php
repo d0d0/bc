@@ -24,9 +24,19 @@
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
+                    <h3>Prezentácia na Bakalársky seminár</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 26.11.2014</p>
+                    <p>Vytvorená prezentácoia na bakalársky seminár.</p>
+                </div>
+                <div class="thumbnail">
+                    <h3>Naprogramovanie základného editor</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 15.11.2014</p>
+                    <p>Naprogramovaný základný online editor.</p>
+                </div>
+                <div class="thumbnail">
                     <h3>Vyvorenie webovej stránky</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 26.10.2014</p>
-                    <p>Vytvoril som základný layout pre web na bakalársku prácu</p>
+                    <p>Vytvoril som základný layout pre web na bakalársku prácu.</p>
                 </div>
             </div>
         </div>
