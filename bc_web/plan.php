@@ -19,33 +19,19 @@
                     <li><a href="index.php">Domov</a></li>
                     <li><a href="diary.php">Denník</a></li>
                     <li><a href="sources.php">Zdroje</a></li>
-                    <li class="active"><a href="kontakt.php">Kontakt</a></li>
-                    <li><a href="plan.php">Časový plán práce</a></li>
+                    <li><a href="kontakt.php">Kontakt</a></li>
+                    <li class="active"><a href="plan.php">Časový plán práce</a></li>
                 </ul>
             </div>
             <div class="col-md-9">
-                <dl class="dl-horizontal">
-                    <p class="lead">
-                    <dt>Autor:</dt>
-                    <dd>Jozef Dúc</dd>
-                    </p>
-                    <p class="lead">
-                    <dt>Mail:</dt>
-                    <dd>jozef.d13@gmail.com</dd> 
-                    </p>
-                    <p class="lead">
-                    <dt>Škola:</dt>
-                    <dd>Univerzita Komenského</dd>
-                    </p>
-                    <p class="lead">
-                    <dt>Fakulta:</dt>
-                    <dd>Fakulta matematiky, fyziky a informatiky</dd>
-                    </p>
-                    <p class="lead">
-                    <dt>Odbor:</dt>
-                    <dd>Aplikovaná informatika</dd>
-                </p>
-                </dl>
+                <div class="thumbnail">
+                    <h3>December 2014 / Január 2015</h3>
+                    Dokončenie základného editoru a vytvorenie úvodnej kapitoly
+                </div>
+                <div class="thumbnail">
+                    <h3>Máj 2015</h3>
+					Dokončenie aplikácie a textu
+                </div>
             </div>
         </div>
         <div class="footer navbar-fixed-bottom">

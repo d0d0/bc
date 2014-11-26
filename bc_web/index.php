@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -20,6 +20,7 @@
                     <li><a href="diary.php">Denník</a></li>
                     <li><a href="sources.php">Zdroje</a></li>
                     <li><a href="kontakt.php">Kontakt</a></li>
+                    <li><a href="plan.php">Ćasový plán práce</a></li>
                 </ul>
             </div>
             <div class="col-md-9">

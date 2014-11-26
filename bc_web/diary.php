@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -20,16 +20,17 @@
                     <li class="active"><a href="diary.php">Denník</a></li>
                     <li><a href="sources.php">Zdroje</a></li>
                     <li><a href="kontakt.php">Kontakt</a></li>
+                    <li><a href="plan.php">Časový plán práce</a></li>
                 </ul>
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
                     <h3>Prezentácia na Bakalársky seminár</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 26.11.2014</p>
-                    <p>Vytvorená prezentácoia na bakalársky seminár.</p>
+                    <p>Vytvorené prezentácia na bakalársky seminár.</p>
                 </div>
                 <div class="thumbnail">
-                    <h3>Naprogramovanie základného editor</h3>
+                    <h3>Naprogramovanie základného editora</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 15.11.2014</p>
                     <p>Naprogramovaný základný online editor.</p>
                 </div>
