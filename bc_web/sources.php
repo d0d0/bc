@@ -33,22 +33,23 @@
                 </div>
                 <div class="thumbnail">
                     <h3>Existujúce riešenia pre online editory</h3>
-                    Google dokumenty<br>
-                    http://codebunk.com/<br>
-                    https://floobits.com/<br>
-                    https://codeanywhere.net/<br>
-                    https://c9.io/<br>
+                    <a href="https://docs.google.com">Google dokumenty</a><br>
+                    <a href="http://codebunk.com/">http://codebunk.com/</a><br>
+                    <a href="https://floobits.com/">https://floobits.com/</a><br>
+                    <a href="https://codeanywhere.net/">https://codeanywhere.net/</a><br>
+                    <a href="https://c9.io/">https://c9.io/</a><br>
+                    <a href="https://github.com/DanielLagin/TIS_2013">https://github.com/DanielLagin/TIS_2013</a><br>
                 </div>
                 <div class="thumbnail">
                     <h3>Dokumentácie k implementačnej časti</h3>
-                    http://laravel.com<br>
-                    http://nodejs.org<br>
-                    http://getbootstrap.com/<br>
-                    http://sourceforge.net/projects/cppunit/<br>
-                    http://mrzechonek.github.io/tut-framework/<br>
-                    http://sharejs.org/<br>
-                    http://ace.c9.io<br>
-                    http://www.raspberrypi.org/
+                    <a href="http://laravel.com">http://laravel.com</a><br>
+                    <a href="http://nodejs.org">http://nodejs.org</a><br>
+                    <a href="http://getbootstrap.com/">http://getbootstrap.com/</a><br>
+                    <a href="http://sourceforge.net/projects/cppunit/">http://sourceforge.net/projects/cppunit/</a><br>
+                    <a href="http://mrzechonek.github.io/tut-framework/">http://mrzechonek.github.io/tut-framework/</a><br>
+                    <a href="http://sharejs.org/">http://sharejs.org/</a><br>
+                    <a href="http://ace.c9.io">http://ace.c9.io</a><br>
+                    <a href="http://www.raspberrypi.org/">http://www.raspberrypi.org/</a>
                 </div>
             </div>
         </div>

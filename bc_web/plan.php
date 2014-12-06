@@ -26,11 +26,23 @@
             <div class="col-md-9">
                 <div class="thumbnail">
                     <h3>December 2014 / Január 2015</h3>
-                    Dokončenie základného editoru a vytvorenie úvodnej kapitoly
+                    Dokončenie základného editoru pre viac dokumentov
+                </div>
+                <div class="thumbnail">
+                    <h3>Február 2015</h3>
+                    Začiatie prác na unit testoch
+                </div>
+                <div class="thumbnail">
+                    <h3>Marec 2015</h3>
+                    Dokončenie unit testov a zbehnutý prvý test
+                </div>
+                <div class="thumbnail">
+                    <h3>Marec 2015</h3>
+                    Začiatie práce na texte práce
                 </div>
                 <div class="thumbnail">
                     <h3>Máj 2015</h3>
-					Dokončenie aplikácie a textu
+                    Dokončenie aplikácie a textu
                 </div>
             </div>
         </div>

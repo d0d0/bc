@@ -25,6 +25,11 @@
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
+                    <h3>Stretnutie so školiteľom</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 3.11.2014</p>
+                    <p>Školiteľovi som predviedol funkčnú časť aplikácie. Dohodli sme sa na ďalšom postupe, že do ďalšieho stretnutia (pravdepodobne niekedy začiatkom januára) dokončím editor pre viac dokumentov naraz. Odporučil mi, že najskôr mám dokončiť aplikáciu a až potom písať text.</p>
+                </div>
+                <div class="thumbnail">
                     <h3>Prezentácia na Bakalársky seminár</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 26.11.2014</p>
                     <p>Vytvorené prezentácia na bakalársky seminár.</p>
