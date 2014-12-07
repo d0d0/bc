@@ -42,8 +42,8 @@
                 </div>
                 <div class="thumbnail">
                     <h3>Dokumentácie k implementačnej časti</h3>
-                    <a href="http://laravel.com">http://laravel.com</a><br>
-                    <a href="http://nodejs.org">http://nodejs.org</a><br>
+                    <a href="http://laravel.com">Taylor Otwell http://laravel.com/docs/4.2/quick</a><br>
+                    <a href="http://nodejs.org">Ryan Dahl http://nodejs.org/documentation/</a><br>
                     <a href="http://getbootstrap.com/">http://getbootstrap.com/</a><br>
                     <a href="http://sourceforge.net/projects/cppunit/">http://sourceforge.net/projects/cppunit/</a><br>
                     <a href="http://mrzechonek.github.io/tut-framework/">http://mrzechonek.github.io/tut-framework/</a><br>
