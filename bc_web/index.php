@@ -21,6 +21,7 @@
                     <li><a href="sources.php">Zdroje</a></li>
                     <li><a href="kontakt.php">Kontakt</a></li>
                     <li><a href="plan.php">Ćasový plán práce</a></li>
+                    <li><a href="http://62.169.176.249/bc">Demo</a></li>
                 </ul>
             </div>
             <div class="col-md-9">

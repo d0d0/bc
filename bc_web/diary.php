@@ -21,12 +21,19 @@
                     <li><a href="sources.php">Zdroje</a></li>
                     <li><a href="kontakt.php">Kontakt</a></li>
                     <li><a href="plan.php">Časový plán práce</a></li>
+                    <li><a href="http://62.169.176.249/bc">Demo</a></li>
                 </ul>
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
+                    <h3>Aktualizovanie stránky</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 11.12.2014</p>
+                    <p>Doplnil som zdroj o mená resp. oragnizácie a pridal odkaz na demo aplikácie.</p>
+                </div>
+            <div class="col-md-9">
+                <div class="thumbnail">
                     <h3>Stretnutie so školiteľom</h3>
-                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 3.11.2014</p>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 3.12.2014</p>
                     <p>Školiteľovi som predviedol funkčnú časť aplikácie. Dohodli sme sa na ďalšom postupe, že do ďalšieho stretnutia (pravdepodobne niekedy začiatkom januára) dokončím editor pre viac dokumentov naraz. Odporučil mi, že najskôr mám dokončiť aplikáciu a až potom písať text.</p>
                 </div>
                 <div class="thumbnail">
