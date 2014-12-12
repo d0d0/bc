@@ -43,14 +43,14 @@
                 </div>
                 <div class="thumbnail">
                     <h3>Dokumentácie k implementačnej časti</h3>
-                    <a href="http://laravel.com">Taylor Otwell http://laravel.com/docs/4.2/quick</a><br>
-                    <a href="http://nodejs.org">Ryan Dahl http://nodejs.org/documentation/</a><br>
-                    <a href="http://getbootstrap.com/">Mark Otto http://getbootstrap.com/</a><br>
-                    <a href="http://sourceforge.net/projects/cppunit/">Baptiste Lepilleur http://sourceforge.net/projects/cppunit/</a><br>
-                    <a href="http://mrzechonek.github.io/tut-framework/">Michał Rzechonek http://mrzechonek.github.io/tut-framework/</a><br>
-                    <a href="http://sharejs.org/">Joseph Gentle http://sharejs.org/</a><br>
-                    <a href="http://ace.c9.io">Ace http://ace.c9.io</a><br>
-                    <a href="http://www.raspberrypi.org/">Raspberry pi http://www.raspberrypi.org/</a>
+                    <a href="http://laravel.com">Taylor Otwell - dokumentácia k php frameworku Laravel - http://laravel.com/docs/4.2/quick</a><br>
+                    <a href="http://nodejs.org">Ryan Dahl - dokumentácia k prostrediu node.js - http://nodejs.org/documentation/</a><br>
+                    <a href="http://getbootstrap.com/">Mark Otto - dokumentácia k .js a .css frameworku Bootstrap - http://getbootstrap.com/</a><br>
+                    <a href="http://sourceforge.net/projects/cppunit/">Baptiste Lepilleur - dokumentácia k unit test prostrediu cppunit - http://sourceforge.net/projects/cppunit/</a><br>
+                    <a href="http://mrzechonek.github.io/tut-framework/">Michał Rzechonek - dokumentácia k unit test prostrediu TUT - http://mrzechonek.github.io/tut-framework/</a><br>
+                    <a href="http://sharejs.org/">Joseph Gentle - dokumentácia ku knižnici share.js - http://sharejs.org/</a><br>
+                    <a href="http://ace.c9.io">Ace - dokuemntácia k editoru ace - http://ace.c9.io</a><br>
+                    <a href="http://www.raspberrypi.org/">Raspberry pi - dokumentácia ku zariadeniu Raspeberry pi - http://www.raspberrypi.org/</a>
                 </div>
             </div>
         </div>
