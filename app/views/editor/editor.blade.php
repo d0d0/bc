@@ -18,6 +18,14 @@ height: 300px;
         </div>
     </div>
 </div>
+<div id="container">
+    <div>Tell others to connect to <a href="">here</a> and shout at each other via ShareJS.</div>
+    <p>
+        <input type="text" id="input" placeholder="Shout something&hellip;"/>
+        <input type="button" id="shout" value="shout"/>
+    <p>
+    <ul id='shouts' class='content'>
+</div>
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bcsocket-uncompressed.js"></script>
@@ -47,13 +55,36 @@ height: 300px;
     editor.$blockScrolling = Infinity;
     var docName = null;
     if (document.location.hash) {
-        docName = "code:" + document.location.hash.slice(1);
+        docName = document.location.hash.slice(1);
     } else {
-        docName = "code:" + randomDocName();
+        docName = randomDocName();
     }
     console.log(docName);
-    sharejs.open(docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+    sharejs.open("code:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         doc.attach_ace(editor);
+    });
+    sharejs.open("shout" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        var input = document.getElementById('input'),
+                shout = document.getElementById('shout'),
+                shouts = document.getElementById('shouts');
+        function addShout(txt) {
+            li = document.createElement('li');
+            li.textContent = txt;
+            shouts.appendChild(li);
+        }
+
+        function shoutOut() {
+            var s = input.value;
+            input.value = '';
+            doc.shout(s);
+            addShout('You shouted "' + s + '"');
+        }
+        input.focus();
+        shout.onclick = input.onchange = shoutOut;
+        doc.on('shout', function (msg) {
+            addShout('You hear "' + msg + '"');
+        });
+        addShout('Connected');
     });
 
     $('#toggle').on('click', function () {
