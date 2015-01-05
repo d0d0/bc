@@ -20,6 +20,19 @@
         <script src="js/share.uncompressed.js"></script>
         <script src="js/ace_c.js"></script>
         <script>
+            var randomDocName = function (length) {
+                var chars, x;
+                if (length == null) {
+                    length = 10;
+                }
+                chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=";
+                var name = [];
+                for (x = 0; x < length; x++) {
+                    name.push(chars[Math.floor(Math.random() * chars.length)]);
+                }
+                return name.join('');
+            };
+            
             var editor = ace.edit("editor");
             editor.setOptions({
                 enableBasicAutocompletion: true
@@ -27,7 +40,7 @@
 
             editor.setTheme("ace/theme/twilight");
             editor.getSession().setMode("ace/mode/c_cpp");
-            
+
             var docName = "code:" + randomDocName();
             console.log(docName);
             sharejs.open(docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
