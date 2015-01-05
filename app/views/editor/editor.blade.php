@@ -71,7 +71,10 @@ height: 300px;
         }
 
         function shoutOut() {
-            var s = $('#input').val();
+            if(!$.trim($('#input').val())){
+                return false;
+            }
+            var s = $.trim($('#input').val());
             $('#input').val('');
             doc.shout(s);
             addShout('You shouted "' + s + '"');
