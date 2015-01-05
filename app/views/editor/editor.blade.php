@@ -24,10 +24,15 @@
             editor.setOptions({
                 enableBasicAutocompletion: true
             });
+
             editor.setTheme("ace/theme/twilight");
             editor.getSession().setMode("ace/mode/c_cpp");
+            
+            var docName = "code:" + randomDocName();
 
-            sharejs.open('hello', 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+            var span = document.getElementById('docname').innerText = docName;
+
+            sharejs.open(docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
                 doc.attach_ace(editor);
             });
         </script>
