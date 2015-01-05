@@ -122,11 +122,13 @@ word-wrap: break-word;
                 return false;
             }
         }
+        
         $('#toggle').on('click', function () {
             doc.shout(toggleEditor() ? 'true' : 'false');
         });
         
         doc.on('shout', function (msg) {
+            console.log(msg);
             toggleEditor();
         });
     });
