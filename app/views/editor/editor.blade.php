@@ -6,7 +6,11 @@ height: 300px;
 }
 
 .panel{
-    margin-top: 1em;
+margin-top: 1em;
+}
+
+dd{
+word-wrap: break-word;
 }
 @stop
 
@@ -20,15 +24,12 @@ height: 300px;
         <div>
             <input type="button" id="toggle" value="Toggle">
         </div>
+        <div>
+            <input type="text" id="input" placeholder="Shout something&hellip;"/>
+            <input type="button" id="shout" value="shout"/>
+            <dl id="shouts" class="dl-horizontal"></dl>
+        </div>
     </div>
-</div>
-<div id="container">
-    <p>
-        <input type="text" id="input" placeholder="Shout something&hellip;"/>
-        <input type="button" id="shout" value="shout"/>
-    <p>
-    <ul id="shouts" class="content">
-    </ul>
 </div>
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
@@ -70,12 +71,13 @@ height: 300px;
 
     sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         function addShout(txt) {
-            var li = $('<li />').text(txt)
-            $('#shouts').append(li);
+            var dt = $('<dt />').text('Meno');
+            var dd = $('<dd />').text(txt)
+            $('#shouts').append(dt).append(dd);
         }
 
         function shoutOut() {
-            if(!$.trim($('#input').val())){
+            if (!$.trim($('#input').val())) {
                 return false;
             }
             var s = $.trim($('#input').val());
