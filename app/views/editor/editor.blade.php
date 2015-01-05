@@ -86,7 +86,10 @@ word-wrap: break-word;
                 return false;
             }
             $('#input').val('');
-            doc.shout(s);
+            doc.shout({
+                'name' : 'Meno',
+                'text' : s
+            });
             if (!value) {
                 addShout('You shouted "' + s + '"');
             }
@@ -103,6 +106,7 @@ word-wrap: break-word;
         });
 
         doc.on('shout', function (msg) {
+            console.log(msg);
             addShout('You hear "' + msg + '"');
         });
 
