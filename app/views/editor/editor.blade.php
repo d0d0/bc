@@ -4,6 +4,10 @@
 #editor{
 height: 300px;
 }
+
+.panel{
+    margin-top: 1em;
+}
 @stop
 
 @section('center')
