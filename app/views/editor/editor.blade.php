@@ -2,7 +2,7 @@
 
 @section('style')
 #editor{
-    height: 300px;
+height: 300px;
 }
 @stop
 
@@ -13,6 +13,9 @@
     </div>
     <div class="panel-body">
         <div id="editor"></div>
+        <div>
+            <input type="button" id="toggle" value="Toggle">
+        </div>
     </div>
 </div>
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -35,22 +38,34 @@
     };
 
     var editor = ace.edit("editor");
-    editor.$blockScrolling = Infinity;
     editor.setOptions({
         enableBasicAutocompletion: true
     });
 
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/javascript");
-    var docName = null;
-    if (document.location.hash) {
-        docName = "code:" + document.location.hash.slice(1);
-    } else {
-        docName = "code:" + randomDocName();
-    }
+    editor.$blockScrolling = Infinity;
+    var docName = document.location.hash ? document.location.hash.slice(1) : randomDocName();
     console.log(docName);
     sharejs.open(docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         doc.attach_ace(editor);
+    });
+
+    $('#toggle').on('click', function () {
+        editor.setReadOnly(!editor.getReadOnly());
+        if (editor.getReadOnly()) {
+            $(editor.container).append($('<div />').css({
+                'position': 'absolute',
+                'top': 0,
+                'bottom': 0,
+                'left': 0,
+                'right': 0,
+                'background': 'rgba(150,150,150,0.5)',
+                'z-index': 100
+            }).attr('id', 'cover'));
+        } else {
+            $('#cover').remove();
+        }
     });
 </script>
 @stop
