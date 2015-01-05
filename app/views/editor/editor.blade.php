@@ -70,7 +70,7 @@ height: 300px;
 
     sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         function addShout(txt) {
-            var li = $('<li />').html(txt)
+            var li = $('<li />').text(txt)
             $('#shouts').append(li);
         }
 
