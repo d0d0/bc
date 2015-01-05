@@ -65,25 +65,23 @@ height: 300px;
     });
 
     sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        var input = document.getElementById('input'),
-                shout = document.getElementById('shout'),
-                shouts = document.getElementById('shouts');
-
         function addShout(txt) {
-            li = document.createElement('li');
-            li.textContent = txt;
-            shouts.appendChild(li);
+            var li = $('<li />').html(txt)
+            $('#shouts').append(li);
         }
 
         function shoutOut() {
-            var s = input.value;
-            input.value = '';
+            var s = $('#input').val();
+            $('#input').val('');
             doc.shout(s);
             addShout('You shouted "' + s + '"');
         }
 
-        shout.onclick = shoutOut;
-        $(input).keyup(function (e) {
+        $('#shout').on('click', function () {
+            shoutOut()
+        });
+
+        $('#input').keyup(function (e) {
             if (e.keyCode == 13) {
                 shoutOut();
             }
