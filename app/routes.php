@@ -23,3 +23,7 @@ Route::get('/reset/{token?}', 'RemindersController@getReset');
 Route::post('/reset/{token?}', 'RemindersController@postReset');
 
 Route::get('/editor/{id?}', 'EditorController@show');
+
+Route::group(array('prefix' => 'task'), function() {
+    Route::get('/show/{id?}', 'TaskController@show');
+});

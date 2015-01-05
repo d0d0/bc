@@ -19,12 +19,12 @@ height: 300px;
     </div>
 </div>
 <div id="container">
-    <div>Tell others to connect to <a href="">here</a> and shout at each other via ShareJS.</div>
     <p>
         <input type="text" id="input" placeholder="Shout something&hellip;"/>
         <input type="button" id="shout" value="shout"/>
     <p>
-    <ul id='shouts' class='content'>
+    <ul id="shouts" class="content">
+    </ul>
 </div>
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
@@ -50,7 +50,7 @@ height: 300px;
         enableBasicAutocompletion: true
     });
 
-    editor.setTheme("ace/theme/twilight");
+    editor.setTheme("ace/theme/merbivore");
     editor.getSession().setMode("ace/mode/javascript");
     editor.$blockScrolling = Infinity;
     var docName = null;
@@ -63,10 +63,12 @@ height: 300px;
     sharejs.open("code:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         doc.attach_ace(editor);
     });
+
     sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         var input = document.getElementById('input'),
                 shout = document.getElementById('shout'),
                 shouts = document.getElementById('shouts');
+
         function addShout(txt) {
             li = document.createElement('li');
             li.textContent = txt;
@@ -79,11 +81,13 @@ height: 300px;
             doc.shout(s);
             addShout('You shouted "' + s + '"');
         }
-        input.focus();
-        shout.onclick = input.onchange = shoutOut;
+
+        shout.onclick = shoutOut;
+        
         doc.on('shout', function (msg) {
             addShout('You hear "' + msg + '"');
         });
+        
         addShout('Connected');
     });
 
