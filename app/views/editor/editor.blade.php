@@ -70,9 +70,9 @@ word-wrap: break-word;
     });
 
     sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        function addShout(txt) {
-            var dt = $('<dt />').text('Meno');
-            var dd = $('<dd />').text(txt)
+        function addShout(msg) {
+            var dt = $('<dt />').text(msg.name);
+            var dd = $('<dd />').text(msg.text)
             $('#shouts').append(dt).append(dd);
         }
 
@@ -87,11 +87,14 @@ word-wrap: break-word;
             }
             $('#input').val('');
             doc.shout({
-                'name' : 'Meno',
-                'text' : s
+                'name': 'Meno',
+                'text': s
             });
             if (!value) {
-                addShout('You shouted "' + s + '"');
+                addShout({
+                    'name': 'Meno',
+                    'text': s
+                });
             }
         }
 
@@ -106,8 +109,7 @@ word-wrap: break-word;
         });
 
         doc.on('shout', function (msg) {
-            console.log(msg);
-            addShout('You hear "' + msg + '"');
+            addShout(msg);
         });
 
         shoutOut('Meno sa pripojil');
