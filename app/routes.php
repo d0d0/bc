@@ -11,6 +11,15 @@
   |
  */
 
-Route::get('/', function() {
-    return View::make('hello');
-});
+Route::get('/', 'HomeController@showWelcome');
+
+Route::get('/login', 'LoginController@getLogin');
+Route::post('/login', 'LoginController@postLogin');
+Route::get('/logout', 'LoginController@getLogout');
+
+Route::get('/remind', 'RemindersController@getRemind');
+Route::post('/remind', 'RemindersController@postRemind');
+Route::get('/reset/{token?}', 'RemindersController@getReset');
+Route::post('/reset/{token?}', 'RemindersController@postReset');
+
+Route::get('/editor/{id?}', 'EditorController@routes');

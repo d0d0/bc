@@ -15,11 +15,15 @@
         <div id="editor"></div>
 
         <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/bcsocket-uncompressed.js"></script>
         <script src="js/share.uncompressed.js"></script>
         <script src="js/ace_c.js"></script>
         <script>
             var editor = ace.edit("editor");
+            editor.setOptions({
+                enableBasicAutocompletion: true
+            });
             editor.setTheme("ace/theme/twilight");
             editor.getSession().setMode("ace/mode/c_cpp");
 
