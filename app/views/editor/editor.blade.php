@@ -86,15 +86,13 @@ word-wrap: break-word;
                 return false;
             }
             $('#input').val('');
-            doc.shout({
+            var msg = {
                 'name': 'Meno',
                 'text': s
-            });
+            };
+            doc.shout(msg);
             if (!value) {
-                addShout({
-                    'name': 'Meno',
-                    'text': s
-                });
+                addShout(msg);
             }
         }
 
@@ -139,11 +137,9 @@ word-wrap: break-word;
             doc.shout(toggleEditor() ? 'true' : 'false');
         });
 
-        doc.on('shout', function (msg) {
+        doc.on('shout', function () {
             toggleEditor();
         });
     });
-
-
 </script>
 @stop
