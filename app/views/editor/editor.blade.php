@@ -63,7 +63,7 @@ height: 300px;
     sharejs.open("code:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         doc.attach_ace(editor);
     });
-    sharejs.open("shout" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+    sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         var input = document.getElementById('input'),
                 shout = document.getElementById('shout'),
                 shouts = document.getElementById('shouts');
