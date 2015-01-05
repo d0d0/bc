@@ -22,4 +22,4 @@ Route::post('/remind', 'RemindersController@postRemind');
 Route::get('/reset/{token?}', 'RemindersController@getReset');
 Route::post('/reset/{token?}', 'RemindersController@postReset');
 
-Route::get('/editor/{id?}', 'EditorController@routes');
+Route::get('/editor/{id?}', 'EditorController@show');

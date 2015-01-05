@@ -3,13 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>BC</title>
-        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {{HTML::style('css/bootstrap.min.css')}}
-        {{HTML::style('css/bootstrap-minimit.min.css')}}
-        {{HTML::script('js/jquery.min.js')}}
-        {{HTML::script('js/bootstrap.min.js')}}
+        {{ HTML::style('css/bootstrap.min.css') }}
+        {{ HTML::style('css/bootstrap-minimit.min.css') }}
+        {{ HTML::script('js/jquery.min.js') }}
+        {{ HTML::script('js/bootstrap.min.js') }}
         @yield('js')
         <style>
             @yield('style')

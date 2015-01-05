@@ -45,7 +45,7 @@ class LoginController extends Controller {
         );
         $rules = array(
             'email' => 'required|email|exists:users,email,confirmed,1',
-            'password' => 'required|min:6|'
+            'password' => 'required|min:6'
         );
         $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
