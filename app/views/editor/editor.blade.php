@@ -76,14 +76,20 @@ word-wrap: break-word;
             $('#shouts').append(dt).append(dd);
         }
 
-        function shoutOut() {
-            if (!$.trim($('#input').val())) {
+        function shoutOut(value) {
+            var s;
+            if (value) {
+                s = value;
+            } else if ($.trim($('#input').val())) {
+                s = $.trim($('#input').val());
+            } else {
                 return false;
             }
-            var s = $.trim($('#input').val());
             $('#input').val('');
             doc.shout(s);
-            addShout('You shouted "' + s + '"');
+            if (!value) {
+                addShout('You shouted "' + s + '"');
+            }
         }
 
         $('#shout').on('click', function () {
@@ -100,7 +106,7 @@ word-wrap: break-word;
             addShout('You hear "' + msg + '"');
         });
 
-        addShout('Connected');
+        shoutOut('Meno sa pripojil');
     });
 
     sharejs.open("toggle:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
@@ -122,13 +128,12 @@ word-wrap: break-word;
                 return false;
             }
         }
-        
+
         $('#toggle').on('click', function () {
             doc.shout(toggleEditor() ? 'true' : 'false');
         });
-        
+
         doc.on('shout', function (msg) {
-            console.log(msg);
             toggleEditor();
         });
     });
