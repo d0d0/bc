@@ -45,7 +45,12 @@ height: 300px;
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/javascript");
     editor.$blockScrolling = Infinity;
-    var docName = document.location.hash ? document.location.hash.slice(1) : randomDocName();
+    var docName = null;
+    if (document.location.hash) {
+        docName = "code:" + document.location.hash.slice(1);
+    } else {
+        docName = "code:" + randomDocName();
+    }
     console.log(docName);
     sharejs.open(docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         doc.attach_ace(editor);
