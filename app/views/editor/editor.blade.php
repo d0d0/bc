@@ -29,7 +29,7 @@
             editor.getSession().setMode("ace/mode/c_cpp");
             
             var docName = "code:" + randomDocName();
-
+            console.log(docName);
             sharejs.open(docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
                 doc.attach_ace(editor);
             });
