@@ -103,21 +103,34 @@ word-wrap: break-word;
         addShout('Connected');
     });
 
-    $('#toggle').on('click', function () {
-        editor.setReadOnly(!editor.getReadOnly());
-        if (editor.getReadOnly()) {
-            $(editor.container).append($('<div />').css({
-                'position': 'absolute',
-                'top': 0,
-                'bottom': 0,
-                'left': 0,
-                'right': 0,
-                'background': 'rgba(150,150,150,0.5)',
-                'z-index': 100
-            }).attr('id', 'cover'));
-        } else {
-            $('#cover').remove();
+    sharejs.open("toggle:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        var toggleEditor = function () {
+            editor.setReadOnly(!editor.getReadOnly());
+            if (editor.getReadOnly()) {
+                $(editor.container).append($('<div />').css({
+                    'position': 'absolute',
+                    'top': 0,
+                    'bottom': 0,
+                    'left': 0,
+                    'right': 0,
+                    'background': 'rgba(150,150,150,0.5)',
+                    'z-index': 100
+                }).attr('id', 'cover'));
+                return true;
+            } else {
+                $('#cover').remove();
+                return false;
+            }
         }
+        $('#toggle').on('click', function () {
+            doc.shout(toggleEditor() ? 'true' : 'false');
+        });
+        
+        doc.on('shout', function (msg) {
+            toggleEditor();
+        });
     });
+
+
 </script>
 @stop
