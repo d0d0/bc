@@ -83,11 +83,16 @@ height: 300px;
         }
 
         shout.onclick = shoutOut;
-        
+        $(input).keyup(function (e) {
+            if (e.keyCode == 13) {
+                shoutOut();
+            }
+        });
+
         doc.on('shout', function (msg) {
             addShout('You hear "' + msg + '"');
         });
-        
+
         addShout('Connected');
     });
 
