@@ -1,7 +1,11 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <link href="ace/style.css" rel="stylesheet" type="text/css">
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/bcsocket-uncompressed.js"></script>
+        <script src="js/share.uncompressed.js"></script>
+        <script src="js/ace_c.js"></script>
         <title>Hello World</title>
     </head>
 
@@ -13,11 +17,6 @@
         </div>
 
         <div id="editor"></div>
-
-        <script src="js/ace.js" type="text/javascript" charset="utf-8"></script>
-        <script src="js/bcsocket-uncompressed.js"></script>
-        <script src="js/share.uncompressed.js"></script>
-        <script src="js/ace_c.js"></script>
 
         <script>
             var editor = ace.edit("editor");
