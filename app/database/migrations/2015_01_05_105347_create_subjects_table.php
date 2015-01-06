@@ -14,6 +14,8 @@ class CreateSubjectsTable extends Migration {
         Schema::create('subjects', function($table) {
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->integer('year');
+            $table->integer('session');
             $table->integer('teacher')->unsigned();
             $table->foreign('teacher')->references('id')->on('users');
             $table->timestamps();
