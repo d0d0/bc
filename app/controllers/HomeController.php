@@ -15,7 +15,7 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
-        shell_exec('touch /var/www/test.txt');
+        shell_exec('g++ /var/www/main.cpp');
         return View::make('login');
     }
 
