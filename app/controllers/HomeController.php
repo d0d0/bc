@@ -15,7 +15,9 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
-        exec("sudo touch /var/www/test.txt", $output, $returnVal);
+        SSH::run(array(
+            'sudo touch /var/www/test.txt',
+        ));
         return View::make('login');
     }
 
