@@ -19,6 +19,7 @@ class HomeController extends BaseController {
         if($result){
             dd($result);
         }
+        dd(file_exists('/var/ww/error.log'));
         if(file_exists('/var/ww/error.log')){
             $myfile = fopen("/var/ww/error.log", "r");
             $content = fread($myfile,filesize("/var/ww/error.log"));
