@@ -26,6 +26,13 @@
             </div>
             <div class="col-md-9">
                 <div class="thumbnail">
+                    <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 6.1.2014 - 7.1.2014</p>
+                    <p>Vytvoril som aplikáciu, rozbehal server, sfunkčnil redis databázu, vytvoril funkcionalitu pre viac editorov naraz, skompiloval .cpp súbor cez php.</p>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="thumbnail">
                     <h3>Aktualizovanie stránky</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 11.12.2014</p>
                     <p>Doplnil som zdroj o mená resp. oragnizácie a pridal odkaz na demo aplikácie.</p>
