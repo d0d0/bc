@@ -22,25 +22,60 @@
     <body>
         <div class="container-fluid">
             @if(Auth::check())
-                <div class="row" style="margin-bottom: 10px; margin-top: 10px">
-                    <div class="col-md-12">
-                        <ul class="nav nav-pills nav-justified text-center">
-                            <li role="presentation">{{ HTML::linkAction('LoginController@getLogout', '.Odhlásenie') }}</li>
-                        </ul>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        {{ HTML::linkAction('HomeController@showWelcome', '.Home', array(), array('class' => 'navbar-brand')) }}
                     </div>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">.Aktualny predmet <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>{{{ Auth::user()->getFullName() }}}</a></li>
+                        <li>{{ HTML::linkAction('LoginController@getLogout', '.Odhlásenie') }}</li>
+                    </ul>
                 </div>
-                @yield('top_row')
+            </nav>
+            @yield('top_row')
             @endif
-            @if(Session::has('error'))
-            <div class="alert alert-danger" role="alert">{{Session::get('error')}}</div>
-            @endif
-            @if(Session::has('warning'))
-            <div class="alert alert-warning" role="alert">{{Session::get('warning')}}</div>
-            @endif
-            @if(Session::has('message'))
-            <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
-            @endif
+            @if(Auth::check())
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked" style="text-align: center">
+                        <li>{{ HTML::linkAction('EditorController@show', '.Editor', array()) }}</li>
+                        <li>{{ HTML::linkAction('SubjectController@create', '.Vytvor predmet', array()) }}</li>
+                        <li>{{ HTML::linkAction('TaskController@create', '.Vytvor zadanie', array()) }}</li>
+                        <li>{{ HTML::linkAction('TaskController@all', '.Všetky zadania', array()) }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger" role="alert">{{Session::get('error')}}</div>
+                    @endif
+                    @if(Session::has('warning'))
+                    <div class="alert alert-warning" role="alert">{{Session::get('warning')}}</div>
+                    @endif
+                    @if(Session::has('message'))
+                    <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
+                    @endif
+                    @yield('content')
+                </div>
+            </div>
+            @else
             @yield('content')
+            @endif
         </div>
+        @yield('last')
     </body>
 </html>

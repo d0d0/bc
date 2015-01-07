@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration {
             $table->string('name');
             $table->string('surname');
             $table->string('email')->unique();
+            $table->integer('last_subject');
             $table->boolean('admin')->default(0);
             $table->boolean('teacher')->default(0);
             $table->boolean('confirmed')->default(0);

@@ -1,12 +1,8 @@
-@extends('layouts.center_content')
+@extends('layouts.master')
 
 @section('style')
 #editor{
 height: 300px;
-}
-
-.panel{
-margin-top: 1em;
 }
 
 dd{
@@ -14,23 +10,44 @@ word-wrap: break-word;
 }
 @stop
 
-@section('center')
+@section('content')
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Editor</h3>
     </div>
-    <div class="panel-body">
-        <div id="editor"></div>
-        <div>
-            <input type="button" id="toggle" value="Toggle">
-        </div>
-        <div>
-            <input type="text" id="input" placeholder="Shout something&hellip;"/>
-            <input type="button" id="shout" value="shout"/>
-            <dl id="shouts" class="dl-horizontal"></dl>
+
+    <div role="tabpanel">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            <li role="presentation"><a href="#settings"  role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="panel-body">
+                    <div id="editor"></div>
+                    <div>
+                        <input type="button" id="toggle" value="Toggle">
+                    </div>
+                    <div>
+                        <input type="text" id="input" placeholder="Shout something&hellip;"/>
+                        <input type="button" id="shout" value="shout"/>
+                        <dl id="shouts" class="dl-horizontal"></dl>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">...</div>
+            <div role="tabpanel" class="tab-pane" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane" id="settings">...</div>
         </div>
     </div>
 </div>
+
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bcsocket-uncompressed.js"></script>
@@ -56,7 +73,7 @@ word-wrap: break-word;
     });
 
     editor.setTheme("ace/theme/merbivore");
-    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setMode("ace/mode/c_cpp");
     editor.$blockScrolling = Infinity;
     var docName = null;
     if (document.location.hash) {

@@ -15,18 +15,22 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
-        exec('g++ /var/www/main.cpp -o /var/www/programname.out >& /var/www/error.log', $result);
-        if ($result) {
-            dd($result);
+        /* exec('g++ /var/www/main.cpp -o /var/www/programname.out >& /var/www/error.log', $result);
+          if ($result) {
+          dd($result);
+          }
+          if (file_exists('/var/www/error.log')) {
+          $myfile = fopen("/var/www/error.log", "r");
+          $content = fread($myfile, filesize("/var/www/error.log"));
+          fclose($myfile);
+          dd($content);
+          }
+          exec('/var/www/programname.out', $result);
+          dd($result);
+         */
+        if (Auth::check()) {
+            return Redirect::action('TaskController@all');
         }
-        if (file_exists('/var/www/error.log')) {
-            $myfile = fopen("/var/www/error.log", "r");
-            $content = fread($myfile, filesize("/var/www/error.log"));
-            fclose($myfile);
-            dd($content);
-        }
-        exec('/var/www/programname.out', $result);
-        dd($result);
         return View::make('login');
     }
 

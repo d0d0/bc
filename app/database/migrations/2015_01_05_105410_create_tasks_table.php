@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration {
             $table->foreign('subject_id')->references('id')->on('subjects');
             $table->string('name');
             $table->longText('text');
+            $table->timestamp('start');
             $table->timestamp('deadline');
             $table->timestamps();
         });

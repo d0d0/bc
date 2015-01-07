@@ -7,8 +7,16 @@
  */
 class TaskController extends BaseController {
 
-    function show($id = null) {
+    public function show($id = null) {
         return View::make('task.show');
+    }
+    
+    public function all(){
+        return View::make('task.all');
+    }
+    
+    public function create(){
+        return View::make('task.create');
     }
 
 }
