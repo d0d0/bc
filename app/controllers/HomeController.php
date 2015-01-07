@@ -15,7 +15,7 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
-        dd(shell_exec('g++ /var/www/main.cpp'));
+        dd(shell_exec('gource -1024x768 --stop-position 1.0 --highlight-all-users --hide-filenames --seconds-per-day 5 --output-framerate 60 --a 1'));
         return View::make('login');
     }
 
