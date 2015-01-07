@@ -30,8 +30,8 @@ word-wrap: break-word;
             <dl id="shouts" class="dl-horizontal"></dl>
         </div>
     </div>
+    {{{ $result }}}
 </div>
-{{ $result }}
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bcsocket-uncompressed.js"></script>
