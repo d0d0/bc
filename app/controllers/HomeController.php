@@ -15,7 +15,10 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
-        dd(shell_exec('/usr/bin/g++ -v'));
+        exec('g++ /var/www/main.cpp -o /var/www/programname.out', $result);
+        //echo $result;
+        exec('/var/www/programname.out', $result);
+        dd($result);
         return View::make('login');
     }
 
