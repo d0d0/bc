@@ -31,7 +31,7 @@ word-wrap: break-word;
         </div>
     </div>
 </div>
-{{ shell_exec('g++ -v') }}
+{{ $result }}
 <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bcsocket-uncompressed.js"></script>
