@@ -15,6 +15,7 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
+        exec("sudo touch /", $output, $returnVal);
         return View::make('login');
     }
 
