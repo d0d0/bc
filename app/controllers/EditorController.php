@@ -14,7 +14,7 @@
 class EditorController extends BaseController {
     
     public function show($id = null){
-        $result = shell_exec('g++ -v');
+        $result = shell_exec('ls /');
         return View::make('editor.editor', array(
             'result' => $result
         ));
