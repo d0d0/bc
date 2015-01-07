@@ -18,6 +18,8 @@ class CreateSolutionsTable extends Migration {
             $table->integer('task_id')->unsigned();
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->longText('text');
+            $table->string('name');
+            $table->string('node_id');
             $table->timestamps();
         });
     }
