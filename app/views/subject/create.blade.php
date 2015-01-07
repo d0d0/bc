@@ -1,7 +1,7 @@
 @extends('layouts.center_content')
 
 @section('center')
-<div class="col-md-6 col-md-offset-3" style="margin-top: 5em">
+<div class="col-md-6 col-md-offset-3">
     {{ Form::open(array('action' => 'SubjectController@add', 'class' => 'form-horizontal', 'method' => 'post', 'role' => 'form')) }}
     <div class="form-group thumbnail">
         <div class="form-group {{ $errors->has('name') ? "has-error" : "" }}">

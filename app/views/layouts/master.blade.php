@@ -58,6 +58,10 @@
                         <li>{{ HTML::linkAction('TaskController@create', '.Vytvor zadanie', array()) }}</li>
                         <li>{{ HTML::linkAction('TaskController@all', '.Všetky zadania', array()) }}</li>
                     </ul>
+                    <p class="lead"></p>
+                    <div class="thumbnail">
+
+                    </div>
                 </div>
                 <div class="col-md-10">
                     @if(Session::has('error'))

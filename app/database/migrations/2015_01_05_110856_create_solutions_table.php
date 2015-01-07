@@ -19,6 +19,7 @@ class CreateSolutionsTable extends Migration {
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->longText('text');
             $table->string('name');
+            $table->boolean('deleted')->default(0);
             $table->string('node_id');
             $table->timestamps();
         });

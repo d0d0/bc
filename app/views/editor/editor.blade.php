@@ -1,5 +1,13 @@
 @extends('layouts.master')
 
+@section('js')
+<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bcsocket-uncompressed.js"></script>
+<script src="js/share.uncompressed.js"></script>
+<script src="js/ace_c.js"></script>
+@stop
+
 @section('style')
 #editor{
 height: 300px;
@@ -17,16 +25,42 @@ word-wrap: break-word;
     </div>
 
     <div role="tabpanel">
-
-        <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-            <li role="presentation"><a href="#settings"  role="tab" data-toggle="tab">Settings</a></li>
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                    Home
+                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+                    Profile
+                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+                    Messages
+                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">
+                    Settings
+                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li role="presentation">
+                <a>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </a>
+            </li>
+            <li role="presentation" class="pull-right">
+                <a>
+                    .Obnoviť súbory
+                </a>
+            </li>
         </ul>
-
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
                 <div class="panel-body">
@@ -47,12 +81,6 @@ word-wrap: break-word;
         </div>
     </div>
 </div>
-
-<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bcsocket-uncompressed.js"></script>
-<script src="js/share.uncompressed.js"></script>
-<script src="js/ace_c.js"></script>
 <script>
     var randomDocName = function (length) {
         var chars, x;
@@ -104,7 +132,7 @@ word-wrap: break-word;
             }
             $('#input').val('');
             var msg = {
-                'name': 'Meno',
+                'name': '{{ Auth::user()->name }}',
                 'text': s
             };
             doc.shout(msg);
@@ -114,7 +142,7 @@ word-wrap: break-word;
         }
 
         $('#shout').on('click', function () {
-            shoutOut()
+            shoutOut();
         });
 
         $('#input').keyup(function (e) {
@@ -126,8 +154,12 @@ word-wrap: break-word;
         doc.on('shout', function (msg) {
             addShout(msg);
         });
+        
+        $(window).on('beforeunload', function () {
+            shoutOut('sa odpojil');
+        });
 
-        shoutOut('Meno sa pripojil');
+        shoutOut('sa pripojil');
     });
 
     sharejs.open("toggle:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
@@ -148,7 +180,7 @@ word-wrap: break-word;
                 $('#cover').remove();
                 return false;
             }
-        }
+        };
 
         $('#toggle').on('click', function () {
             doc.shout(toggleEditor() ? 'true' : 'false');

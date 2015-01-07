@@ -45,7 +45,7 @@ language: 'sk',
 @stop
 
 @section('center')
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-12">
     <form class="form-horizontal clearfix" role="form">
         {{ Form::hidden('id', isset($article) && isset($article->id) ? $article->id : '', array('id' => 'id'))}}
         <div class="form-group">
