@@ -16,13 +16,12 @@ class HomeController extends BaseController {
 
     public function showWelcome() {
         exec('g++ /var/www/main.cpp -o /var/www/programname.out >& /var/www/error.log', $result);
-        if($result){
+        if ($result) {
             dd($result);
         }
-        dd(file_exists('/var/ww/error.log'));
-        if(file_exists('/var/ww/error.log')){
-            $myfile = fopen("/var/ww/error.log", "r");
-            $content = fread($myfile,filesize("/var/ww/error.log"));
+        if (file_exists('/var/www/error.log')) {
+            $myfile = fopen("/var/www/error.log", "r");
+            $content = fread($myfile, filesize("/var/www/error.log"));
             fclose($myfile);
             dd($content);
         }
