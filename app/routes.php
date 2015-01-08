@@ -39,6 +39,7 @@ Route::group(array('prefix' => 'task'), function() {
     Route::get('/all', 'TaskController@all');
     Route::get('/show/{id?}', 'TaskController@show');
     Route::get('/create', 'TaskController@create');
+    Route::post('/add', 'TaskController@add');
 });
 
 Route::group(array('prefix' => 'subject'), function() {

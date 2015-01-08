@@ -10,7 +10,7 @@ class Task extends Eloquent {
     use \Venturecraft\Revisionable\RevisionableTrait;
 
     protected $table = 'tasks';
-    protected $fillable = array('subject_id', 'name', 'text', 'start', 'deadline', 'created_at', 'updated_at');
+    protected $fillable = array('subject_id', 'name', 'text', 'test', 'start', 'deadline', 'created_at', 'updated_at');
 
     public function subject() {
         return $this->hasOne('Subject', 'id', 'subject_id');

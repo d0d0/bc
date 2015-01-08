@@ -21,6 +21,7 @@ height: 300px;
 @stop
 
 @section('ready_js')
+var last_subject  = '{{ Auth::user()->last_subject ? Auth::user()->last_subject : '' }}';
 $('.summernote').summernote({
     height: 300
 }).code('{{ $article->text or '' }}');
@@ -35,7 +36,7 @@ editor.getSession().setMode("ace/mode/c_cpp");
 editor.$blockScrolling = Infinity;
 
 $('#deadline').datetimepicker({
-language: 'sk',
+    language: 'sk',
 });
 
 $('#start').datetimepicker({
@@ -44,14 +45,36 @@ $('#start').datetimepicker({
 
 $('#save').on('click', function(e){
     e.preventDefault();
+    if(!last_subject){
+        $('#lastSubjectDropdown').css({
+            'color' : '#843534'
+        });
+        var div = $('<div />').attr('class', 'col-md-10').append($('<div />').attr('class', 'alert alert-danger').attr('role', 'alert').text('.Nie je vybraty predmet'));
+        $('#leftMenu').after(div)
+    }
     var l = Ladda.create(this);
     l.start();
-    $('#name').val('');
-    $('#start').val('');
-    $('#deadline').val('');
-    editor.setValue('', -1);
-    $('.summernote').summernote().code('');
-    l.stop();
+    $.ajax({
+        url: '{{ URL::action('TaskController@add')}}',
+        method: 'post',
+        dataType: 'json',
+        data: {
+            'name': $('#name').val(),
+            'start': $('#start').val(),
+            'deadline': $('#deadline').val(),
+            'text': $('.summernote').code(),
+            'test': editor.getSession().getValue(),
+        },
+        success: function(answer){
+            console.log(answer);
+            $('#name').val('');
+            $('#start').val('');
+            $('#deadline').val('');
+            editor.setValue('', -1);
+            $('.summernote').summernote().code('');
+            l.stop();
+        }
+    });
 });
 @stop
 

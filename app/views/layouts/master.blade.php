@@ -29,7 +29,7 @@
                     </div>
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#" id="lastSubjectDropdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 @if(Auth::user()->lastSubject)
                                     {{{ Auth::user()->lastSubject->name }}}
                                 @else
@@ -58,7 +58,7 @@
             @endif
             @if(Auth::check())
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2" id="leftMenu">
                     <ul class="nav nav-pills nav-stacked" style="text-align: center">
                         <li>{{ HTML::linkAction('SolutionController@show', '.Editor', array()) }}</li>
                         <li>{{ HTML::linkAction('SubjectController@create', '.Vytvor predmet', array()) }}</li>
