@@ -9,7 +9,7 @@
             <th>.Koniec</th>
             <th>.Bodov</th>
         </tr>
-        @forelse(Auth::user()->lastSubject->task()->orderBy('deadline')->get() as $task)
+        @forelse(Auth::user()->lastSubject->task()->afterStart()->orderBy('deadline')->get() as $task)
         <tr {{ Carbon::parse($task->deadline) < Carbon::now() ? 'class="danger"' : '' }}>
             <td>
                 {{ HTML::linkAction('SolutionController@show', $task->name, array('id' => $task->id)) }}

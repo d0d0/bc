@@ -15,5 +15,9 @@ class Task extends Eloquent {
     public function subject() {
         return $this->hasOne('Subject', 'id', 'subject_id');
     }
+    
+    public function scopeAfterStart($query){
+        return $query->where('start', '<', 'sysdate()');
+    }
 
 }

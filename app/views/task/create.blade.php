@@ -67,12 +67,17 @@ $('#save').on('click', function(e){
         },
         success: function(answer){
             console.log(answer);
-            $('#name').val('');
-            $('#start').val('');
-            $('#deadline').val('');
-            editor.setValue('', -1);
-            $('.summernote').summernote().code('');
+            if(answer['result']){
+                $('#name').val('');
+                $('#start').val('');
+                $('#deadline').val('');
+                editor.setValue('', -1);
+                $('.summernote').summernote().code('');
+            }else{
+                
+            }
             l.stop();
+            
         }
     });
 });
@@ -81,7 +86,6 @@ $('#save').on('click', function(e){
 @section('center')
 <div class="col-md-12">
     <form class="form-horizontal clearfix" role="form">
-        {{ Form::hidden('id', isset($article) && isset($article->id) ? $article->id : '', array('id' => 'id'))}}
         <div class="form-group">
             <label for="name" class="col-md-1 control-label">{{ Lang::get('article.name') }}</label>
             <div class="col-md-11">
@@ -123,17 +127,9 @@ $('#save').on('click', function(e){
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-1 col-md-offset-9">
+            <div class="col-md-1 col-md-offset-10">
                 <button class="btn btn-primary ladda-button" id="save" data-style="zoom-in">
-                    <span class="ladda-label">{{ Lang::get('article.save') }}</span>
-                </button>
-            </div>
-            <div class="col-md-1">
-                <button type="button" class="btn btn-default" id="send">{{ Lang::get('article.send') }}</button>
-            </div>
-            <div class="col-md-1">
-                <button type="button" class="btn btn-default" id="trash">
-                    <span class="glyphicon glyphicon-trash"></span>
+                    <span class="ladda-label">{{ Lang::get('.Ulož') }}</span>
                 </button>
             </div>
         </div>
