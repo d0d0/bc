@@ -30,7 +30,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     protected $fillable = array('login', 'name', 'surname', 'email', 'admin', 'teacher', 'last_subject', 'created_at', 'updated_at');
 
     public function subjects() {
-        return $this->hasMany('Subject', 'teacher', 'id');
+        if ($this->isTeacher()) {
+            return $this->hasMany('Subject', 'teacher', 'id');
+        }
+        return $this->hasManyThrough('Subject', 'Participant', 'user_id', 'id');
+    }
+
+    public function lastSubject() {
+        return $this->hasOne('Subject', 'id', 'last_subject');
     }
 
     public function isTeacher() {
@@ -43,10 +50,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function getSurnameName() {
         return $this->surname . ' ' . $this->name;
-    }
-
-    public function getLastSubject() {
-        return $this->hasOne('Subject', 'id', 'last_subject');
     }
 
     public function scopeTeachers($query) {

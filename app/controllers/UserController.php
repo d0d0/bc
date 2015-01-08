@@ -14,4 +14,12 @@ class UserController extends BaseController {
         ));
     }
 
+    public function setSelectedSubject($id = null) {
+        if ($id) {
+            Auth::user()->last_subject = $id;
+            Auth::user()->save();
+        }
+        return Redirect::action('HomeController@showWelcome');
+    }
+
 }

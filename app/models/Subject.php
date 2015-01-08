@@ -19,4 +19,12 @@ class Subject extends Eloquent {
         return $this->hasOne('User', 'id', 'teacher');
     }
 
+    public function task() {
+        return $this->hasMany('Task', 'subject_id', 'id');
+    }
+
+    public function scopeWithoutselected($query) {
+        return $query->where('id', '<>', Auth::user()->last_subject);
+    }
+
 }

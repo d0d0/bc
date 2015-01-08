@@ -25,6 +25,7 @@ Route::post('/reset/{token?}', 'RemindersController@postReset');
 
 Route::group(array('prefix' => 'user'), function() {
     Route::get('/show/{id?}', 'UserController@show');
+    Route::get('/setSubject/{id?}', 'UserController@setSelectedSubject');
 });
 
 Route::group(array('prefix' => 'solution'), function() {

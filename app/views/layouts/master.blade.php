@@ -30,15 +30,18 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                @if(Auth::user()->getLastSubject)
-                                    {{{ Auth::user()->getLastSubject->name }}}
+                                @if(Auth::user()->lastSubject)
+                                    {{{ Auth::user()->lastSubject->name }}}
                                 @else
                                 .Aktualny predmet
                                 @endif
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                @forelse()
+                                @forelse(Auth::user()->subjects()->withoutselected()->get() as $subject)
+                                    <li><a href="#">
+                                        {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name, array('id' => $subject->id)) }}
+                                    </li>
                                 @empty
                                     <li><a href="#">.Žiadny predmet</a></li>
                                 @endforelse
