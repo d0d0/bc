@@ -9,7 +9,8 @@
             <th>.Koniec</th>
             <th>.Bodov</th>
         </tr>
-        @forelse(Auth::user()->lastSubject->task()->afterStart()->orderBy('deadline')->get() as $task)
+        @if(Auth::user()->lastSubject)
+        @foreach(Auth::user()->lastSubject->task()->afterStart()->orderBy('deadline')->get() as $task)
         <tr {{ Carbon::parse($task->deadline) < Carbon::now() ? 'class="danger"' : '' }}>
             <td>
                 {{ HTML::linkAction('SolutionController@show', $task->name, array('id' => $task->id)) }}
@@ -18,13 +19,14 @@
             <td>{{{ Carbon::parse($task->deadline)->format('d.m.Y H:i') }}}</td>
             <td>{{{ Carbon::now()->format('d.m.Y H:i') }}}</td>
         </tr>
-        @empty
+        @endforeach
+        @else
         <tr>
             <td>
                 .Nič na zobrazenie
             </td>
         </tr>
-        @endforelse
+        @endif
     </table>
 </div>
 @stop
