@@ -22,7 +22,17 @@ Route::post('/remind', 'RemindersController@postRemind');
 Route::get('/reset/{token?}', 'RemindersController@getReset');
 Route::post('/reset/{token?}', 'RemindersController@postReset');
 
-Route::get('/editor/{id?}', 'EditorController@show');
+
+Route::group(array('prefix' => 'user'), function() {
+    Route::get('/show/{id?}', 'UserController@show');
+});
+
+Route::group(array('prefix' => 'solution'), function() {
+    Route::get('/show/{id?}', 'SolutionController@show');
+    Route::post('/deletedFiles', 'SolutionController@deletedFiles');
+    Route::post('/addFile', 'SolutionController@addFile');
+    Route::post('/deleteFile', 'SolutionController@deleteFile');
+});
 
 Route::group(array('prefix' => 'task'), function() {
     Route::get('/all', 'TaskController@all');

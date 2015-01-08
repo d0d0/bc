@@ -19,28 +19,24 @@ height: 300px;
 
 @section('ready_js')
 $('.summernote').summernote({
-height: 300/*,
-toolbar: [
-['style', ['bold', 'italic', 'underline', 'clear']],
-['para', ['ul', 'ol', 'paragraph']],
-['insert', ['link', 'picture', 'video']],
-['misc', ['undo', 'redo', 'help']],
-],*/
+    height: 300
 }).code('{{ $article->text or '' }}');
 
 var editor = ace.edit("editor");
 editor.setOptions({
-enableBasicAutocompletion: true
+    enableBasicAutocompletion: true
 });
+
 editor.setTheme("ace/theme/merbivore");
 editor.getSession().setMode("ace/mode/c_cpp");
 editor.$blockScrolling = Infinity;
 
 $('#deadline').datetimepicker({
-language: 'sk',
+    language: 'sk',
 });
+
 $('#start').datetimepicker({
-language: 'sk',
+    language: 'sk',
 });
 @stop
 

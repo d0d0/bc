@@ -1,11 +1,12 @@
 @extends('layouts.master')
 
 @section('js')
-<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bcsocket-uncompressed.js"></script>
-<script src="js/share.uncompressed.js"></script>
-<script src="js/ace_c.js"></script>
+{{ HTML::script('js/ace/ace.js') }}
+{{ HTML::script('js/ace/ext-language_tools.js') }}
+{{ HTML::script('js/ace/ext-themelist.js') }}
+{{ HTML::script('js/bcsocket-uncompressed.js') }}
+{{ HTML::script('js/share.uncompressed.js') }}
+{{ HTML::script('js/ace_c.js') }}
 @stop
 
 @section('style')
@@ -16,6 +17,60 @@ height: 300px;
 dd{
 word-wrap: break-word;
 }
+
+.noselect {
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+@stop
+
+@section('ready_js')
+var appendFile = function(id){
+    $.ajax({
+        method: 'post',
+        url: '{{ URL::action('SolutionController@addFile')}}',
+        dataType : 'json',
+        data : { 
+            'id' : id
+        },
+        success: function(){
+            
+        }
+    });
+}
+
+$('#showDeleted').on('click', function(){
+    $('#deletedFilesBody').load('{{ URL::action('SolutionController@deletedFiles')}}', { 'id': 1 }, function(){
+        $('#deletedFiles').modal('show');
+    });
+});
+
+$('#showAddFile').on('click', function(){
+    $('#addFile').modal('show');
+});
+
+$('#addFileButton').on('click', function(){
+    $.ajax({
+        method: 'post',
+        url: '{{ URL::action('SolutionController@addFile')}}',
+        dataType : 'json',
+        data : { },
+        success: function(answer){
+            if(answer['result']){
+                $('#addFile').modal('hide');
+                appendFile(answer['node_id']);
+            }
+        }
+    });
+});
+
+$('.glyphicon-remove').on('click', function(e){
+    e.stopPropagation();
+});
 @stop
 
 @section('content')
@@ -23,7 +78,6 @@ word-wrap: break-word;
     <div class="panel-heading">
         <h3 class="panel-title">Editor</h3>
     </div>
-
     <div role="tabpanel">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
@@ -50,13 +104,13 @@ word-wrap: break-word;
                     <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                 </a>
             </li>
-            <li role="presentation">
+            <li role="presentation" class="noselect" id="showAddFile">
                 <a>
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
             </li>
-            <li role="presentation" class="pull-right">
-                <a>
+            <li role="presentation" class="pull-right" id="showDeleted">
+                <a href="javascript:void(0)">
                     .Obnoviť súbory
                 </a>
             </li>
@@ -81,11 +135,53 @@ word-wrap: break-word;
         </div>
     </div>
 </div>
+<div class="modal fade" id="deletedFiles" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">.Súbory na obnovenie</h4>
+            </div>
+            <div class="modal-body" id="deletedFilesBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="deletedFilesButton">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addFile" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">.Pridanie súboru</h4>
+            </div>
+            <div class="modal-body" id="addFileBody">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">{{ Lang::get('article.filename') }}:</label>
+                        <input type="text" class="form-control" id="filename">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="includeHeader"> .include header
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addFileButton">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     var randomDocName = function (length) {
         var chars, x;
         if (length == null) {
-            length = 32;
+            length = 64;
         }
         chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=";
         var name = [];
@@ -96,6 +192,10 @@ word-wrap: break-word;
     };
 
     var editor = ace.edit("editor");
+    var themelist = ace.require("ace/ext/themelist")
+    var themes = themelist.themesByName;
+    var manageFilesDoc = null;
+    console.log(themes);
     editor.setOptions({
         enableBasicAutocompletion: true
     });
@@ -110,14 +210,23 @@ word-wrap: break-word;
         docName = randomDocName();
     }
     console.log(docName);
+
     sharejs.open("code:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         doc.attach_ace(editor);
+    });
+
+    sharejs.open("manageFiles:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        manageFilesDoc = doc;
+
+        manageFilesDoc.on('shout', function (msg) {
+            //addShout(msg);
+        });
     });
 
     sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         function addShout(msg) {
             var dt = $('<dt />').text(msg.name);
-            var dd = $('<dd />').text(msg.text)
+            var dd = $('<dd />').text(msg.text);
             $('#shouts').append(dt).append(dd);
         }
 
@@ -154,7 +263,7 @@ word-wrap: break-word;
         doc.on('shout', function (msg) {
             addShout(msg);
         });
-        
+
         $(window).on('beforeunload', function () {
             shoutOut('sa odpojil');
         });

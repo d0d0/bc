@@ -29,7 +29,14 @@
                     </div>
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">.Aktualny predmet <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                @if(Auth::user()->getLastSubject)
+                                    {{{ Auth::user()->getLastSubject->name }}}
+                                @else
+                                .Aktualny predmet
+                                @endif
+                                <span class="caret"></span>
+                            </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Action</a></li>
                                 <li><a href="#">Another action</a></li>
@@ -42,7 +49,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a>{{{ Auth::user()->getFullName() }}}</a></li>
+                        <li>{{ HTML::linkAction('UserController@show', Auth::user()->getFullName()) }}</li>
                         <li>{{ HTML::linkAction('LoginController@getLogout', '.Odhlásenie') }}</li>
                     </ul>
                 </div>
@@ -53,7 +60,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <ul class="nav nav-pills nav-stacked" style="text-align: center">
-                        <li>{{ HTML::linkAction('EditorController@show', '.Editor', array()) }}</li>
+                        <li>{{ HTML::linkAction('SolutionController@show', '.Editor', array()) }}</li>
                         <li>{{ HTML::linkAction('SubjectController@create', '.Vytvor predmet', array()) }}</li>
                         <li>{{ HTML::linkAction('TaskController@create', '.Vytvor zadanie', array()) }}</li>
                         <li>{{ HTML::linkAction('TaskController@all', '.Všetky zadania', array()) }}</li>
