@@ -11,37 +11,24 @@
 
 @section('style')
 .editor{
-height: 300px;
+    height: 300px;
 }
 
 dd{
-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .noselect {
--webkit-touch-callout: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 @stop
 
 @section('ready_js')
-var appendFile = function(id){
-    $.ajax({
-        method: 'post',
-        url: '{{ URL::action('SolutionController@addFile')}}',
-        dataType : 'json',
-        data : { 
-            'id' : id
-        },
-        success: function(){
-
-        }
-    });
-}
 
 $('#showDeleted').on('click', function(){
     $('#deletedFilesBody').load('{{ URL::action('SolutionController@deletedFiles')}}', { 'id': 1 }, function(){
@@ -58,28 +45,63 @@ $('#addFileButton').on('click', function(){
         method: 'post',
         url: '{{ URL::action('SolutionController@addFile')}}',
         dataType : 'json',
-        data : { },
+        data : {
+            'id': $('input[name=id]').val(),
+            'name': $('#filename').val()
+        },
         success: function(answer){
-            if(answer['result']){
+            console.log(answer);
+            if(answer['node_id']){
                 $('#addFile').modal('hide');
-                appendFile(answer['node_id']);
+                appendFile(answer);
             }
         }
     });
 });
+
+var appendFile = function(param){
+    $('li[role=presentation]').removeClass('active');
+    var li = $('<li />').attr({
+        'role': 'presentation',
+        'class': 'active'
+    }).append($('<a />').attr({
+        'href': '#' + param['node_id'],
+        'aria-controls': param['node_id'],
+        'role': 'tab',
+        'data-toggle': 'tab',
+    }).text(param['name']).append($('<span />').attr({
+        'class': 'glyphicon glyphicon-remove text-danger',
+        'aria-hidden': 'true'
+    })));
+    $(li).insertBefore('#showAddFile');
+    
+    $('div[role=tabpanel]').removeClass('active');
+    var div = $('<div />').attr({
+        'role': 'tabpanel',
+        'class': 'tab-pane active',
+        'id': param['node_id']
+    }).append($('<div />').attr({
+        'class': 'panel-body'
+    }).append($('<div />').attr({
+        'class': 'editor',
+        'id': 'editor'+param['node_id']
+    })));
+    $('.tab-content').append(div);
+    
+    console.log(typeof param['node_id']);
+}
 
 $('.glyphicon-remove').on('click', function(e){
     e.stopPropagation();
 });
 
 var docName = null;
-
+var themelist = ace.require("ace/ext/themelist")
+var themes = themelist.themesByName;
+var manageFilesDoc = null;
 @foreach($files as $file)
     var editor{{{ $file->node_id }}} = ace.edit("editor{{{ $file->node_id }}}");
-    var themelist = ace.require("ace/ext/themelist")
-    var themes = themelist.themesByName;
-    var manageFilesDoc = null;
-    console.log(themes);
+    
     editor{{{ $file->node_id }}}.setOptions({
         enableBasicAutocompletion: true
     });
@@ -179,6 +201,7 @@ sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', f
 @stop
 
 @section('content')
+{{ Form::hidden('id', $id) }}
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Editor</h3>

@@ -13,6 +13,7 @@ class SolutionController extends BaseController {
         }
         $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
         return View::make('editor.editor', array(
+                    'id' => $id,
                     'files' => $files
         ));
     }
@@ -34,7 +35,9 @@ class SolutionController extends BaseController {
     }
 
     public function addFile() {
-        $node_id = str_random(64);
+        if (Request::ajax()) {
+            return Response::json(SolutionHelper::addNewFile(Input::all()['id'], 1, Input::all()['name']));
+        }
     }
 
 }
