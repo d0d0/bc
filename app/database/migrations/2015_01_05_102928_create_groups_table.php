@@ -14,6 +14,8 @@ class CreateGroupsTable extends Migration {
         Schema::create('groups', function ($table) {
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->integer('subject_id')->unsigned();
+            $table->foreign('subject_id')->references('id')->on('subjects');
             $table->timestamps();
         });
     }
