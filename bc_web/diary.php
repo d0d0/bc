@@ -24,7 +24,7 @@
                     <li><a href="http://62.169.176.249/bc">Demo</a></li>
                 </ul>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 6.1.2014 - 7.1.2014</p>
@@ -59,7 +59,17 @@
         </div>
         <div class="footer navbar-fixed-bottom">
             <div class="container">
-                <p class="muted credit">Vytvoril <a href="mailto:duc4@uniba.sk">Jozef Dúc</a>.</p>
+                <ul class="list-inline">
+                    <li class="muted">
+                        Vytvoril <a href="mailto:duc4@uniba.sk">Jozef Dúc</a>.
+                    </li>
+                    <li>
+                        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=D0d0&amp;repo=bc&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+                    </li>
+                    <li>
+                        <iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=D0d0&amp;repo=bc&amp;type=fork&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="102px" height="20px"></iframe>
+                    </li>
+                </ul>
             </div>
         </div>
     </body>
