@@ -20,7 +20,7 @@ class CreateSolutionsTable extends Migration {
             $table->longText('text');
             $table->string('name');
             $table->boolean('deleted')->default(0);
-            $table->string('node_id');
+            $table->string('node_id')->unique();
             $table->timestamps();
         });
     }

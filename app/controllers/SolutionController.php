@@ -8,7 +8,13 @@
 class SolutionController extends BaseController {
 
     public function show($id = null) {
-        return View::make('editor.editor');
+        if (Solution::where('task_id', '=', $id)->get()->isEmpty()) {
+            SolutionHelper::addNewFile($id, 1);
+        }
+        $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
+        return View::make('editor.editor', array(
+                    'files' => $files
+        ));
     }
 
     public function deletedFiles() {

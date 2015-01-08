@@ -9,6 +9,7 @@ class Solution extends Eloquent {
 
     use \Venturecraft\Revisionable\RevisionableTrait;
 
+    const EXISTS = 0;
     const DELETED = 1;
 
     protected $table = 'solutions';
@@ -20,6 +21,10 @@ class Solution extends Eloquent {
 
     public function task() {
         return $this->hasOne('Group', 'id', 'task_id');
+    }
+
+    public function scopeNotDeleted($query) {
+        return $query->where('deleted', '=', self::EXISTS);
     }
 
 }

@@ -10,7 +10,7 @@
 @stop
 
 @section('style')
-#editor{
+.editor{
 height: 300px;
 }
 
@@ -38,7 +38,7 @@ var appendFile = function(id){
             'id' : id
         },
         success: function(){
-            
+
         }
     });
 }
@@ -71,6 +71,111 @@ $('#addFileButton').on('click', function(){
 $('.glyphicon-remove').on('click', function(e){
     e.stopPropagation();
 });
+
+var docName = null;
+
+@foreach($files as $file)
+    var editor{{{ $file->node_id }}} = ace.edit("editor{{{ $file->node_id }}}");
+    var themelist = ace.require("ace/ext/themelist")
+    var themes = themelist.themesByName;
+    var manageFilesDoc = null;
+    console.log(themes);
+    editor{{{ $file->node_id }}}.setOptions({
+        enableBasicAutocompletion: true
+    });
+
+    editor{{{ $file->node_id }}}.setTheme("ace/theme/merbivore");
+    editor{{{ $file->node_id }}}.getSession().setMode("ace/mode/c_cpp");
+    editor{{{ $file->node_id }}}.$blockScrolling = Infinity;
+
+    sharejs.open("code:{{{ $file->node_id }}}", 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        doc.attach_ace(editor{{{ $file->node_id }}});
+    });
+
+    sharejs.open("manageFiles:{{{ $file->node_id }}}", 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        manageFilesDoc = doc;
+        manageFilesDoc.on('shout', function (msg) {
+            //addShout(msg);
+        });
+    });
+
+    sharejs.open("toggle:{{{ $file->node_id }}}", 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        var toggleEditor = function () {
+            editor{{{ $file->node_id }}}.setReadOnly(!editor{{{ $file->node_id }}}.getReadOnly());
+            if (editor{{{ $file->node_id }}}.getReadOnly()) {
+                $(editor{{{ $file->node_id }}}.container).append($('<div />').css({
+                    'position': 'absolute',
+                    'top': 0,
+                    'bottom': 0,
+                    'left': 0,
+                    'right': 0,
+                    'background': 'rgba(150,150,150,0.5)',
+                    'z-index': 100
+                }).attr('id', 'cover'));
+                return true;
+            } else {
+                $('#cover').remove();
+                return false;
+            }
+        };
+
+        $('#toggle').on('click', function () {
+            doc.shout(toggleEditor() ? 'true' : 'false');
+        });
+
+        doc.on('shout', function () {
+            toggleEditor();
+        });
+    });
+@endforeach
+
+sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+    function addShout(msg) {
+        var dt = $('<dt />').text(msg.name);
+        var dd = $('<dd />').text(msg.text);
+        $('#shouts').append(dt).append(dd);
+    }
+
+    function shoutOut(value) {
+        var s;
+        if (value) {
+            s = value;
+        } else if ($.trim($('#input').val())) {
+            s = $.trim($('#input').val());
+        } else {
+            return false;
+        }
+        $('#input').val('');
+        var msg = {
+            'name': '{{ Auth::user()->name }}',
+            'text': s
+        };
+        doc.shout(msg);
+        if (!value) {
+            addShout(msg);
+        }
+    }
+
+    $('#shout').on('click', function () {
+        shoutOut();
+    });
+
+    $('#input').keyup(function (e) {
+        if (e.keyCode == 13) {
+            shoutOut();
+        }
+    });
+
+    doc.on('shout', function (msg) {
+        addShout(msg);
+    });
+
+    $(window).on('beforeunload', function () {
+        shoutOut('sa odpojil');
+    });
+
+    shoutOut('sa pripojil');
+});
 @stop
 
 @section('content')
@@ -80,30 +185,15 @@ $('.glyphicon-remove').on('click', function(e){
     </div>
     <div role="tabpanel">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
-                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-                    Home
+            <?php $i = 0; ?>
+            @foreach($files as $file)
+            <li role="presentation" {{ $i++ == 0 ? 'class="active"' : '' }}>
+                <a href="#{{{ $file->node_id }}}" aria-controls="{{{ $file->node_id }}}" role="tab" data-toggle="tab">
+                    {{{ $file->name }}}
                     <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                 </a>
             </li>
-            <li role="presentation">
-                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
-                    Profile
-                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li role="presentation">
-                <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
-                    Messages
-                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li role="presentation">
-                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">
-                    Settings
-                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
-                </a>
-            </li>
+            @endforeach
             <li role="presentation" class="noselect" id="showAddFile">
                 <a>
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -116,24 +206,24 @@ $('.glyphicon-remove').on('click', function(e){
             </li>
         </ul>
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">
+            <?php $i = 0; ?>
+            @foreach($files as $file)
+            <div role="tabpanel" class="tab-pane {{ $i++ == 0 ? 'active' : '' }}" id="{{{ $file->node_id }}}">
                 <div class="panel-body">
-                    <div id="editor"></div>
-                    <div>
-                        <input type="button" id="toggle" value="Toggle">
-                    </div>
-                    <div>
-                        <input type="text" id="input" placeholder="Shout something&hellip;"/>
-                        <input type="button" id="shout" value="shout"/>
-                        <dl id="shouts" class="dl-horizontal"></dl>
-                    </div>
+                    <div class="editor" id="editor{{{ $file->node_id }}}"></div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="profile">...</div>
-            <div role="tabpanel" class="tab-pane" id="messages">...</div>
-            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+            @endforeach
         </div>
     </div>
+</div>
+<div>
+    <input type="button" id="toggle" value="Toggle">
+</div>
+<div>
+    <input type="text" id="input" placeholder="Shout something&hellip;"/>
+    <input type="button" id="shout" value="shout"/>
+    <dl id="shouts" class="dl-horizontal"></dl>
 </div>
 <div class="modal fade" id="deletedFiles" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog">
@@ -177,127 +267,4 @@ $('.glyphicon-remove').on('click', function(e){
         </div>
     </div>
 </div>
-<script>
-    var randomDocName = function (length) {
-        var chars, x;
-        if (length == null) {
-            length = 64;
-        }
-        chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-=";
-        var name = [];
-        for (x = 0; x < length; x++) {
-            name.push(chars[Math.floor(Math.random() * chars.length)]);
-        }
-        return name.join('');
-    };
-
-    var editor = ace.edit("editor");
-    var themelist = ace.require("ace/ext/themelist")
-    var themes = themelist.themesByName;
-    var manageFilesDoc = null;
-    console.log(themes);
-    editor.setOptions({
-        enableBasicAutocompletion: true
-    });
-
-    editor.setTheme("ace/theme/merbivore");
-    editor.getSession().setMode("ace/mode/c_cpp");
-    editor.$blockScrolling = Infinity;
-    var docName = null;
-    if (document.location.hash) {
-        docName = document.location.hash.slice(1);
-    } else {
-        docName = randomDocName();
-    }
-    console.log(docName);
-
-    sharejs.open("code:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        doc.attach_ace(editor);
-    });
-
-    sharejs.open("manageFiles:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        manageFilesDoc = doc;
-
-        manageFilesDoc.on('shout', function (msg) {
-            //addShout(msg);
-        });
-    });
-
-    sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        function addShout(msg) {
-            var dt = $('<dt />').text(msg.name);
-            var dd = $('<dd />').text(msg.text);
-            $('#shouts').append(dt).append(dd);
-        }
-
-        function shoutOut(value) {
-            var s;
-            if (value) {
-                s = value;
-            } else if ($.trim($('#input').val())) {
-                s = $.trim($('#input').val());
-            } else {
-                return false;
-            }
-            $('#input').val('');
-            var msg = {
-                'name': '{{ Auth::user()->name }}',
-                'text': s
-            };
-            doc.shout(msg);
-            if (!value) {
-                addShout(msg);
-            }
-        }
-
-        $('#shout').on('click', function () {
-            shoutOut();
-        });
-
-        $('#input').keyup(function (e) {
-            if (e.keyCode == 13) {
-                shoutOut();
-            }
-        });
-
-        doc.on('shout', function (msg) {
-            addShout(msg);
-        });
-
-        $(window).on('beforeunload', function () {
-            shoutOut('sa odpojil');
-        });
-
-        shoutOut('sa pripojil');
-    });
-
-    sharejs.open("toggle:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        var toggleEditor = function () {
-            editor.setReadOnly(!editor.getReadOnly());
-            if (editor.getReadOnly()) {
-                $(editor.container).append($('<div />').css({
-                    'position': 'absolute',
-                    'top': 0,
-                    'bottom': 0,
-                    'left': 0,
-                    'right': 0,
-                    'background': 'rgba(150,150,150,0.5)',
-                    'z-index': 100
-                }).attr('id', 'cover'));
-                return true;
-            } else {
-                $('#cover').remove();
-                return false;
-            }
-        };
-
-        $('#toggle').on('click', function () {
-            doc.shout(toggleEditor() ? 'true' : 'false');
-        });
-
-        doc.on('shout', function () {
-            toggleEditor();
-        });
-    });
-</script>
 @stop

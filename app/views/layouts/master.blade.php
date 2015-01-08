@@ -60,7 +60,6 @@
             <div class="row">
                 <div class="col-md-2" id="leftMenu">
                     <ul class="nav nav-pills nav-stacked" style="text-align: center">
-                        <li>{{ HTML::linkAction('SolutionController@show', '.Editor', array()) }}</li>
                         <li>{{ HTML::linkAction('SubjectController@create', '.Vytvor predmet', array()) }}</li>
                         <li>{{ HTML::linkAction('TaskController@create', '.Vytvor zadanie', array()) }}</li>
                         <li>{{ HTML::linkAction('TaskController@all', '.Všetky zadania', array()) }}</li>
