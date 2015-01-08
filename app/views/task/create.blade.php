@@ -9,6 +9,9 @@
 {{ HTML::style('css/datepicker.min.css') }}
 {{ HTML::script('js/moment.min.js') }}
 {{ HTML::script('js/datepicker.min.js') }}
+{{ HTML::script('js/spin.min.js') }}
+{{ HTML::script('js/ladda.min.js') }}
+{{ HTML::style('css/ladda-themeless.min.css') }}
 @stop
 
 @section('style')
@@ -23,7 +26,7 @@ $('.summernote').summernote({
 }).code('{{ $article->text or '' }}');
 
 var editor = ace.edit("editor");
-editor.setOptions({
+    editor.setOptions({
     enableBasicAutocompletion: true
 });
 
@@ -32,11 +35,23 @@ editor.getSession().setMode("ace/mode/c_cpp");
 editor.$blockScrolling = Infinity;
 
 $('#deadline').datetimepicker({
-    language: 'sk',
+language: 'sk',
 });
 
 $('#start').datetimepicker({
     language: 'sk',
+});
+
+$('#save').on('click', function(e){
+    e.preventDefault();
+    var l = Ladda.create(this);
+    l.start();
+    $('#name').val('');
+    $('#start').val('');
+    $('#deadline').val('');
+    editor.setValue('', -1);
+    $('.summernote').summernote().code('');
+    l.stop();
 });
 @stop
 
@@ -47,14 +62,14 @@ $('#start').datetimepicker({
         <div class="form-group">
             <label for="name" class="col-md-1 control-label">{{ Lang::get('article.name') }}</label>
             <div class="col-md-11">
-                <input type="text" id="name" class="form-control" value="{{ $article->title or ''}}">
+                <input type="text" id="name" placeholder="{{ Lang::get('article.name') }}" class="form-control" value="{{ $article->title or ''}}">
             </div>
         </div>
         <div class="form-group">
             <label for="start" class="col-md-1 control-label">{{ Lang::get('article.start') }}</label>
             <div class="col-md-11">
-                <div class="input-group date" id="start">
-                    <input type="text" class="form-control" placeholder=".Deň" maxlength="10" id="day">
+                <div class="input-group date">
+                    <input type="text" class="form-control" placeholder=".Start" maxlength="10" id="start">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -64,8 +79,8 @@ $('#start').datetimepicker({
         <div class="form-group">
             <label for="deadline" class="col-md-1 control-label">{{ Lang::get('article.deadline') }}</label>
             <div class="col-md-11">
-                <div class="input-group date" id="deadline">
-                    <input type="text" class="form-control" placeholder=".Deň" maxlength="10" id="day">
+                <div class="input-group date">
+                    <input type="text" class="form-control" placeholder=".Deadline" maxlength="10" id="deadline">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -86,7 +101,9 @@ $('#start').datetimepicker({
         </div>
         <div class="form-group">
             <div class="col-md-1 col-md-offset-9">
-                <button type="button" class="btn btn-default" id="save">{{ Lang::get('article.save') }}</button>
+                <button class="btn btn-primary ladda-button" id="save" data-style="zoom-in">
+                    <span class="ladda-label">{{ Lang::get('article.save') }}</span>
+                </button>
             </div>
             <div class="col-md-1">
                 <button type="button" class="btn btn-default" id="send">{{ Lang::get('article.send') }}</button>
