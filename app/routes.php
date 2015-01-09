@@ -23,13 +23,14 @@ Route::group(array('before' => 'guest'), function() {
     Route::post('/reset/{token?}', 'RemindersController@postReset');
 });
 
-Route::group(array('prefix' => 'user'), function() {
-    Route::get('/show/{id?}', 'UserController@show');
-    Route::get('/setSubject/{id?}', 'UserController@setSelectedSubject');
-    Route::get('/logout', 'LoginController@getLogout');
-});
 
 Route::group(array('before' => 'auth'), function() {
+    Route::group(array('prefix' => 'user'), function() {
+        Route::get('/show/{id?}', 'UserController@show');
+        Route::get('/setSubject/{id?}', 'UserController@setSelectedSubject');
+        Route::get('/logout', 'LoginController@getLogout');
+    });
+
     Route::group(array('prefix' => 'solution'), function() {
         Route::get('/show/{id?}', 'SolutionController@show');
         Route::post('/deletedFiles', 'SolutionController@deletedFiles');
