@@ -27,6 +27,11 @@
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 8.1.2014</p>
+                    <p>Dokončil som prácu na všetkých synchrónnych veciach- editor, shoutbox.</p>
+                </div>
+                <div class="thumbnail">
+                    <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 6.1.2014 - 7.1.2014</p>
                     <p>Vytvoril som aplikáciu, rozbehal server, sfunkčnil redis databázu, vytvoril funkcionalitu pre viac editorov naraz, skompiloval .cpp súbor cez php.</p>
                 </div>
