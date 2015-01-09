@@ -39,7 +39,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 @forelse(Auth::user()->subjects()->withoutselected()->get() as $subject)
-                                    <li><a href="#">
+                                    <li>
                                         {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
                                     </li>
                                 @empty
