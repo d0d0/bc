@@ -17,7 +17,7 @@ class Task extends Eloquent {
     }
     
     public function scopeAfterStart($query){
-        return $query->where('start', '<', 'sysdate()');
+        return $query->whereRaw('start < now()');
     }
 
 }
