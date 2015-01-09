@@ -10,10 +10,6 @@ class RegistrationController extends BaseController {
      * @return type
      */
     public function getRegister() {
-        if ((Auth::check() && !Auth::user()->isAdmin()) || !Auth::check()) {
-            return Redirect::action('HomeController@showWelcome')
-                            ->with('warning', Lang::get('common.acces_denied'));
-        }
         return View::make('register');
     }
 
@@ -22,10 +18,6 @@ class RegistrationController extends BaseController {
      * @return type
      */
     public function postRegister() {
-        if ((Auth::check() && !Auth::user()->isAdmin()) || !Auth::check()) {
-            return Redirect::action('HomeController@showWelcome')
-                            ->with('warning', Lang::get('common.acces_denied'));
-        }
         $input = Input::only(
                         'name', 'surname', 'address', 'phone', 'password', 'password_confirmation', 'email', 'division', 'rank'
         );
@@ -68,7 +60,7 @@ class RegistrationController extends BaseController {
      * @throws InvalidConfirmationCodeException
      */
     public function confirm($confirmation_code = null) {
-        if (Auth::check() || !$confirmation_code) {
+        if (!$confirmation_code) {
             return Redirect::action('HomeController@showWelcome')
                             ->with('warning', Lang::get('common.acces_denied'));
         }

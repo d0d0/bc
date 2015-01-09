@@ -40,7 +40,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 @forelse(Auth::user()->subjects()->withoutselected()->get() as $subject)
                                     <li><a href="#">
-                                        {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString()), array('id' => $subject->id)) }}
+                                        {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
                                     </li>
                                 @empty
                                     <li><a href="#">.Žiadny predmet</a></li>
@@ -83,6 +83,15 @@
                 </div>
             </div>
             @else
+                @if(Session::has('error'))
+                <div class="alert alert-danger" role="alert">{{Session::get('error')}}</div>
+                @endif
+                @if(Session::has('warning'))
+                <div class="alert alert-warning" role="alert">{{Session::get('warning')}}</div>
+                @endif
+                @if(Session::has('message'))
+                <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
+                @endif
             @yield('content')
             @endif
         </div>
