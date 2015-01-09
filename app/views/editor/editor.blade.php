@@ -30,6 +30,62 @@ dd{
 
 @section('ready_js')
 
+var editors = { };
+var themelist = ace.require("ace/ext/themelist")
+var themes = themelist.themesByName;
+
+var addEditor = function(node_id){
+    editors[node_id] = ace.edit('editor' + node_id);
+    
+    editors[node_id].setOptions({
+        enableBasicAutocompletion: true
+    });
+
+    editors[node_id].setTheme("ace/theme/merbivore");
+    editors[node_id].getSession().setMode("ace/mode/c_cpp");
+    editors[node_id].$blockScrolling = Infinity;
+
+    sharejs.open("code:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        doc.attach_ace(editors[node_id]);
+    });
+
+    sharejs.open("manageFiles:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        manageFilesDoc = doc;
+        manageFilesDoc.on('shout', function (msg) {
+            //addShout(msg);
+        });
+    });
+
+    sharejs.open("toggle:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+        var toggleEditor = function () {
+            editors[node_id].setReadOnly(!editors[node_id].getReadOnly());
+            if (editors[node_id].getReadOnly()) {
+                $(editors[node_id].container).append($('<div />').css({
+                    'position': 'absolute',
+                    'top': 0,
+                    'bottom': 0,
+                    'left': 0,
+                    'right': 0,
+                    'background': 'rgba(150,150,150,0.5)',
+                    'z-index': 100
+                }).attr('id', 'cover'));
+                return true;
+            } else {
+                $('#cover').remove();
+                return false;
+            }
+        };
+
+        $('#toggle').on('click', function () {
+            doc.shout(toggleEditor() ? 'true' : 'false');
+        });
+
+        doc.on('shout', function () {
+            toggleEditor();
+        });
+    });
+};
+
 $('#showDeleted').on('click', function(){
     $('#deletedFilesBody').load('{{ URL::action('SolutionController@deletedFiles')}}', { 'id': 1 }, function(){
         $('#deletedFiles').modal('show');
@@ -88,67 +144,16 @@ var appendFile = function(param){
     })));
     $('.tab-content').append(div);
     
-    console.log(typeof param['node_id']);
-}
+    addEditor(param['node_id']);
+};
 
 $('.glyphicon-remove').on('click', function(e){
     e.stopPropagation();
 });
 
 var docName = null;
-var themelist = ace.require("ace/ext/themelist")
-var themes = themelist.themesByName;
-var manageFilesDoc = null;
 @foreach($files as $file)
-    var editor{{{ $file->node_id }}} = ace.edit("editor{{{ $file->node_id }}}");
-    
-    editor{{{ $file->node_id }}}.setOptions({
-        enableBasicAutocompletion: true
-    });
-
-    editor{{{ $file->node_id }}}.setTheme("ace/theme/merbivore");
-    editor{{{ $file->node_id }}}.getSession().setMode("ace/mode/c_cpp");
-    editor{{{ $file->node_id }}}.$blockScrolling = Infinity;
-
-    sharejs.open("code:{{{ $file->node_id }}}", 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        doc.attach_ace(editor{{{ $file->node_id }}});
-    });
-
-    sharejs.open("manageFiles:{{{ $file->node_id }}}", 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        manageFilesDoc = doc;
-        manageFilesDoc.on('shout', function (msg) {
-            //addShout(msg);
-        });
-    });
-
-    sharejs.open("toggle:{{{ $file->node_id }}}", 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        var toggleEditor = function () {
-            editor{{{ $file->node_id }}}.setReadOnly(!editor{{{ $file->node_id }}}.getReadOnly());
-            if (editor{{{ $file->node_id }}}.getReadOnly()) {
-                $(editor{{{ $file->node_id }}}.container).append($('<div />').css({
-                    'position': 'absolute',
-                    'top': 0,
-                    'bottom': 0,
-                    'left': 0,
-                    'right': 0,
-                    'background': 'rgba(150,150,150,0.5)',
-                    'z-index': 100
-                }).attr('id', 'cover'));
-                return true;
-            } else {
-                $('#cover').remove();
-                return false;
-            }
-        };
-
-        $('#toggle').on('click', function () {
-            doc.shout(toggleEditor() ? 'true' : 'false');
-        });
-
-        doc.on('shout', function () {
-            toggleEditor();
-        });
-    });
+    addEditor('{{{ $file->node_id }}}');
 @endforeach
 
 sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
