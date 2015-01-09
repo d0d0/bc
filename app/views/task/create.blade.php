@@ -49,8 +49,11 @@ $('#save').on('click', function(e){
         $('#lastSubjectDropdown').css({
             'color' : '#843534'
         });
-        var div = $('<div />').attr('class', 'col-md-10').append($('<div />').attr('class', 'alert alert-danger').attr('role', 'alert').text('.Nie je vybraty predmet'));
+        var div = $('<div />').attr({
+            'class': 'col-md-10'
+        }).append($('<div />').attr('class', 'alert alert-danger alert-dismissible fade in').attr('role', 'alert').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>.Nie je vybraty predmet'));
         $('#leftMenu').after(div)
+        return;
     }
     var l = Ladda.create(this);
     l.start();
