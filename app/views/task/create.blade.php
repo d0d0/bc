@@ -1,11 +1,11 @@
 @extends('layouts.center_content')
 
 @section('js')
-{{HTML::style('css/font-awesome.min.css')}}
-{{HTML::style('css/summernote.css')}}
-{{HTML::script('js/summernote.min.js')}}
-{{HTML::script('js/ace/ace.js')}}
-{{HTML::script('js/ace/ext-language_tools.js')}}
+{{ HTML::style('css/font-awesome.min.css') }}
+{{ HTML::style('css/summernote.css') }}
+{{ HTML::script('js/summernote.min.js') }}
+{{ HTML::script('js/ace/ace.js') }}
+{{ HTML::script('js/ace/ext-language_tools.js') }}
 {{ HTML::style('css/datepicker.min.css') }}
 {{ HTML::script('js/moment.min.js') }}
 {{ HTML::script('js/datepicker.min.js') }}
@@ -46,9 +46,6 @@ $('#start').datetimepicker({
 $('#save').on('click', function(e){
     e.preventDefault();
     if(!last_subject){
-        $('#lastSubjectDropdown').css({
-            'color' : '#843534'
-        });
         var div = $('<div />').attr({
             'class': 'col-md-10'
         }).append($('<div />').attr('class', 'alert alert-danger alert-dismissible fade in').attr('role', 'alert').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>.Nie je vybraty predmet'));

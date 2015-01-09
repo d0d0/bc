@@ -29,7 +29,7 @@
                     </div>
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" id="lastSubjectDropdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <a href="#" id="lastSubjectDropdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" {{ Auth::user()->lastSubject ? '' : 'style="color:#843534"' }}>
                                 @if(Auth::user()->lastSubject)
                                     {{{ Auth::user()->lastSubject->name }}}
                                 @else
