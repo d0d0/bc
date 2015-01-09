@@ -10,6 +10,11 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </head>
     <body class="container">
         <h1 style="text-align: center">Vývojové prostredie pre online programovanie v skupine</h1>
@@ -21,7 +26,7 @@
                     <li><a href="sources.php">Zdroje</a></li>
                     <li class="active"><a href="kontakt.php">Kontakt</a></li>
                     <li><a href="plan.php">Časový plán práce</a></li>
-                    <li><a href="http://62.169.176.249/bc">Demo</a></li>
+                    <li><a href="http://62.169.176.249/bc" data-toggle="tooltip" data-placement="bottom" title="Meno do aplikácie je admin@admin.com a heslo 123456. Budem rád za každý bug report na githube!">Demo</a></li>
                 </ul>
             </div>
             <div class="col-md-9">

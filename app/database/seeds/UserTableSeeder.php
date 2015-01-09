@@ -29,6 +29,15 @@ class UserTableSeeder extends Seeder {
             'admin' => 1,
             'teacher' => 1,
         ));
+        User::create(array(
+            'name' => 'Admin',
+            'surname' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('123456'),
+            'confirmed' => 1,
+            'admin' => 1,
+            'teacher' => 1,
+        ));
         Subject::create(array(
             'teacher' => 101,
             'year' => 2010,
