@@ -7,8 +7,7 @@
  */
 class SolutionHelper {
 
-    public static function addNewFile($task_id, $group_id, $name = null, $text = null) {
-        $data['name'] = $name ? $name : 'main.cpp';
+    public static function addNewFile($task_id, $group_id, $name = null, $include_header = null, $text = null) {
         $data = array(
             'name' => $name ? $name : 'main.cpp',
             'group_id' => $group_id,
@@ -17,6 +16,9 @@ class SolutionHelper {
             'node_id' => self::getRandomName()
         );
         $solution = Solution::create($data);
+        if($include_header){
+            
+        }
         return $solution;
     }
 

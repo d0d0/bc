@@ -32,6 +32,7 @@ dd{
 
 var editors = { };
 var docs = { };
+var manageFiles = null;
 var themelist = ace.require("ace/ext/themelist")
 var themes = themelist.themesByName;
 
@@ -127,7 +128,8 @@ $('#addFileButton').on('click', function(){
         dataType : 'json',
         data : {
             'id': $('input[name=id]').val(),
-            'name': $('#filename').val()
+            'name': $('#filename').val(),
+            'include_header': $('#includeHeader').is(':checked')
         },
         success: function(answer){
             console.log(answer);

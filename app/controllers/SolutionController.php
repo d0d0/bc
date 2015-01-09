@@ -40,7 +40,7 @@ class SolutionController extends BaseController {
 
     public function addFile() {
         if (Request::ajax()) {
-            return Response::json(SolutionHelper::addNewFile(Input::all()['id'], 1, Input::all()['name']));
+            return Response::json(SolutionHelper::addNewFile(Input::all()['id'], 1, Input::all()['name'], Input::all()['include_header']));
         }
     }
 
