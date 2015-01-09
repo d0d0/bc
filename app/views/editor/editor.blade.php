@@ -31,6 +31,7 @@ dd{
 @section('ready_js')
 
 var editors = { };
+var docs = { };
 var themelist = ace.require("ace/ext/themelist")
 var themes = themelist.themesByName;
 
@@ -46,7 +47,8 @@ var addEditor = function(node_id){
     editors[node_id].$blockScrolling = Infinity;
 
     sharejs.open("code:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        doc.attach_ace(editors[node_id]);
+        docs[node_id] = doc;
+        docs[node_id].attach_ace(editors[node_id]);
     });
 
     sharejs.open("manageFiles:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
@@ -86,8 +88,30 @@ var addEditor = function(node_id){
     });
 };
 
+var deleteEditor = function(node_id){
+    $.ajax({
+        method: 'post',
+        url: '{{ URL::action('SolutionController@deleteFile') }}',
+        dataType: 'json',
+        data: {
+            'node_id': node_id
+        },
+        url: '{{ URL::action('SolutionController@deleteFile') }}',
+        success: function(answer){
+            docs[node_id].close();
+            console.log($('a[aria-controls=' + node_id + ']').attr('class'));
+            if($('a[aria-controls=' + node_id + ']').parent().attr('class')){
+                $('li[role=presentation]:first-of-type').attr('class', 'active');
+                $('div[role=tabpanel]:first-of-type').attr('class', 'tab-pane active');
+            }
+            $('#' + node_id).remove();
+            $('a[aria-controls=' + node_id + ']').parent().remove();
+        }
+    });
+}
+
 $('#showDeleted').on('click', function(){
-    $('#deletedFilesBody').load('{{ URL::action('SolutionController@deletedFiles')}}', { 'id': 1 }, function(){
+    $('#deletedFilesBody').load('{{ URL::action('SolutionController@deletedFiles')}}', { 'id': '{{ $id }}' }, function(){
         $('#deletedFiles').modal('show');
     });
 });
@@ -128,6 +152,10 @@ var appendFile = function(param){
     }).text(param['name']).append($('<span />').attr({
         'class': 'glyphicon glyphicon-remove text-danger',
         'aria-hidden': 'true'
+    }).on('click', function(e){
+        e.stopPropagation();
+        var node_id = $(this).parent().attr('aria-controls');
+        deleteEditor(node_id);
     })));
     $(li).insertBefore('#showAddFile');
     
@@ -149,6 +177,8 @@ var appendFile = function(param){
 
 $('.glyphicon-remove').on('click', function(e){
     e.stopPropagation();
+    var node_id = $(this).parent().attr('aria-controls');
+    deleteEditor(node_id);
 });
 
 var docName = null;
@@ -218,7 +248,9 @@ sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', f
             <li role="presentation" {{ $i++ == 0 ? 'class="active"' : '' }}>
                 <a href="#{{{ $file->node_id }}}" aria-controls="{{{ $file->node_id }}}" role="tab" data-toggle="tab">
                     {{{ $file->name }}}
-                    <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                    @if($file->name != 'main.cpp')
+                        <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                    @endif
                 </a>
             </li>
             @endforeach

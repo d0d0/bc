@@ -20,8 +20,8 @@ class SolutionHelper {
         return $solution;
     }
 
-    public static function deleteFile($id) {
-        $solution = Solution::find($id);
+    public static function deleteFile($node_id) {
+        $solution = Solution::where('node_id', '=', $node_id)->first();
         $solution->deleted = Solution::DELETED;
         $solution->save();
     }

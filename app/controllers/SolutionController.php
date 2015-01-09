@@ -26,15 +26,13 @@ class SolutionController extends BaseController {
 
     public function deletedFiles() {
         $files = Solution::where('task_id', '=', Input::all()['id'])->where('deleted', '=', Solution::DELETED)->get();
-        return View::make('subject.deleted', array(
+        return View::make('editor.deleted', array(
                     'files' => $files
         ));
     }
 
     public function deleteFile() {
-        $file = Solution::where('id', '=', Input::all()['id']);
-        $file->deleted = Solution::DELETED;
-        $file->save();
+        SolutionHelper::deleteFile(Input::all()['node_id']);
         return Response::json(array(
                     'result' => true
         ));
