@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer navbar-fixed-bottom">
+        <div class="footer navbar-fixed-bottom" style="background-color: white;">
             <div class="container">
                 <ul class="list-inline">
                     <li class="muted">
