@@ -15,9 +15,17 @@ class Task extends Eloquent {
     public function subject() {
         return $this->hasOne('Subject', 'id', 'subject_id');
     }
-    
-    public function scopeAfterStart($query){
+
+    public function scopeAfterStart($query) {
         return $query->whereRaw('start < now()');
+    }
+
+    public function scopeAfterDeadline($query) {
+        return $query->whereRaw('deadline > now()');
+    }
+
+    public function isAfterDeadline() {
+        return $this->deadline < Carbon::now();
     }
 
 }

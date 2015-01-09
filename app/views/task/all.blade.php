@@ -21,14 +21,14 @@
         </tr>
         @empty
         <tr>
-            <td>
+            <td colspan="4">
                 .Nič na zobrazenie
             </td>
         </tr>
         @endforelse
         @else
         <tr>
-            <td>
+            <td colspan="4">
                 .Nič na zobrazenie
             </td>
         </tr>

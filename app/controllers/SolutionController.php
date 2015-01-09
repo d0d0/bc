@@ -12,10 +12,16 @@ class SolutionController extends BaseController {
             SolutionHelper::addNewFile($id, 1);
         }
         $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
-        return View::make('editor.editor', array(
-                    'id' => $id,
-                    'files' => $files
-        ));
+        if (Task::find($id)->isAfterDeadline()) {
+            return View::make('editor.code', array(
+                        'files' => $files
+            ));
+        } else {
+            return View::make('editor.editor', array(
+                        'id' => $id,
+                        'files' => $files
+            ));
+        }
     }
 
     public function deletedFiles() {
