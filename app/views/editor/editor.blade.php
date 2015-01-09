@@ -32,7 +32,6 @@ dd{
 
 var editors = { };
 var docs = { };
-var manageFiles = null;
 var themelist = ace.require("ace/ext/themelist")
 var themes = themelist.themesByName;
 
@@ -51,14 +50,7 @@ var addEditor = function(node_id){
         docs[node_id] = doc;
         docs[node_id].attach_ace(editors[node_id]);
     });
-
-    sharejs.open("manageFiles:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
-        manageFilesDoc = doc;
-        manageFilesDoc.on('shout', function (msg) {
-            //addShout(msg);
-        });
-    });
-
+    
     sharejs.open("toggle:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         var toggleEditor = function () {
             editors[node_id].setReadOnly(!editors[node_id].getReadOnly());

@@ -15,6 +15,14 @@ class Subject extends Eloquent {
     protected $table = 'subjects';
     protected $fillable = array('name', 'year', 'session', 'teacher', 'created_at', 'updated_at');
 
+    public function sessionString() {
+        return $this->session == self::WINTER ? '.Zima' : '.Leto';
+    }
+
+    public function bothYears() {
+        return $this->year . ' / ' . ($this->year + 1);
+    }
+
     public function teacher() {
         return $this->hasOne('User', 'id', 'teacher');
     }

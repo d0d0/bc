@@ -48,3 +48,9 @@ Route::group(array('prefix' => 'subject'), function() {
     Route::get('/create', 'SubjectController@create');
     Route::post('/add', 'SubjectController@add');
 });
+
+Route::group(array('prefix' => 'group'), function() {
+    Route::get('/all', 'GroupController@all');
+    Route::get('/show/{id?}', 'GroupController@show');
+    Route::get('/create', 'GroupController@create');
+});
