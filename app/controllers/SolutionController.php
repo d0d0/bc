@@ -8,6 +8,12 @@
 class SolutionController extends BaseController {
 
     public function show($id = null) {
+        $rules = array(
+            'id' => 'required'
+        );
+        $data = array(
+            'id' => $id
+        );
         if (Solution::where('task_id', '=', $id)->get()->isEmpty()) {
             SolutionHelper::addNewFile($id, 1);
         }
