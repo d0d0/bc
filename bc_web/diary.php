@@ -24,16 +24,17 @@
                     <li><a href="index.php">Domov</a></li>
                     <li class="active"><a href="diary.php">Denník</a></li>
                     <li><a href="sources.php">Zdroje</a></li>
-                    <li><a href="kontakt.php">Kontakt</a></li>
                     <li><a href="plan.php">Časový plán práce</a></li>
+                    <li><a href="screenshot.php">Screenshoty</a></li>
                     <li><a href="http://62.169.176.249/bc" data-toggle="tooltip" data-placement="bottom" title="Meno do aplikácie je admin@admin.com a heslo 123456. Budem rád za každý bug report na githube!">Demo</a></li>
+                    <li><a href="kontakt.php">Kontakt</a></li>
                 </ul>
             </div>
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 8.1.2014</p>
-                    <p>Dokončil som prácu na všetkých synchrónnych veciach- editor, shoutbox.</p>
+                    <p>Dokončil som prácu na všetkých synchrónnych veciach- editor, shoutbox. Spravil som rozhranie, ktoré umožní ďalšie veľmi ľahké pridávanie častí aplikácie, ktoré majú byť synchrónne medzi užívateľmi.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
