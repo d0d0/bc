@@ -46,21 +46,11 @@ dd{
             @foreach($files as $file)
             <div role="tabpanel" class="tab-pane {{ $i++ == 0 ? 'active' : '' }}" id="{{{ $file->node_id }}}">
                 <div class="panel-body">
-                    <pre class="prettyprint lang-cc">
-                        {{{ $file->text }}}
-                    </pre>
+                    <pre class="prettyprint lang-cc">{{{ $file->text }}}</pre>
                 </div>
             </div>
             @endforeach
         </div>
     </div>
-</div>
-<div>
-    <input type="button" id="toggle" value="Toggle">
-</div>
-<div>
-    <input type="text" id="input" placeholder="Shout something&hellip;"/>
-    <input type="button" id="shout" value="shout"/>
-    <dl id="shouts" class="dl-horizontal"></dl>
 </div>
 @stop
