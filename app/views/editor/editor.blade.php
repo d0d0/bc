@@ -143,7 +143,11 @@ var appendFile = function(param){
         'aria-controls': param['node_id'],
         'role': 'tab',
         'data-toggle': 'tab',
-    }).text(param['name']).append($('<span />').attr({
+    }).text(param['name']).on('shown.bs.tab', function (e) {
+        e.target;
+        e.relatedTarget;
+        console.log('ahoj');
+      }).append($('<span />').attr({
         'class': 'glyphicon glyphicon-remove text-danger',
         'aria-hidden': 'true'
     }).on('click', function(e){
@@ -227,6 +231,12 @@ sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', f
 
     shoutOut('sa pripojil');
 });
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  e.target // newly activated tab
+  e.relatedTarget // previous active tab
+  console.log('ahoj');
+})
 @stop
 
 @section('content')
