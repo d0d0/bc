@@ -35,6 +35,12 @@ var docs = { };
 var themelist = ace.require("ace/ext/themelist")
 var themes = themelist.themesByName;
 
+var onChangeTab = function(e){
+    var id = $(e.target).attr('aria-controls');
+    editors[id].focus();
+    editors[id].navigateFileEnd();
+};
+
 var addEditor = function(node_id){
     editors[node_id] = ace.edit('editor' + node_id);
     
@@ -144,10 +150,8 @@ var appendFile = function(param){
         'role': 'tab',
         'data-toggle': 'tab',
     }).text(param['name']).on('shown.bs.tab', function (e) {
-        e.target;
-        e.relatedTarget;
-        console.log('ahoj');
-      }).append($('<span />').attr({
+        onChangeTab(e);
+    }).append($('<span />').attr({
         'class': 'glyphicon glyphicon-remove text-danger',
         'aria-hidden': 'true'
     }).on('click', function(e){
@@ -233,9 +237,7 @@ sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', f
 });
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  e.target // newly activated tab
-  e.relatedTarget // previous active tab
-  console.log('ahoj');
+  onChangeTab(e);
 })
 @stop
 
