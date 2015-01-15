@@ -158,6 +158,7 @@ var appendFile = function(param){
         e.stopPropagation();
         var node_id = $(this).parent().attr('aria-controls');
         deleteEditor(node_id);
+        return false;
     })));
     $(li).insertBefore('#showAddFile');
     
@@ -181,6 +182,7 @@ $('.glyphicon-remove').on('click', function(e){
     e.stopPropagation();
     var node_id = $(this).parent().attr('aria-controls');
     deleteEditor(node_id);
+    return false;
 });
 
 var docName = null;
@@ -238,7 +240,7 @@ sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', f
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   onChangeTab(e);
-})
+});
 @stop
 
 @section('content')
