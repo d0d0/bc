@@ -98,7 +98,6 @@ var deleteEditor = function(node_id){
         url: '{{ URL::action('SolutionController@deleteFile') }}',
         success: function(answer){
             docs[node_id].close();
-            console.log($('a[aria-controls=' + node_id + ']').attr('class'));
             if($('a[aria-controls=' + node_id + ']').parent().attr('class')){
                 $('li[role=presentation]:first-of-type').attr('class', 'active');
                 $('div[role=tabpanel]:first-of-type').attr('class', 'tab-pane active');
@@ -130,7 +129,6 @@ $('#addFileButton').on('click', function(){
             'include_header': $('#includeHeader').is(':checked')
         },
         success: function(answer){
-            console.log(answer);
             if(answer['node_id']){
                 $('#addFile').modal('hide');
                 appendFile(answer);
