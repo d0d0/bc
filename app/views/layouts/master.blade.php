@@ -33,7 +33,7 @@
                                 @if(Auth::user()->lastSubject)
                                     {{{ Auth::user()->lastSubject->name }}}
                                 @else
-                                .Aktualny predmet
+                                .Nie je vybratý žiadny predmet
                                 @endif
                                 <span class="caret"></span>
                             </a>
@@ -43,7 +43,7 @@
                                         {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
                                     </li>
                                 @empty
-                                    <li><a href="#">.Žiadny predmet</a></li>
+                                    <li><a href="javascript:void(0)">.Žiadny predmet</a></li>
                                 @endforelse
                             </ul>
                         </li>
