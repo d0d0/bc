@@ -12,7 +12,7 @@
         "iron-io/iron_mq": "dev-master",
         "liebig/cron": "dev-master",
         "venturecraft/revisionable": "1.*",
-        "laravelbook/ardent": "2.*"
+        "watson/validating": "0.*"
     },
     "autoload": {
         "classmap": [

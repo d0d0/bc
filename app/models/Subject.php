@@ -5,11 +5,10 @@
  *
  * @author Jozef Dúc
  */
-use LaravelBook\Ardent\Ardent;
+class Subject extends Eloquent {
 
-class Subject extends Ardent {
-
-    use \Venturecraft\Revisionable\RevisionableTrait;
+    use \Venturecraft\Revisionable\RevisionableTrait,
+        \Watson\Validating\ValidatingTrait;
 
     const WINTER = 0;
     const SUMMER = 1;
@@ -23,7 +22,7 @@ class Subject extends Ardent {
         'created_at',
         'updated_at'
     );
-    public static $rules = array(
+    protected $rules = array(
         'name' => 'required',
         'year' => 'required|integer|min:2010',
         'session' => 'required|in:0,1',

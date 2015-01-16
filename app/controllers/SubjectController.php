@@ -27,7 +27,7 @@ class SubjectController extends BaseController {
                             ->with('message', '.Predmet vytvorený');
         }
         return Redirect::back()
-                        ->withErrors($subject->errors())
+                        ->withErrors($subject->getErrors())
                         ->withInput($input);
     }
 

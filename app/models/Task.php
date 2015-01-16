@@ -5,11 +5,10 @@
  *
  * @author Jozef Dúc
  */
-use LaravelBook\Ardent\Ardent;
+class Task extends Eloquent {
 
-class Task extends Ardent {
-
-    use \Venturecraft\Revisionable\RevisionableTrait;
+    use \Venturecraft\Revisionable\RevisionableTrait,
+        \Watson\Validating\ValidatingTrait;
 
     protected $table = 'tasks';
     protected $fillable = array(
@@ -23,7 +22,7 @@ class Task extends Ardent {
         'created_at',
         'updated_at'
     );
-    public static $rules = array(
+    protected $rules = array(
         'name' => 'required',
         'start' => 'required|date',
         'deadline' => 'required|date',
