@@ -9,8 +9,8 @@
                 {{ Form::label('name', '.meno') }}
             </div>
             <div class="col-md-9">
-                {{Form::text('name', '',array('class'=>'form-control', 'placeholder' => '.meno'))}}
-                @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
+                {{ Form::text('name', '', array('class'=>'form-control', 'placeholder' => '.meno')) }}
+                {{ Form::errorMsg('name') }}
             </div>
         </div>
         <div class="form-group {{ $errors->has('year') ? "has-error" : "" }}">
@@ -18,8 +18,8 @@
                 {{ Form::label('year', '.rok') }}
             </div>
             <div class="col-md-9">
-                {{Form::text('year', '',array('class'=>'form-control', 'placeholder' => '.rok'))}}
-                @if ($errors->has('year')) <p class="help-block">{{ $errors->first('year') }}</p> @endif
+                {{ Form::text('year', '', array('class'=>'form-control', 'placeholder' => '.rok')) }}
+                {{ Form::errorMsg('year') }}
             </div>
         </div>
         <div class="form-group {{ $errors->has('session') ? "has-error" : "" }}">
@@ -31,7 +31,7 @@
                             Subject::WINTER => '.zimny',
                             Subject::SUMMER => '.letny'),
                     '', array('class' => 'form-control')) }}
-                @if ($errors->has('session')) <p class="help-block" style="margin-bottom: 0px;">{{ $errors->first('session') }}</p> @endif
+                {{ Form::errorMsg('session') }}
             </div>
         </div>
         <div class="form-group {{ $errors->has('teacher') ? "has-error" : "" }}">
@@ -44,7 +44,7 @@
                     <option value="{{ $user->id }}">{{{ $user->getSurnameName() }}}</option>
                     @endforeach
                 </select>
-                @if ($errors->has('teacher')) <p class="help-block" style="margin-bottom: 0px;">{{ $errors->first('teacher') }}</p> @endif
+                {{ Form::errorMsg('teacher') }}
             </div>
         </div>
         {{Form::submit('.vytvor', array('class'=>'btn btn-default'))}}
