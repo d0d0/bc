@@ -42,14 +42,18 @@ Route::group(array('before' => 'auth'), function() {
         Route::get('/all', 'TaskController@all');
         Route::get('/show/{id?}', 'TaskController@show');
         Route::get('/create', 'TaskController@create');
-        Route::post('/add', 'TaskController@add');
+        Route::group(array('before' => 'csrf'), function() {
+            Route::post('/add', 'TaskController@add');
+        });
     });
 
     Route::group(array('prefix' => 'subject'), function() {
         Route::get('/all', 'SubjectController@all');
         Route::get('/show/{id?}', 'SubjectController@show');
         Route::get('/create', 'SubjectController@create');
-        Route::post('/add', 'SubjectController@add');
+        Route::group(array('before' => 'csrf'), function() {
+            Route::post('/add', 'SubjectController@add');
+        });
     });
 
     Route::group(array('prefix' => 'group'), function() {

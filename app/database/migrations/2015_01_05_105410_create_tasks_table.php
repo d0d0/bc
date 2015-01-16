@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration {
             $table->string('name');
             $table->longText('text');
             $table->longText('test');
+            $table->integer('groupsize');
             $table->timestamp('start');
             $table->timestamp('deadline');
             $table->timestamps();

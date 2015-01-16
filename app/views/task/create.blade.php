@@ -54,14 +54,16 @@ $('#save').on('click', function(e){
     }
     var l = Ladda.create(this);
     l.start();
+    $(this).removeClass('btn-danger').addClass('btn-primary');
     $.ajax({
-        url: '{{ URL::action('TaskController@add')}}',
+        url: '{{ URL::action('TaskController@add') }}',
         method: 'post',
         dataType: 'json',
         data: {
             'name': $('#name').val(),
             'start': $('#start').val(),
             'deadline': $('#deadline').val(),
+            'groupsize': $('#groupsize').val(),
             'text': $('.summernote').code(),
             'test': editor.getSession().getValue(),
         },
@@ -74,10 +76,13 @@ $('#save').on('click', function(e){
                 editor.setValue('', -1);
                 $('.summernote').summernote().code('');
             }else{
-                
+                $('#save').removeClass('btn-primary').addClass('btn-danger');
             }
             l.stop();
-            
+        },
+        error: function(){
+            $('#save').removeClass('btn-primary').addClass('btn-danger');
+            l.stop();
         }
     });
 });
@@ -112,6 +117,12 @@ $('#save').on('click', function(e){
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="groupsize" class="col-md-1 control-label">{{ Lang::get('article.groupsize') }}</label>
+            <div class="col-md-11">
+                <input type="text" id="groupsize" placeholder="{{ Lang::get('article.groupsize') }}" class="form-control" value="{{ $article->title or ''}}">
             </div>
         </div>
         <div class="form-group">

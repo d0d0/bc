@@ -5,6 +5,7 @@
         <title>BC</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="_token" content="{{ csrf_token() }}">
         {{ HTML::style('css/bootstrap.min.css') }}
         {{ HTML::style('css/bootstrap-minimit.min.css') }}
         {{ HTML::script('js/jquery.min.js') }}
@@ -15,6 +16,16 @@
         </style>
         <script>
             $(document).ready(function () {
+                $.ajaxSetup({
+                    statusCode: {
+                        401: function(){
+                            location.href = '{{ URL::action('HomeController@showWelcome') }}';
+                        }
+                    },
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                    }
+                });
                 @yield('ready_js')
             });
         </script>
