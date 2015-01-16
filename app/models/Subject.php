@@ -5,7 +5,9 @@
  *
  * @author Jozef Dúc
  */
-class Subject extends Model {
+use LaravelBook\Ardent\Ardent;
+
+class Subject extends Ardent {
 
     use \Venturecraft\Revisionable\RevisionableTrait;
 
@@ -21,16 +23,12 @@ class Subject extends Model {
         'created_at',
         'updated_at'
     );
-
-    public function __construct(array $attributes = array()) {
-        parent::__construct($attributes);
-        parent::$rules = array(
-            'name' => 'required',
-            'year' => 'required|integer|min:2010',
-            'session' => 'required|in:' . self::WINTER . ',' . self::SUMMER,
-            'teacher' => 'required|exists:users,id,teacher,' . User::TEACHER
-        );
-    }
+    public static $rules = array(
+        'name' => 'required',
+        'year' => 'required|integer|min:2010',
+        'session' => 'required|in:0,1',
+        'teacher' => 'required|exists:users,id,teacher,1'
+    );
 
     public function sessionString() {
         return $this->session == self::WINTER ? '.Zima' : '.Leto';

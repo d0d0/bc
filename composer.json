@@ -11,7 +11,8 @@
         "nesbot/Carbon": "*",
         "iron-io/iron_mq": "dev-master",
         "liebig/cron": "dev-master",
-        "venturecraft/revisionable": "1.*"
+        "venturecraft/revisionable": "1.*",
+        "laravelbook/ardent": "2.*"
     },
     "autoload": {
         "classmap": [
