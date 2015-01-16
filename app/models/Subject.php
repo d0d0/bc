@@ -5,7 +5,7 @@
  *
  * @author Jozef Dúc
  */
-class Subject extends Eloquent {
+class Subject extends Model {
 
     use \Venturecraft\Revisionable\RevisionableTrait;
 
@@ -13,7 +13,25 @@ class Subject extends Eloquent {
     const SUMMER = 1;
 
     protected $table = 'subjects';
-    protected $fillable = array('name', 'year', 'session', 'teacher', 'created_at', 'updated_at');
+    protected $fillable = array(
+        'name',
+        'year',
+        'session',
+        'teacher',
+        'created_at',
+        'updated_at'
+    );
+
+    public function __construct(array $attributes = array()) {
+
+        parent::__construct($attributes);
+        parent::$rules = array(
+            'name' => 'required',
+            'year' => 'required|integer|min:2010',
+            'session' => 'required|in:' . self::WINTER . ',' . self::SUMMER,
+            'teacher' => 'required|exists:users,id,teacher,' . User::TEACHER
+        );
+    }
 
     public function sessionString() {
         return $this->session == self::WINTER ? '.Zima' : '.Leto';

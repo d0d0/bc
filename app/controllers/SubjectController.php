@@ -21,20 +21,13 @@ class SubjectController extends BaseController {
 
     public function add() {
         $input = Input::all();
-        $rules = array(
-            'name' => 'required',
-            'year' => 'required|integer|min:2010',
-            'session' => 'required|in:' . Subject::WINTER . ',' . Subject::SUMMER,
-            'teacher' => 'required|exists:users,id,teacher,' . User::TEACHER
-        );
-        $validator = Validator::make($input, $rules);
-        if ($validator->passes()) {
-            Subject::create($input);
+        $subject = new Subject($input);
+        if ($subject->save()) {
             return Redirect::action('SubjectController@create')
                             ->with('message', '.Predmet vytvorený');
         }
         return Redirect::back()
-                        ->withErrors($validator)
+                        ->withErrors($subject->getErrors())
                         ->withInput($input);
     }
 
