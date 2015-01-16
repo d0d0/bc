@@ -22,20 +22,11 @@ class TaskController extends BaseController {
     public function add() {
         if (Request::ajax()) {
             $input = Input::all();
-            $rules = array(
-                'name' => 'required',
-                'start' => 'required|date_format:"d.m.Y H:i"',
-                'deadline' => 'required|date_format:"d.m.Y H:i"',
-                'groupsize' => 'required|integer|min:1"',
-                'text' => 'required',
-                'test' => 'required',
-            );
-            $validator = Validator::make($input, $rules);
-            if ($validator->passes()) {
-                $input['subject_id'] = Auth::user()->last_subject;
-                $input['start'] = date('Y-m-d H:i', strtotime($input['start']));
-                $input['deadline'] = date('Y-m-d H:i', strtotime($input['deadline']));
-                Task::create($input);
+            $input['subject_id'] = Auth::user()->last_subject;
+            $input['start'] = date('Y-m-d H:i', strtotime($input['start']));
+            $input['deadline'] = date('Y-m-d H:i', strtotime($input['deadline']));
+            $task = new Task($input);
+            if ($task->save()) {
                 $input['result'] = true;
                 return Response::json($input);
             }

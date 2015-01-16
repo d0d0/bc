@@ -23,7 +23,6 @@ class Subject extends Model {
     );
 
     public function __construct(array $attributes = array()) {
-
         parent::__construct($attributes);
         parent::$rules = array(
             'name' => 'required',
