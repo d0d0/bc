@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_token" content="{{ csrf_token() }}">
+        <meta name="google-site-verification" content="kGfEFmvh8xmM3nq7DcZQv5uprQcbqHnKwSNOFbIIvRw" />
         {{ HTML::style('css/bootstrap.min.css') }}
         {{ HTML::style('css/bootstrap-minimit.min.css') }}
         {{ HTML::script('js/jquery.min.js') }}
