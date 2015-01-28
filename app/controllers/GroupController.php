@@ -5,7 +5,7 @@
  *
  * @author Jozef Dúc
  */
-class GroupController {
+class GroupController extends BaseController {
 
     public function show($id = null) {
         return View::make('group.show');
