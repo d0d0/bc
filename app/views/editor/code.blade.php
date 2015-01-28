@@ -11,13 +11,19 @@ dd{
     word-wrap: break-word;
 }
 
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+
+.collapsed > a:after {
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+    -ms-transform: rotate(-90deg); 
+    -o-transform: rotate(90deg); 
+    transform: rotate(-90deg);
 }
 @stop
 
@@ -26,6 +32,16 @@ dd{
 @stop
 
 @section('content')
+<div class="panel panel-default noselect">
+    <div class="panel-heading" data-toggle="collapse" data-target="#collapseOne">
+        <a href="javascript:void(0);">{{ $task->name }}</a>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+        <div class="panel-body">
+            {{ $task->text }}
+        </div>
+    </div>
+</div>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Editor</h3>

@@ -69,6 +69,7 @@ $('#save').on('click', function(e){
                 $('#name').val('');
                 $('#start').val('');
                 $('#deadline').val('');
+                $('#groupsize').val('');
                 editor.setValue('', -1);
                 $('.summernote').summernote().code('');
             }else{

@@ -25,7 +25,7 @@ class Task extends Eloquent {
     protected $rules = array(
         'name' => 'required',
         'start' => 'required|date',
-        'deadline' => 'required|date',
+        'deadline' => 'required|date|after:start',
         'groupsize' => 'required|integer|min:1"',
         'text' => 'required',
         'test' => 'required',
@@ -45,6 +45,14 @@ class Task extends Eloquent {
 
     public function isAfterDeadline() {
         return $this->deadline < Carbon::now();
+    }
+    
+    public function formattedStart(){
+        return Carbon::parse($this->start)->format('d.m.Y H:i');
+    }
+    
+    public function formattedDeadline(){
+        return Carbon::parse($this->deadline)->format('d.m.Y H:i');
     }
 
 }

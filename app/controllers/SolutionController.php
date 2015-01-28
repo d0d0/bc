@@ -8,24 +8,21 @@
 class SolutionController extends BaseController {
 
     public function show($id = null) {
-        $rules = array(
-            'id' => 'required'
-        );
-        $data = array(
-            'id' => $id
-        );
         if (Solution::where('task_id', '=', $id)->get()->isEmpty()) {
             SolutionHelper::addNewFile($id, 1);
         }
         $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
-        if (Task::find($id)->isAfterDeadline()) {
+        $task = Task::find($id);
+        if ($task->isAfterDeadline()) {
             return View::make('editor.code', array(
-                        'files' => $files
+                        'files' => $files,
+                        'task' => $task
             ));
         } else {
             return View::make('editor.editor', array(
                         'id' => $id,
-                        'files' => $files
+                        'files' => $files,
+                        'task' => $task
             ));
         }
     }

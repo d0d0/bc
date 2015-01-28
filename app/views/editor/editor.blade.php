@@ -18,18 +18,23 @@ dd{
     word-wrap: break-word;
 }
 
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+
+.collapsed > a:after {
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+    -ms-transform: rotate(-90deg); 
+    -o-transform: rotate(90deg); 
+    transform: rotate(-90deg);
 }
 @stop
 
 @section('ready_js')
-
 var editors = { };
 var docs = { };
 var themelist = ace.require("ace/ext/themelist")
@@ -237,11 +242,21 @@ sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', f
 });
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-  onChangeTab(e);
+    onChangeTab(e);
 });
 @stop
 
 @section('content')
+<div class="panel panel-default noselect">
+    <div class="panel-heading" data-toggle="collapse" data-target="#collapseOne">
+        <a href="javascript:void(0);">{{ $task->name }}</a>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+        <div class="panel-body">
+            {{ $task->text }}
+        </div>
+    </div>
+</div>
 {{ Form::hidden('id', $id) }}
 <div class="panel panel-default">
     <div class="panel-heading">
