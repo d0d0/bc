@@ -12,7 +12,7 @@
         <div class="form-group">
             <label for="name" class="col-md-1 control-label">{{ Lang::get('article.name') }}</label>
             <div class="col-md-11">
-                <input type="text" id="name" placeholder="{{ Lang::get('article.name') }}" class="form-control" value="{{ $article->title or ''}}">
+                <input type="text" id="name" placeholder="{{ Lang::get('article.name') }}" class="form-control" value="">
             </div>
         </div>
         <div class="form-group">

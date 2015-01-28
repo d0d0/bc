@@ -24,7 +24,7 @@ height: 300px;
 var last_subject  = '{{ Auth::user()->last_subject ? Auth::user()->last_subject : '' }}';
 $('.summernote').summernote({
     height: 300
-}).code('{{ $article->text or '' }}');
+});
 
 var editor = ace.edit("editor");
     editor.setOptions({
@@ -91,7 +91,7 @@ $('#save').on('click', function(e){
         <div class="form-group">
             <label for="name" class="col-md-1 control-label">{{ Lang::get('article.name') }}</label>
             <div class="col-md-11">
-                <input type="text" id="name" placeholder="{{ Lang::get('article.name') }}" class="form-control" value="{{ $article->title or ''}}">
+                <input type="text" id="name" placeholder="{{ Lang::get('article.name') }}" class="form-control">
             </div>
         </div>
         <div class="form-group">
@@ -119,7 +119,7 @@ $('#save').on('click', function(e){
         <div class="form-group">
             <label for="groupsize" class="col-md-1 control-label">{{ Lang::get('article.groupsize') }}</label>
             <div class="col-md-11">
-                <input type="text" id="groupsize" placeholder="{{ Lang::get('article.groupsize') }}" class="form-control" value="{{ $article->title or ''}}">
+                <input type="text" id="groupsize" placeholder="{{ Lang::get('article.groupsize') }}" class="form-control">
             </div>
         </div>
         <div class="form-group">
