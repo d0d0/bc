@@ -33,6 +33,11 @@
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 27.1.2014</p>
+                    <p>Vybral som si vhodný framework na UnitTesty (gtest) a podarilo sa mi skompilovať a odchytiť výsledky z prvého testu.</p>
+                </div>
+                <div class="thumbnail">
+                    <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 8.1.2014</p>
                     <p>Dokončil som prácu na všetkých synchrónnych veciach- editor, shoutbox. Spravil som rozhranie, ktoré umožní ďalšie veľmi ľahké pridávanie častí aplikácie, ktoré majú byť synchrónne medzi užívateľmi.</p>
                 </div>
