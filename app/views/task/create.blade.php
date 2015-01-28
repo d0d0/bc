@@ -35,11 +35,7 @@ editor.setTheme("ace/theme/merbivore");
 editor.getSession().setMode("ace/mode/c_cpp");
 editor.$blockScrolling = Infinity;
 
-$('#deadline').datetimepicker({
-    language: 'sk',
-});
-
-$('#start').datetimepicker({
+$('.date').datetimepicker({
     language: 'sk',
 });
 
