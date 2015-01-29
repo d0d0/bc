@@ -117,7 +117,6 @@
             @endif
         </div>
         {{ File::get('/var/www/test.html') }}
-        {{ File::delete('/var/www/test.html') }}
         @yield('last')
     </body>
 </html>
