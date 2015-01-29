@@ -116,6 +116,7 @@
             @yield('content')
             @endif
         </div>
+        {{ shell_exec('/home/pi/gtest-svn/samples/main --gtest_color=yes | sh /home/pi/gtest-svn/samples/ansi2html.sh > /var/www/test.html'); }}
         {{ File::get('/var/www/test.html') }}
         .Info o kompilátore
         {{ shell_exec('g++ --version') }}
