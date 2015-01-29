@@ -34,7 +34,7 @@
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.1.2014</p>
-                    <p>Spustenie testu online z php a vypísanie jeho naformátovaných výsledkov. V ďalšej fáze bude skompilovanie programu z php.</p>
+                    <p>Spustenie testu online z php a vypísanie jeho naformátovaných výsledkov. V ďalšej fáze bude skompilovanie programu z php. Keďže skripty už mám pripravené, tak by to nemalo byť náročné.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
