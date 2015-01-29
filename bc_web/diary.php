@@ -33,8 +33,13 @@
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.1.2014</p>
+                    <p>Spustenie testu online z php a vypísanie jeho naformátovaných výsledkov. V ďalšej fáze bude skompilovanie programu z php.</p>
+                </div>
+                <div class="thumbnail">
+                    <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 27.1.2014</p>
-                    <p>Vybral som si vhodný framework na UnitTesty (gtest) a podarilo sa mi skompilovať a odchytiť výsledky z prvého testu.</p>
+                    <p>Vybral som si vhodný framework na UnitTesty (gtest) a podarilo sa mi skompilovať a odchytiť výsledky z prvého testu cez konzolu.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
