@@ -3,7 +3,7 @@
 @section('center')
 <div class="col-md-6 col-md-offset-3" style="margin-top: 5em">
     {{ Form::open(array('action' => 'LoginController@postLogin', 'class' => 'form-horizontal', 'method' => 'post', 'role' => 'form')) }}
-    <div class="form-group thumbnail" type="clanok">
+    <div class="form-group thumbnail">
         <div class="form-group {{ $errors->has('email') ? "has-error" : "" }}">
             <div class="col-md-3">
                 {{ Form::label('email', '.email') }}

@@ -3,7 +3,7 @@
 @section('center')
 <div class="col-md-6 col-md-offset-3">
     {{ Form::open(array('action' => 'RemindersController@postRemind', 'class' => 'form-horizontal', 'method' => 'post', 'role' => 'form')) }}
-    <div class="form-group thumbnail" type="clanok">
+    <div class="form-group thumbnail">
         <div class="form-group">
             <div class="col-md-3">
                 {{ Form::label('email', Lang::get('common.email')) }}

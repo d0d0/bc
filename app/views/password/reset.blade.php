@@ -4,7 +4,7 @@
 <div class="col-md-6 col-md-offset-3">
     {{ Form::open(array('action' => 'RemindersController@postReset', 'class' => 'form-horizontal', 'method' => 'post', 'role' => 'form')) }}
     {{ Form::hidden('token', $token) }}     
-    <div class="form-group thumbnail" type="clanok">
+    <div class="form-group thumbnail">
         <div class="form-group">
             <div class="col-md-3">
                 {{ Form::label('email', Lang::get('common.email')) }}
