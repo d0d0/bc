@@ -118,7 +118,7 @@
         </div>
         {{ File::get('/var/www/test.html') }}
         .Info o kompilátore
-        {{ exec('g++ --version') }}
+        {{ shell_exec('g++ --version') }}
         @yield('last')
     </body>
 </html>
