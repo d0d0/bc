@@ -116,7 +116,7 @@
             @yield('content')
             @endif
         </div>
-        {{ File::get('/home/pi/gtest-svn/test.html') }}
+        {{ File::get('/var/www/test.html') }}
         @yield('last')
     </body>
 </html>
