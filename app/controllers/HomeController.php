@@ -15,7 +15,6 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
-        set_time_limit(0);
         /* exec('g++ /var/www/main.cpp -o /var/www/programname.out >& /var/www/error.log', $result);
           if ($result) {
           dd($result);
