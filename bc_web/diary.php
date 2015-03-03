@@ -32,6 +32,11 @@
             </div>
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
+                    <h3>Písanie textu</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 3.3.2014</p>
+                    <p>Začal som písať text k bc. Pred minulotýždňovým stretnutím so školiteľom som si pripravil zopár kľúčových fráz, ktoré by mohli tvoriť kapitoly a podkapitoly. So školiteľom sme ich prebrali vylúčili sme tie, ktoré boli veľmi všeobecné a naopak popridávali sme nové, ktoré sa viac hodia a sú zaujímavejšie. Zároveň som sa rozhodol, že do najbližšieho stretnutia budem mať hotovú takmer celú aplikáciu, aby som mohol navrhnúť školiteľovi na odskúšanie reálne na jeho predmete.</p>
+                </div>
+                <div class="thumbnail">
                     <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.1.2014</p>
                     <p>Dokončená práca na kompilovaní a vypisovaní výsledkov testov. V ďalšej časti treba vytvoriť zadávanie testov a preniesť funkcionalitu testovania na virtuálny stroj pre zabezpečenie servera.</p>
