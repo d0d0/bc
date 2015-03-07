@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@showWelcome');
 
+Route::get('/compiler', 'CompilerController@run');
+
 Route::group(array('before' => 'guest'), function() {
     Route::get('/login', 'LoginController@getLogin');
     Route::post('/login', 'LoginController@postLogin');
