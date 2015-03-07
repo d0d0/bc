@@ -5,7 +5,7 @@
  *
  * @author Jozef
  */
-class CompilerController {
+class CompilerController extends BaseController{
 
     public function run() {
         File::delete('/home/pi/gtest-svn/samples/');
