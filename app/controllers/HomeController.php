@@ -28,10 +28,10 @@ class HomeController extends BaseController {
           exec('/var/www/programname.out', $result);
           dd($result);
          */
-        exec('g++ -I/home/pi/gtest-svn/include -L/home/pi/gtest-svn/  /home/pi/gtest-svn/src/gtest_main.cc /home/pi/gtest-svn/samples/sample1.cc /home/pi/gtest-svn/samples/sample1_unittest.cc -lgtest -lpthread -o /home/pi/gtest-svn/samples/main', $result);
+        /*exec('g++ -I/home/pi/gtest-svn/include -L/home/pi/gtest-svn/  /home/pi/gtest-svn/src/gtest_main.cc /home/pi/gtest-svn/samples/sample1.cc /home/pi/gtest-svn/samples/sample1_unittest.cc -lgtest -lpthread -o /home/pi/gtest-svn/samples/main', $result);
         if ($result) {
             dd($result);
-        }
+        }*/
         File::put('/var/www/test.html', '');
         if (Auth::check()) {
             return Redirect::action('TaskController@all');
