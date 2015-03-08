@@ -7,19 +7,18 @@
  */
 class SolutionHelper {
 
-    public static function addNewFile($task_id, $group_id, $name = null, $include_header = null, $text = null) {
-        $data = array(
-            'name' => $name ? $name : 'main.cpp',
-            'group_id' => $group_id,
-            'task_id' => $task_id,
-            'text' => $text ? $text : '',
-            'node_id' => self::getRandomName()
-        );
-        $solution = Solution::create($data);
-        if($include_header){
-            
+    public static function addNewFile($task_id, $group_id) {
+        $defaultFiles = TaskFile::where('task_id', '=', $task_id)->get();
+        foreach ($defaultFiles as $file) {
+            $data = array(
+                'name' => $file->file_name,
+                'group_id' => $group_id,
+                'task_id' => $task_id,
+                'text' => $file->text,
+                'node_id' => self::getRandomName()
+            );
+            Solution::create($data);
         }
-        return $solution;
     }
 
     public static function deleteFile($node_id) {

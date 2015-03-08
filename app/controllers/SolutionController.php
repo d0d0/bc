@@ -8,8 +8,10 @@
 class SolutionController extends BaseController {
 
     public function show($id = null) {
+        $new = false;
         if (Solution::where('task_id', '=', $id)->get()->isEmpty()) {
             SolutionHelper::addNewFile($id, 1);
+            $new = true;
         }
         $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
         $task = Task::find($id);
@@ -22,7 +24,8 @@ class SolutionController extends BaseController {
             return View::make('editor.editor', array(
                         'id' => $id,
                         'files' => $files,
-                        'task' => $task
+                        'task' => $task,
+                        'new' => $new
             ));
         }
     }
@@ -34,17 +37,15 @@ class SolutionController extends BaseController {
         ));
     }
 
+    public function getText() {
+        return Response::json(Solution::where('node_id', '=', Input::get('node_id'))->select('text')->get());
+    }
+
     public function deleteFile() {
         SolutionHelper::deleteFile(Input::all()['node_id']);
         return Response::json(array(
                     'result' => true
         ));
-    }
-
-    public function addFile() {
-        if (Request::ajax()) {
-            return Response::json(SolutionHelper::addNewFile(Input::all()['id'], 1, Input::all()['name'], Input::all()['include_header']));
-        }
     }
 
 }

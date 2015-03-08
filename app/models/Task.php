@@ -15,7 +15,6 @@ class Task extends Eloquent {
         'subject_id',
         'name',
         'text',
-        'test',
         'start',
         'deadline',
         'groupsize',
@@ -28,7 +27,6 @@ class Task extends Eloquent {
         'deadline' => 'required|date|after:start',
         'groupsize' => 'required|integer|min:1"',
         'text' => 'required',
-        'test' => 'required',
     );
 
     public function subject() {
@@ -46,13 +44,21 @@ class Task extends Eloquent {
     public function isAfterDeadline() {
         return $this->deadline < Carbon::now();
     }
-    
-    public function formattedStart(){
+
+    public function formattedStart() {
         return Carbon::parse($this->start)->format('d.m.Y H:i');
     }
-    
-    public function formattedDeadline(){
+
+    public function formattedDeadline() {
         return Carbon::parse($this->deadline)->format('d.m.Y H:i');
+    }
+
+    public function files() {
+        return TaskFile::where('task_id', '=', $this->id);
+    }
+    
+    public function blocks(){
+        return Block::where('task_id', '=', $this->id);
     }
 
 }

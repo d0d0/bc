@@ -60,6 +60,19 @@ var addEditor = function(node_id){
     sharejs.open("code:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
         docs[node_id] = doc;
         docs[node_id].attach_ace(editors[node_id]);
+        @if($new)
+            $.ajax({
+                url: '{{ URL::action('SolutionController@getText') }}',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    'node_id': node_id
+                },
+                success: function(data){
+                    editors[node_id].setValue(data[0]['text'], 1);
+                }
+            });
+        @endif
     });
     
     sharejs.open("toggle:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
@@ -92,56 +105,6 @@ var addEditor = function(node_id){
     });
 };
 
-var deleteEditor = function(node_id){
-    $.ajax({
-        method: 'post',
-        url: '{{ URL::action('SolutionController@deleteFile') }}',
-        dataType: 'json',
-        data: {
-            'node_id': node_id
-        },
-        url: '{{ URL::action('SolutionController@deleteFile') }}',
-        success: function(answer){
-            docs[node_id].close();
-            if($('a[aria-controls=' + node_id + ']').parent().attr('class')){
-                $('li[role=presentation]:first-of-type').attr('class', 'active');
-                $('div[role=tabpanel]:first-of-type').attr('class', 'tab-pane active');
-            }
-            $('#' + node_id).remove();
-            $('a[aria-controls=' + node_id + ']').parent().remove();
-        }
-    });
-}
-
-$('#showDeleted').on('click', function(){
-    $('#deletedFilesBody').load('{{ URL::action('SolutionController@deletedFiles')}}', { 'id': '{{ $id }}' }, function(){
-        $('#deletedFiles').modal('show');
-    });
-});
-
-$('#showAddFile').on('click', function(){
-    $('#addFile').modal('show');
-});
-
-$('#addFileButton').on('click', function(){
-    $.ajax({
-        method: 'post',
-        url: '{{ URL::action('SolutionController@addFile')}}',
-        dataType : 'json',
-        data : {
-            'id': $('input[name=id]').val(),
-            'name': $('#filename').val(),
-            'include_header': $('#includeHeader').is(':checked')
-        },
-        success: function(answer){
-            if(answer['node_id']){
-                $('#addFile').modal('hide');
-                appendFile(answer);
-            }
-        }
-    });
-});
-
 var appendFile = function(param){
     $('li[role=presentation]').removeClass('active');
     var li = $('<li />').attr({
@@ -163,7 +126,7 @@ var appendFile = function(param){
         deleteEditor(node_id);
         return false;
     })));
-    $(li).insertBefore('#showAddFile');
+    $('.nav-tabs').append(li);
     
     $('div[role=tabpanel]').removeClass('active');
     var div = $('<div />').attr({
@@ -180,13 +143,6 @@ var appendFile = function(param){
     
     addEditor(param['node_id']);
 };
-
-$('.glyphicon-remove').on('click', function(e){
-    e.stopPropagation();
-    var node_id = $(this).parent().attr('aria-controls');
-    deleteEditor(node_id);
-    return false;
-});
 
 var docName = null;
 @foreach($files as $file)
@@ -269,22 +225,9 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             <li role="presentation" {{ $i++ == 0 ? 'class="active"' : '' }}>
                 <a href="#{{{ $file->node_id }}}" aria-controls="{{{ $file->node_id }}}" role="tab" data-toggle="tab">
                     {{{ $file->name }}}
-                    @if($file->name != 'main.cpp')
-                        <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
-                    @endif
                 </a>
             </li>
             @endforeach
-            <li role="presentation" class="noselect" id="showAddFile">
-                <a>
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </a>
-            </li>
-            <li role="presentation" class="pull-right" id="showDeleted">
-                <a href="javascript:void(0)">
-                    .Obnoviť súbory
-                </a>
-            </li>
         </ul>
         <div class="tab-content">
             <?php $i = 0; ?>
@@ -305,47 +248,5 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     <input type="text" id="input" placeholder="Shout something&hellip;"/>
     <input type="button" id="shout" value="shout"/>
     <dl id="shouts" class="dl-horizontal"></dl>
-</div>
-<div class="modal fade" id="deletedFiles" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">.Súbory na obnovenie</h4>
-            </div>
-            <div class="modal-body" id="deletedFilesBody"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="deletedFilesButton">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="addFile" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">.Pridanie súboru</h4>
-            </div>
-            <div class="modal-body" id="addFileBody">
-                <form role="form">
-                    <div class="form-group">
-                        <label for="recipient-name" class="control-label">{{ Lang::get('article.filename') }}:</label>
-                        <input type="text" class="form-control" id="filename">
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="includeHeader"> .include header
-                        </label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addFileButton">Save changes</button>
-            </div>
-        </div>
-    </div>
 </div>
 @stop

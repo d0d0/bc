@@ -43,6 +43,28 @@ class TaskController extends BaseController {
                 $task = new Task($input);
                 if ($task->save()) {
                     $input['result'] = true;
+                    $filesforRevert = [];
+                    foreach ($input['files'] as $file) {
+                        $taskFileData = array(
+                            'file_name' => $file['name'],
+                            'task_id' => $task->id,
+                            'text' => $file['text'],
+                        );
+                        $taskFile = new TaskFile($taskFileData);
+                        if ($taskFile->save()) {
+                            $filesforRevert[] = $taskFile->id;
+                        } else {
+                            try {
+                                TaskFile::whereIn('id', $filesforRevert)->delete();
+                            } catch (Exception $exc) {
+                                
+                            }
+                            $task->delete();
+                            return Response::json(array(
+                                        'result' => false
+                            ));
+                        }
+                    }
                     return Response::json($input);
                 }
                 return Response::json($task->getErrors());
