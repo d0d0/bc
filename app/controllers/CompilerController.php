@@ -11,10 +11,10 @@ class CompilerController extends BaseController {
         if (File::exists('/home/jduc/gtest-svn/samples/main')) {
             File::delete('/home/jduc/gtest-svn/samples/main');
         }
-        if (File::exists('/var/www/test.html')) {
-            File::delete('/var/www/test.html');
+        if (File::exists(storage_path().'/test.html')) {
+            File::delete(storage_path().'/test.html');
         }
-        File::put('/var/www/test.html', '');
+        File::put(storage_path().'/test.html', '');
         return View::make('compiler.compiler');
     }
 
