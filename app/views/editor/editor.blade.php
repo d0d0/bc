@@ -57,7 +57,7 @@ var addEditor = function(node_id){
     editors[node_id].getSession().setMode("ace/mode/c_cpp");
     editors[node_id].$blockScrolling = Infinity;
 
-    sharejs.open("code:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+    sharejs.open("code:" + node_id, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
         docs[node_id] = doc;
         docs[node_id].attach_ace(editors[node_id]);
         @if($new)
@@ -75,7 +75,7 @@ var addEditor = function(node_id){
         @endif
     });
     
-    sharejs.open("toggle:" + node_id, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+    sharejs.open("toggle:" + node_id, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
         var toggleEditor = function () {
             editors[node_id].setReadOnly(!editors[node_id].getReadOnly());
             if (editors[node_id].getReadOnly()) {
@@ -149,7 +149,7 @@ var docName = null;
     addEditor('{{{ $file->node_id }}}');
 @endforeach
 
-sharejs.open("shout:" + docName, 'text', 'http://62.169.176.249:8000/channel', function (error, doc) {
+sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
     function addShout(msg) {
         var dt = $('<dt />').text(msg.name);
         var dd = $('<dd />').text(msg.text);
