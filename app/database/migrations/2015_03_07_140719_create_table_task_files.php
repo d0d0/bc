@@ -15,7 +15,7 @@ class CreateTableTaskFiles extends Migration {
             $table->increments('id')->unsigned();
             $table->integer('task_id')->unsigned();
             $table->foreign('task_id')->references('id')->on('tasks');
-            $table->string('file_name');
+            $table->string('name');
             $table->longtext('text');
             $table->timestamps();
         });

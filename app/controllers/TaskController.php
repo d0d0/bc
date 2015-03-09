@@ -46,7 +46,7 @@ class TaskController extends BaseController {
                     $filesforRevert = [];
                     foreach ($input['files'] as $file) {
                         $taskFileData = array(
-                            'file_name' => $file['name'],
+                            'name' => $file['name'],
                             'task_id' => $task->id,
                             'text' => $file['text'],
                         );

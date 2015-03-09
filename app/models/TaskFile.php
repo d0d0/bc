@@ -13,14 +13,14 @@ class TaskFile extends Eloquent {
     protected $table = 'task_files';
     protected $fillable = array(
         'task_id',
-        'file_name',
+        'name',
         'text',
         'created_at',
         'updated_at'
     );
     protected $rules = array(
         'task_id' => 'required|exists:tasks,id',
-        'file_name' => 'required',
+        'name' => 'required',
         'text' => 'required',
     );
 

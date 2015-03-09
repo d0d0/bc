@@ -11,7 +11,7 @@ class SolutionHelper {
         $defaultFiles = TaskFile::where('task_id', '=', $task_id)->get();
         foreach ($defaultFiles as $file) {
             $data = array(
-                'name' => $file->file_name,
+                'name' => $file->name,
                 'group_id' => $group_id,
                 'task_id' => $task_id,
                 'text' => $file->text,
