@@ -59,6 +59,7 @@
         editors.forEach(function(val){
             filesData.push({ 'name': val.name, 'text': val.getSession().getValue() });
         });
+        console.log(tests);
         $.ajax({
             url: '{{ URL::action('TaskController@add') }}',
             method: 'post',
@@ -70,8 +71,10 @@
                 'groupsize': $('#groupsize').val(),
                 'text': $('.summernote').code(),
                 'files': filesData,
+                'tests': tests
             },
             success: function(answer){
+                console.log(answer);
                 if(answer['result']){
                     $('#name').val('');
                     $('#start').val('');
@@ -190,6 +193,45 @@
         }
     });
     
+    var addTest = function(param){
+        console.log(param);
+        tests.forEach(function(val, index){
+            if(val['id'] == param['blockid']){
+                val['section'].forEach(function(v, ind){
+                    if(v['id'] == param['id']){
+                        v['tests'].push(param);
+                        $('.' + param['blockid'] + param['id'] + ' tbody').append($('<tr />').attr({
+                            'class': '' + param['blockid'] + param['id'] + v['max']
+                        }).append($('<td />').text(param['codebefore']))
+                        .append($('<td />').text(param['testfunction']))
+                        .append($('<td />').attr({
+                            'class': 'text-center'
+                        }).text(param['compare']))
+                        .append($('<td />').text(param['expected']))
+                        .append($('<td />').text(param['codeafter']))
+                        .append($('<td />').attr({
+                            'class': 'text-center'
+                        }).append($('<button />').attr({
+                            'class': 'btn btn-default btn-sm',
+                            'type': 'button'
+                         }).append($('<span />').attr({
+                            'class': 'glyphicon glyphicon-edit',
+                            'aria-hidden': 'true'
+                         }))).append(' ').append($('<button />').attr({
+                            'class': 'btn btn-danger btn-sm',
+                            'type': 'button'
+                         }).append($('<span />').attr({
+                            'class': 'glyphicon glyphicon-remove',
+                            'aria-hidden': 'true'
+                         }))))
+                        );
+                        v['max']++;
+                    }
+                });
+            }
+        });
+    };
+    
     var removeSection = function(param){
         var i;
         tests.forEach(function(val){
@@ -243,6 +285,7 @@
             }).on('click', function(){
                 $('#codebefore, #testfunction, #expected, #codeafter').val('');
                 $('#compare').val('{{ Test::EQUAL }}');
+                openedBlock = { 'blockid': blockId, 'id': param['id'] };
                 $('#addTest').modal('show');
             }).append($('<span />').attr({
                 'class': 'glyphicon glyphicon-plus',
@@ -333,7 +376,7 @@
     
     $('#addSectionButton').on('click', function(){
         if($('#sectionname').val() != '' && $('#points').val() != '' && ($('#points').val()%1)===0 && $('#points').val() > 0){
-            var param = { 'id': openedBlock, 'name': $('#sectionname').val(), 'points': $('#points').val(), 'tests': [] };
+            var param = { 'id': openedBlock, 'name': $('#sectionname').val(), 'points': $('#points').val(), 'tests': [], 'max': 0 };
             addSection(param);
             $('#addSection').modal('hide');
         }
@@ -347,8 +390,13 @@
     });
     
     $('#addTestButton').on('click', function(){
-        if(true){
-            var param = { 'id': openedBlock, 'name': $('#sectionname').val(), 'points': $('#points').val(), 'tests': [] };
+        if($('#testfunction').val() && $('#expected').val() != ''){
+            var param = openedBlock;
+            param['codebefore'] = $('#codebefore').val();
+            param['testfunction'] = $('#testfunction').val();
+            param['compare'] = $('#compare').val();
+            param['expected'] = $('#expected').val();
+            param['codeafter'] = $('#codeafter').val();
             addTest(param);
             $('#addTest').modal('hide');
         }
@@ -428,115 +476,13 @@
             </div>
             <div role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
-                    <!------------------------------------------>
-                    <li role="presentation" class="active">
-                        <a href="#test" aria-controls="test" role="tab" data-toggle="tab">tes <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></a>
-                    </li>
-                    <!------------------------------------------>
                     <li role="presentation" class="noselect" id="showAddBlock">
                         <a>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </li>
                 </ul>
-                <div class="tab-content" id="blocks">
-                    <!---------------------------------------------------->
-                    <div role="tabpanel" class="tab-pane active" id="test">
-                        <div class="panel-body">
-                            <h4 class="pull-right">
-                                Pridaj sekciu 
-                                <button type="button" class="btn btn-success btn-sm">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                </button>
-                            </h4>
-                            <h3>
-                                Nazov sekcie 
-                                <button type="button" class="btn btn-danger btn-sm">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                            </h3>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Kód pred
-                                        </th>
-                                        <th>
-                                            Testovacia funkcia
-                                        </th>
-                                        <th class="text-center">
-                                            Porovnanie
-                                        </th>
-                                        <th>
-                                            Očakávaná hodnota
-                                        </th>
-                                        <th>
-                                            Kód po
-                                        </th>
-                                        <th class="text-center">
-                                            <button type="button" class="btn btn-success btn-sm">
-                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                            </button>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Hotel h = new hotel();
-                                        </td>
-                                        <td>
-                                            hotel.getName()
-                                        </td>
-                                        <td class="text-center">
-                                            ==
-                                        </td>
-                                        <td>
-                                            ""
-                                        </td>
-                                        <td>
-                                            
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Hotel h = new hotel();
-                                        </td>
-                                        <td>
-                                            hotel.getName()
-                                        </td>
-                                        <td class="text-center">
-                                            ==
-                                        </td>
-                                        <td>
-                                            ""
-                                        </td>
-                                        <td>
-                                            
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!---------------------------------------------------->
-                </div>
+                <div class="tab-content" id="blocks"></div>
             </div>
         </div>
         <div class="form-group">
