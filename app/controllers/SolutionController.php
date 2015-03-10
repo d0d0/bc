@@ -35,7 +35,9 @@ class SolutionController extends BaseController {
         if (Request::ajax()) {
             $input = Input::all();
             $includefiles = '';
-            File::makeDirectory(storage_path() . '/' . $input['task_id'] . $input['group_id']);
+            if (!File::exists(storage_path() . '/' . $input['task_id'] . $input['group_id'])) {
+                File::makeDirectory(storage_path() . '/' . $input['task_id'] . $input['group_id']);
+            }
             foreach ($input['files'] as $file) {
                 $filedata = array(
                     'task_id' => $input['task_id'],
