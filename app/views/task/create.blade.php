@@ -59,7 +59,6 @@
         editors.forEach(function(val, index){
             filesData.push({ 'name': val.name, 'text': val.getSession().getValue(), 'header': files[index]['header'] });
         });
-        console.log(filesData);
         $.ajax({
             url: '{{ URL::action('TaskController@add') }}',
             method: 'post',

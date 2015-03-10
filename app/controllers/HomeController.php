@@ -15,23 +15,6 @@ class HomeController extends BaseController {
      */
 
     public function showWelcome() {
-        /* exec('g++ /var/www/main.cpp -o /var/www/programname.out >& /var/www/error.log', $result);
-          if ($result) {
-          dd($result);
-          }
-          if (file_exists('/var/www/error.log')) {
-          $myfile = fopen("/var/www/error.log", "r");
-          $content = fread($myfile, filesize("/var/www/error.log"));
-          fclose($myfile);
-          dd($content);
-          }
-          exec('/var/www/programname.out', $result);
-          dd($result);
-         */
-        /* exec('g++ -I/home/pi/gtest-svn/include -L/home/pi/gtest-svn/  /home/pi/gtest-svn/src/gtest_main.cc /home/pi/gtest-svn/samples/sample1.cc /home/pi/gtest-svn/samples/sample1_unittest.cc -lgtest -lpthread -o /home/pi/gtest-svn/samples/main', $result);
-          if ($result) {
-          dd($result);
-          } */
         if (Auth::check()) {
             return Redirect::action('TaskController@all');
         }

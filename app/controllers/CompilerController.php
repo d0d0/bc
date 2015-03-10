@@ -8,7 +8,6 @@
 class CompilerController extends BaseController {
 
     public function run() {
-        echo(TestFileGenerator::generate(1));
         if (File::exists('/home/jduc/gtest-1.7.0/samples/main')) {
             File::delete('/home/jduc/gtest-1.7.0/samples/main');
         }

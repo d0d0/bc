@@ -10,6 +10,7 @@ class SolutionController extends BaseController {
     public function show($id = null) {
         $new = false;
         if (Solution::where('task_id', '=', $id)->get()->isEmpty()) {
+            //TODO: upgrade group
             SolutionHelper::addNewFile($id, 1);
             $new = true;
         }
@@ -27,6 +28,37 @@ class SolutionController extends BaseController {
                         'task' => $task,
                         'new' => $new
             ));
+        }
+    }
+
+    public function add() {
+        if (Request::ajax()) {
+            $input = Input::all();
+            $includefiles = '';
+            File::makeDirectory(storage_path() . '/' . $input['task_id'] . $input['group_id']);
+            foreach ($input['files'] as $file) {
+                $filedata = array(
+                    'task_id' => $input['task_id'],
+                    'group_id' => $input['group_id'],
+                    'name' => $file['name'],
+                    'text' => $file['text'],
+                    'version' => 1,
+                );
+                (new SolutionFile($filedata))->save();
+                $includefiles .= storage_path() . '/' . $input['task_id'] . $input['group_id'] . '/' . $file['name'] . ' ';
+                File::put(storage_path() . '/' . $input['task_id'] . $input['group_id'] . '/' . $file['name'], $file['text']);
+            }
+            $testfile = TestFileGenerator::generate($input['task_id'], $input['group_id']);
+            if (File::exists('/home/jduc/gtest-1.7.0/samples/main')) {
+                File::delete('/home/jduc/gtest-1.7.0/samples/main');
+            }
+            if (File::exists(storage_path() . '/test.html')) {
+                File::delete(storage_path() . '/test.html');
+            }
+            File::put(storage_path() . '/test.html', '');
+            shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -o /home/jduc/gtest-1.7.0/samples/main 2>&1 1>/dev/null');
+            shell_exec('/home/jduc/gtest-1.7.0/samples/main --gtest_color=yes | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . storage_path() . '/test.html');
+            return View::make('compiler.compiler');
         }
     }
 

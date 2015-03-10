@@ -46,9 +46,9 @@ var onChangeTab = function(e){
     editors[id].navigateFileEnd();
 };
 
-var addEditor = function(node_id){
+var addEditor = function(node_id, name){
     editors[node_id] = ace.edit('editor' + node_id);
-    
+    editors[node_id]['name'] = name;
     editors[node_id].setOptions({
         enableBasicAutocompletion: true
     });
@@ -105,48 +105,10 @@ var addEditor = function(node_id){
     });
 };
 
-var appendFile = function(param){
-    $('li[role=presentation]').removeClass('active');
-    var li = $('<li />').attr({
-        'role': 'presentation',
-        'class': 'active'
-    }).append($('<a />').attr({
-        'href': '#' + param['node_id'],
-        'aria-controls': param['node_id'],
-        'role': 'tab',
-        'data-toggle': 'tab',
-    }).text(param['name']).on('shown.bs.tab', function (e) {
-        onChangeTab(e);
-    }).append($('<span />').attr({
-        'class': 'glyphicon glyphicon-remove text-danger',
-        'aria-hidden': 'true'
-    }).on('click', function(e){
-        e.stopPropagation();
-        var node_id = $(this).parent().attr('aria-controls');
-        deleteEditor(node_id);
-        return false;
-    })));
-    $('.nav-tabs').append(li);
-    
-    $('div[role=tabpanel]').removeClass('active');
-    var div = $('<div />').attr({
-        'role': 'tabpanel',
-        'class': 'tab-pane active',
-        'id': param['node_id']
-    }).append($('<div />').attr({
-        'class': 'panel-body'
-    }).append($('<div />').attr({
-        'class': 'editor',
-        'id': 'editor'+param['node_id']
-    })));
-    $('.tab-content').append(div);
-    
-    addEditor(param['node_id']);
-};
-
+//TODO: group id
 var docName = null;
 @foreach($files as $file)
-    addEditor('{{{ $file->node_id }}}');
+    addEditor('{{{ $file->node_id }}}', '{{{ $file->name }}}');
 @endforeach
 
 sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
@@ -200,6 +162,24 @@ sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     onChangeTab(e);
 });
+
+$('#test').on('click', function(){
+    var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
+    for (var key in editors) {
+        var val = editors[key];
+        data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
+    };
+    $.ajax({
+        url: '{{ URL::action('SolutionController@add') }}',
+        method: 'post',
+        dataType: 'json',
+        data: data,
+        success: function(answer){
+            $('#result').html(answer);
+        }
+    });
+});
+
 @stop
 
 @section('content')
@@ -234,7 +214,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             @foreach($files as $file)
             <div role="tabpanel" class="tab-pane {{ $i++ == 0 ? 'active' : '' }}" id="{{{ $file->node_id }}}">
                 <div class="panel-body">
-                    <div class="editor" id="editor{{{ $file->node_id }}}" name="{{{ $file->name }}}"></div>
+                    <div class="editor" id="editor{{{ $file->node_id }}}"></div>
                 </div>
             </div>
             @endforeach
@@ -243,10 +223,12 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 </div>
 <div>
     <input type="button" id="toggle" value="Toggle">
+    <input type="button" id="test" value="Otestuj">
 </div>
 <div>
     <input type="text" id="input" placeholder="Shout something&hellip;"/>
     <input type="button" id="shout" value="shout"/>
     <dl id="shouts" class="dl-horizontal"></dl>
 </div>
+<div id="result"></div>
 @stop

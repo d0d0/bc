@@ -11,6 +11,7 @@ class TaskFile extends Eloquent {
         \Watson\Validating\ValidatingTrait;
 
     const HEADER = 1;
+    const CPP = 0;
 
     protected $table = 'task_files';
     protected $fillable = array(
@@ -30,6 +31,10 @@ class TaskFile extends Eloquent {
 
     public function scopeHeader($query) {
         return $query->where('header', '=', self::HEADER);
+    }
+
+    public function scopeCpp($query) {
+        return $query->where('header', '=', self::CPP);
     }
 
 }

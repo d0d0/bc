@@ -11,13 +11,13 @@ class TestFileGenerator {
         return trim(str_replace(' ', '', iconv('UTF-8', 'ASCII//TRANSLIT', $string)));
     }
 
-    public static function generate($task_id) {
+    public static function generate($task_id, $group_id) {
         $task = Task::find($task_id);
         $content = "#include <limits.h>" . PHP_EOL;
         $fileNames = [];
         $taskFiles = $task->files()->header()->select('name')->get();
         foreach ($taskFiles as $taskFile) {
-            $fileNames[] = '#include "' . storage_path() . '/' . self::prepareString($taskFile->name) . '"';
+            $fileNames[] = '#include "' . storage_path() . '/' . $task_id . $group_id . '/' . self::prepareString($taskFile->name) . '"';
         }
         $content .= implode(PHP_EOL, $fileNames) . PHP_EOL;
         $content .= '#include "gtest/gtest.h"' . PHP_EOL;
@@ -44,8 +44,8 @@ class TestFileGenerator {
                 $content.="}" . PHP_EOL . PHP_EOL;
             }
         }
-        File::put(storage_path() . '/' . $task_id . '.cpp', $content);
-        return $content;
+        File::put(storage_path() . '/' . $task_id . $group_id . '/test.cpp', $content);
+        return storage_path() . '/' . $task_id . $group_id . '/test.cpp';
     }
 
 }
