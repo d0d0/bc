@@ -169,16 +169,7 @@ $('#test').on('click', function(){
         var val = editors[key];
         data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
     };
-    $.ajax({
-        url: '{{ URL::action('SolutionController@add') }}',
-        method: 'post',
-        dataType: 'json',
-        data: data,
-        success: function(answer){
-            console.log(answer);
-            $('#result').html(answer);
-        }
-    });
+    $('#result').load('{{ URL::action('SolutionController@add') }}', data);
 });
 
 @stop

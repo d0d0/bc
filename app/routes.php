@@ -35,7 +35,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::group(array('prefix' => 'solution'), function() {
         Route::get('/show/{id?}', 'SolutionController@show');
-        Route::post('/add', 'SolutionController@add');
+        Route::get('/add', 'SolutionController@add');
         Route::post('/deletedFiles', 'SolutionController@deletedFiles');
         Route::post('/deleteFile', 'SolutionController@deleteFile');
         Route::post('/getText', 'SolutionController@getText');
