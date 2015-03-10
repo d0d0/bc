@@ -234,7 +234,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             @foreach($files as $file)
             <div role="tabpanel" class="tab-pane {{ $i++ == 0 ? 'active' : '' }}" id="{{{ $file->node_id }}}">
                 <div class="panel-body">
-                    <div class="editor" id="editor{{{ $file->node_id }}}"></div>
+                    <div class="editor" id="editor{{{ $file->node_id }}}" name="{{{ $file->name }}}"></div>
                 </div>
             </div>
             @endforeach
