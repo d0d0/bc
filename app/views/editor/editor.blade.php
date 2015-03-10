@@ -10,6 +10,21 @@
 @stop
 
 @section('style')
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
 .editor{
     height: 300px;
 }
@@ -169,6 +184,7 @@ $('#test').on('click', function(){
         var val = editors[key];
         data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
     };
+    $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
     $('#result').load('{{ URL::action('SolutionController@add') }}', data);
 });
 
