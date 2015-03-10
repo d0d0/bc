@@ -175,6 +175,7 @@ $('#test').on('click', function(){
         dataType: 'json',
         data: data,
         success: function(answer){
+            console.log(answer);
             $('#result').html(answer);
         }
     });
