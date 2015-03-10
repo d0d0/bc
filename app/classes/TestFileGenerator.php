@@ -8,7 +8,7 @@
 class TestFileGenerator {
 
     private static function prepareString($string) {
-        return str_replace(' ', '', iconv('UTF-8', 'ASCII//TRANSLIT', $string));
+        return trim(str_replace(' ', '', iconv('UTF-8', 'ASCII//TRANSLIT', $string)));
     }
 
     public static function generate($task_id) {
@@ -38,7 +38,7 @@ class TestFileGenerator {
                             $content.="  EXPECT_NE(";
                             break;
                     }
-                    $content .= self::prepareString($test->expected) . ", " . self::prepareString($test->testfunction) . ");" . PHP_EOL;
+                    $content .= self::prepareString($test->testfunction) . ", " . self::prepareString($test->expected) . ");" . PHP_EOL;
                     $content.="  " . $test->codeafter . PHP_EOL;
                 }
                 $content.="}" . PHP_EOL . PHP_EOL;
