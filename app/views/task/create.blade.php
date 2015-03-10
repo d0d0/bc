@@ -56,10 +56,10 @@
         l.start();
         $(this).removeClass('btn-danger').addClass('btn-primary');
         var filesData = [ ];
-        editors.forEach(function(val){
-            filesData.push({ 'name': val.name, 'text': val.getSession().getValue() });
+        editors.forEach(function(val, index){
+            filesData.push({ 'name': val.name, 'text': val.getSession().getValue(), 'header': files[index]['header'] });
         });
-        console.log(tests);
+        console.log(filesData);
         $.ajax({
             url: '{{ URL::action('TaskController@add') }}',
             method: 'post',
@@ -95,6 +95,7 @@
 
     $('#showAddFile').on('click', function(){
         $('#filename').val('');
+        $('#header').attr('checked', false);
         $('#addFile').modal('show');
     });
 
@@ -179,7 +180,7 @@
     $('#addFileButton').on('click', function(){
         if($('#filename').val() != ''){
             $('#addFile').modal('hide');
-            var obj = { 'id': max, 'name': $('#filename').val() };
+            var obj = { 'id': max, 'name': $('#filename').val(), 'header': ($('#header').is(':checked') ? 1 : 0) };
             files.push(obj);
             appendFile(obj);
             max++;
@@ -506,6 +507,11 @@
                     <div class="form-group">
                         <label for="filename" class="control-label">{{ Lang::get('Názov súboru') }}:</label>
                         <input type="text" class="form-control" id="filename">
+                        <div class="checkbox">
+                            <label class="control-label">
+                                <input type="checkbox" id="header"> Hlavičkový súbor
+                            </label>
+                      </div>
                     </div>
                 </form>
             </div>

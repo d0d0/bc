@@ -22,4 +22,8 @@ class Block extends Eloquent {
         'task_id' => 'required|exists:tasks,id'
     );
 
+    public function sections() {
+        return Section::where('block_id', '=', $this->id);
+    }
+
 }

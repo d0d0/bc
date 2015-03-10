@@ -49,6 +49,7 @@ class TaskController extends BaseController {
                             'name' => $file['name'],
                             'task_id' => $task->id,
                             'text' => $file['text'],
+                            'header' => $file['header']
                         );
                         $taskFile = new TaskFile($taskFileData);
                         if ($taskFile->save()) {
@@ -65,33 +66,35 @@ class TaskController extends BaseController {
                             ));
                         }
                     }
-                    foreach ($input['tests'] as $block) {
-                        $blockdata = array(
-                            'task_id' => $task->id,
-                            'name' => $block['name']
-                        );
-                        $blockO = new Block($blockdata);
-                        $blockO->save();
-                        if (isset($block['section'])) {
-                            foreach ($block['section'] as $section) {
-                                $sectiondata = array(
-                                    'name' => $section['name'],
-                                    'points' => $section['points'],
-                                    'block_id' => $blockO->id
-                                );
-                                $sectionO = new Section($sectiondata);
-                                $sectionO->save();
-                                if (isset($section['tests'])) {
-                                    foreach ($section['tests'] as $test) {
-                                        $testdata = array(
-                                            'section_id' => $sectionO->id,
-                                            'codebefore' => $test['codebefore'],
-                                            'testfunction' => $test['testfunction'],
-                                            'compare' => $test['compare'],
-                                            'expected' => $test['expected'],
-                                            'codeafter' => $test['codeafter'],
-                                        );
-                                        (new Test($testdata))->save();
+                    if (isset($input['tests'])) {
+                        foreach ($input['tests'] as $block) {
+                            $blockdata = array(
+                                'task_id' => $task->id,
+                                'name' => $block['name']
+                            );
+                            $blockO = new Block($blockdata);
+                            $blockO->save();
+                            if (isset($block['section'])) {
+                                foreach ($block['section'] as $section) {
+                                    $sectiondata = array(
+                                        'name' => $section['name'],
+                                        'points' => $section['points'],
+                                        'block_id' => $blockO->id
+                                    );
+                                    $sectionO = new Section($sectiondata);
+                                    $sectionO->save();
+                                    if (isset($section['tests'])) {
+                                        foreach ($section['tests'] as $test) {
+                                            $testdata = array(
+                                                'section_id' => $sectionO->id,
+                                                'codebefore' => $test['codebefore'],
+                                                'testfunction' => $test['testfunction'],
+                                                'compare' => $test['compare'],
+                                                'expected' => $test['expected'],
+                                                'codeafter' => $test['codeafter'],
+                                            );
+                                            (new Test($testdata))->save();
+                                        }
                                     }
                                 }
                             }

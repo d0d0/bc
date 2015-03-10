@@ -24,4 +24,8 @@ class Section extends Eloquent {
         'block_id' => 'required|exists:blocks,id'
     );
 
+    public function tests() {
+        return Test::where('section_id', '=', $this->id);
+    }
+
 }

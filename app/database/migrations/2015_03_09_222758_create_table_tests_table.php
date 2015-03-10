@@ -18,8 +18,8 @@ class CreateTableTestsTable extends Migration {
             $table->string('codebefore');
             $table->string('testfunction');
             $table->integer('compare');
-            $table->integer('expected');
-            $table->integer('codeafter');
+            $table->string('expected');
+            $table->string('codeafter');
             $table->timestamps();
         });
     }
