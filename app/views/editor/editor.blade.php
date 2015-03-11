@@ -128,7 +128,7 @@ var addEditor = function(node_id, name){
                 'data': data,
                 'success': function(result){
                     console.log('ahoj');
-                    $('#result').text(result);
+                    $('#result').html(result);
                     toggleEditor();
                     doc.shout('loaded');
                 }
