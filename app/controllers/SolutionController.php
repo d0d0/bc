@@ -53,7 +53,10 @@ class SolutionController extends BaseController {
             }
             $testfile = TestFileGenerator::generate($input['task_id'], $input['group_id']);
             File::put($path . '/test.html', '');
-            echo shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -o ' . $path . '/main 2>&1 1>/dev/null');
+            $erorr = shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -o ' . $path . '/main 2>&1 1>/dev/null');
+            if ($error) {
+                return '<pre style="color: red">' . $erorr . '<pre>';
+            }
             shell_exec($path . '/main --gtest_color=yes | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
             return View::make('compiler.compiler', array(
                         'path' => $path
