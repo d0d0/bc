@@ -122,12 +122,12 @@ var addEditor = function(node_id, name){
             doc.shout('start');
             toggleEditor();
             $.ajax({
-                url: '{{ URL::action('SolutionController@add') }}',
-                method: 'post',
-                dataType: 'json',
-                data: data,
-                success: function(data){
-                    $('#result').text(data);
+                'url': '{{ URL::action('SolutionController@add') }}',
+                'method': 'post',
+                'dataType': 'json',
+                'data': data,
+                success: function(result){
+                    $('#result').text(result);
                     toggleEditor();
                     doc.shout('loaded');
                 }
