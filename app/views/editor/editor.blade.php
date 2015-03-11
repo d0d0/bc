@@ -119,19 +119,25 @@ var addEditor = function(node_id, name){
                 data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
             };
             $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            doc.shout('load');
+            doc.shout('start');
             $('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
                 toggleEditor();
+                doc.shout('loaded');
                 l.stop();
             });
         });
 
         doc.on('shout', function (msg) {
-            toggleEditor();
+            if(msg && msg != 'loaded') {
+                toggleEditor();            
+            }
             console.log(msg);
-            if(msg == 'load'){
+            if(msg == 'start'){
                 var l = Ladda.create(document.getElementById('test'));
                 l.start();
+            }
+            if(msg == 'loaded'){
+                var l = Ladda.create(document.getElementById('test'));
                 $('#result').load('{{ URL::action('SolutionController@getResult') }}', function(){
                     l.stop();
                 });
