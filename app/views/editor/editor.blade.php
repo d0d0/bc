@@ -119,7 +119,7 @@ var addEditor = function(node_id, name){
                 data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
             };
             $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            doc.shout('start');
+            doc.shout({'msg': 'start'});
             toggleEditor();
             $.ajax({
                 'url': '{{ URL::action('SolutionController@add') }}',
@@ -127,40 +127,28 @@ var addEditor = function(node_id, name){
                 'dataType': 'text',
                 'data': data,
                 'success': function(result){
-                    console.log('ahoj');
                     $('#result').html(result);
                     toggleEditor();
-                    doc.shout('loaded');
+                    doc.shout({'msg': 'loaded', 'result': result});
                 }
-            });
-            
-            
-            /*$('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
+            }).always(function(){
                 l.stop();
-            });*/
+            });
         });
 
         doc.on('shout', function (msg) {
-            if(msg && msg != 'loaded') {
-                toggleEditor();            
-            }
             console.log(msg);
-            if(msg == 'start'){
+            if(msg.msg == 'start'){
+                toggleEditor();
                 var l = Ladda.create(document.getElementById('test'));
                 l.start();
                 $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             }
-            if(msg == 'loaded'){
-                var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
-                for (var key in editors) {
-                    var val = editors[key];
-                    data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
-                };
+            if(msg.msg && msg.msg == 'loaded'){
+                toggleEditor();
                 var l = Ladda.create(document.getElementById('test'));
-                $('#result').load('{{ URL::action('SolutionController@getResult') }}', data, function(){
-                    toggleEditor();            
-                    l.stop();
-                });
+                $('#result').html(msg.result)
+                l.stop();
             }
         });
     });
