@@ -101,10 +101,10 @@ docName = '{{{ $task->id . 1 }}}';
 sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
     var toggleEditor = function () {
         var result;
-        editors.forEach(function(editor){
-            editor.setReadOnly(!editor.getReadOnly());
-            if (editor.getReadOnly()) {
-                $(editor.container).append($('<div />').css({
+        for (var key in editors) {
+            editors[key].setReadOnly(!editors[key].getReadOnly());
+            if (editors[key].getReadOnly()) {
+                $(editors[key].container).append($('<div />').css({
                     'position': 'absolute',
                     'top': 0,
                     'bottom': 0,
@@ -118,7 +118,7 @@ sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', 
                 $('#cover').remove();
                 result = false;
             }
-        });
+        }
         return result;
     };       
 
