@@ -25,10 +25,6 @@
     to { transform: scale(1) rotate(360deg);}
 }
 
-.editor{
-    height: 300px;
-}
-
 dd{
     word-wrap: break-word;
 }

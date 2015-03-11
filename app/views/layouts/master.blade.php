@@ -21,6 +21,10 @@
                 -ms-user-select: none;
                 user-select: none;
             }
+            
+            .editor{
+                height: 500px;
+            }
             @yield('style')
         </style>
         <script>

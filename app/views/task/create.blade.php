@@ -14,12 +14,6 @@
 {{ HTML::style('css/ladda-themeless.min.css') }}
 @stop
 
-@section('style')
-    .editor{
-        height: 300px;
-    }
-@stop
-
 @section('ready_js')
     var last_subject  = '{{ Auth::user()->last_subject ? Auth::user()->last_subject : '' }}';
     var files = [];
