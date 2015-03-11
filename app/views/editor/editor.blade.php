@@ -7,6 +7,9 @@
 {{ HTML::script('js/bcsocket-uncompressed.js') }}
 {{ HTML::script('js/share.uncompressed.js') }}
 {{ HTML::script('js/ace_c.js') }}
+{{ HTML::script('js/spin.min.js') }}
+{{ HTML::script('js/ladda.min.js') }}
+{{ HTML::style('css/ladda-themeless.min.css') }}
 @stop
 
 @section('style')
@@ -104,14 +107,34 @@ var addEditor = function(node_id, name){
                 $('#cover').remove();
                 return false;
             }
-        };
+        };       
 
-        $('#toggle').on('click', function () {
+        $('#test').on('click', function(e) {
+            e.preventDefault();
+            var l = Ladda.create(this);
+            l.start();
             doc.shout(toggleEditor() ? 'true' : 'false');
+            var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
+            for (var key in editors) {
+                var val = editors[key];
+                data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
+            };
+            $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            $('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
+                doc.shout('load');
+                l.stop();
+            });
         });
 
-        doc.on('shout', function () {
+        doc.on('shout', function (msg) {
             toggleEditor();
+            if(msg == 'load'){
+                var l = Ladda.create(document.getElementById('test'));
+                l.start();
+                $('#result').load('{{ URL::action('SolutionController@getResult') }}', function(){
+                    l.stop();
+                });
+            }
         });
     });
 };
@@ -173,17 +196,6 @@ sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     onChangeTab(e);
 });
-
-$('#test').on('click', function(){
-    var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
-    for (var key in editors) {
-        var val = editors[key];
-        data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
-    };
-    $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-    $('#result').load('{{ URL::action('SolutionController@add') }}', data);
-});
-
 @stop
 
 @section('content')
@@ -227,7 +239,9 @@ $('#test').on('click', function(){
 </div>
 <div>
     <input type="button" id="toggle" value="Toggle">
-    <input type="button" id="test" value="Otestuj">
+    <button class="btn btn-primary ladda-button" id="test" data-style="zoom-in">
+        <span class="ladda-label">{{ Lang::get('Otestuj') }}</span>
+    </button>
 </div>
 <div>
     <input type="text" id="input" placeholder="Shout something&hellip;"/>
