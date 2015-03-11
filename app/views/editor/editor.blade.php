@@ -145,6 +145,7 @@ var addEditor = function(node_id, name){
                 };
                 var l = Ladda.create(document.getElementById('test'));
                 $('#result').load('{{ URL::action('SolutionController@getResult') }}', data, function(){
+                    toggleEditor();            
                     l.stop();
                 });
             }
