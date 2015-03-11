@@ -126,7 +126,8 @@ var addEditor = function(node_id, name){
                 'method': 'post',
                 'dataType': 'json',
                 'data': data,
-                success: function(result){
+                'success': function(result){
+                    console.log('ahoj');
                     $('#result').text(result);
                     toggleEditor();
                     doc.shout('loaded');
