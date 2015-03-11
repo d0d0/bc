@@ -88,12 +88,23 @@ var addEditor = function(node_id, name){
             });
         @endif
     });
-    
-    sharejs.open("toggle:" + node_id, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
-        var toggleEditor = function () {
-            editors[node_id].setReadOnly(!editors[node_id].getReadOnly());
-            if (editors[node_id].getReadOnly()) {
-                $(editors[node_id].container).append($('<div />').css({
+};
+
+//TODO: group id
+var docName = null;
+@foreach($files as $file)
+    addEditor('{{{ $file->node_id }}}', '{{{ $file->name }}}');
+@endforeach
+
+docName = '{{{ $task->id . 1 }}}';
+
+sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
+    var toggleEditor = function () {
+        var result;
+        editors.forEach(function(editor){
+            editor.setReadOnly(!editor.getReadOnly());
+            if (editor.getReadOnly()) {
+                $(editor.container).append($('<div />').css({
                     'position': 'absolute',
                     'top': 0,
                     'bottom': 0,
@@ -102,62 +113,57 @@ var addEditor = function(node_id, name){
                     'background': 'rgba(150,150,150,0.5)',
                     'z-index': 100
                 }).attr('id', 'cover'));
-                return true;
+                result =  true;
             } else {
                 $('#cover').remove();
-                return false;
+                result = false;
             }
-        };       
-
-        $('#test').on('click', function(e) {
-            e.preventDefault();
-            var l = Ladda.create(this);
-            l.start();
-            var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
-            for (var key in editors) {
-                var val = editors[key];
-                data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
-            };
-            $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            doc.shout({'msg': 'start'});
-            toggleEditor();
-            $.ajax({
-                'url': '{{ URL::action('SolutionController@add') }}',
-                'method': 'post',
-                'dataType': 'text',
-                'data': data,
-                'success': function(result){
-                    $('#result').html(result);
-                    toggleEditor();
-                    doc.shout({'msg': 'loaded', 'result': result});
-                }
-            }).always(function(){
-                l.stop();
-            });
         });
+        return result;
+    };       
 
-        doc.on('shout', function (msg) {
-            if(msg.msg == 'start'){
+    $('#test').on('click', function(e) {
+        e.preventDefault();
+        var l = Ladda.create(this);
+        l.start();
+        var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
+        for (var key in editors) {
+            var val = editors[key];
+            data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
+        };
+        $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+        doc.shout({'msg': 'start'});
+        toggleEditor();
+        $.ajax({
+            'url': '{{ URL::action('SolutionController@add') }}',
+            'method': 'post',
+            'dataType': 'text',
+            'data': data,
+            'success': function(result){
+                $('#result').html(result);
                 toggleEditor();
-                var l = Ladda.create(document.getElementById('test'));
-                l.start();
-                $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+                doc.shout({'msg': 'loaded', 'result': result});
             }
-            if(msg.msg && msg.msg == 'loaded'){
-                toggleEditor();
-                var l = Ladda.create(document.getElementById('test'));
-                $('#result').html(msg.result)
-                l.stop();
-            }
+        }).always(function(){
+            l.stop();
         });
     });
-};
 
-//TODO: group id
-var docName = null;
-@foreach($files as $file)
-    addEditor('{{{ $file->node_id }}}', '{{{ $file->name }}}');
-@endforeach
+    doc.on('shout', function (msg) {
+        if(msg.msg == 'start'){
+            toggleEditor();
+            var l = Ladda.create(document.getElementById('test'));
+            l.start();
+            $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+        }
+        if(msg.msg && msg.msg == 'loaded'){
+            toggleEditor();
+            var l = Ladda.create(document.getElementById('test'));
+            $('#result').html(msg.result)
+            l.stop();
+        }
+    });
+});
 
 sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
     function addShout(msg) {
