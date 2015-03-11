@@ -71,7 +71,7 @@ class SolutionController extends BaseController {
             $includefiles .= storage_path() . '/' . $input['task_id'] . $input['group_id'] . '/' . $file['name'] . ' ';
         }
         $testfile = TestFileGenerator::generate($input['task_id'], $input['group_id']);
-        echo shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -o /home/jduc/gtest-1.7.0/samples/main 2>&1 1>/dev/null');
+        echo shell_exec('g++ ' . $includefiles . ' ' . $testfile . ' -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc -lgtest -lpthread -o /home/jduc/gtest-1.7.0/samples/main 2>&1 1>/dev/null');
         return View::make('compiler.compiler');
     }
 

@@ -137,7 +137,6 @@ var addEditor = function(node_id, name){
         });
 
         doc.on('shout', function (msg) {
-            console.log(msg);
             if(msg.msg == 'start'){
                 toggleEditor();
                 var l = Ladda.create(document.getElementById('test'));
