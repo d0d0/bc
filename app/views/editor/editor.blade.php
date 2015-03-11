@@ -120,6 +120,7 @@ var addEditor = function(node_id, name){
             };
             $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             doc.shout('start');
+            toggleEditor();
             $('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
                 toggleEditor();
                 doc.shout('loaded');
