@@ -258,7 +258,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     </div>
 </div>
 <div>
-    <input type="button" id="toggle" value="Toggle">
     <button class="btn btn-primary ladda-button" id="test" data-style="zoom-in">
         <span class="ladda-label">{{ Lang::get('Otestuj') }}</span>
     </button>
