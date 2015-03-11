@@ -32,33 +32,38 @@
             </div>
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
+                    <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 7.3.2015 - 11.3.2014</p>
+                    <p>Doprogramoval som kľúčové časti aplikácie- vytváranie zadaní vrátane unit testov, kompilácia riešenia, spúšťanie riešenia a zmigroval ju nový, rýchlejší server. Zároveň som sa stretol so školiteľom a dohodli sme sa, že aplikáciu odtestujeme v reálne prevádzke 24.3. na hodine extrémneho programovania a toto by mal konečný termín, do ktorého bude aplikácia v takmer hotovom stave.</p>
+                </div>
+                <div class="thumbnail">
                     <h3>Písanie textu</h3>
-                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 3.3.2014</p>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 3.3.2015</p>
                     <p>Začal som písať text k bc. Pred minulotýždňovým stretnutím so školiteľom som si pripravil zopár kľúčových fráz, ktoré by mohli tvoriť kapitoly a podkapitoly. So školiteľom sme ich prebrali vylúčili sme tie, ktoré boli veľmi všeobecné a naopak popridávali sme nové, ktoré sa viac hodia a sú zaujímavejšie. Zároveň som sa rozhodol, že do najbližšieho stretnutia budem mať hotovú takmer celú aplikáciu, aby som mohol navrhnúť školiteľovi na odskúšanie reálne na jeho predmete.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
-                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.1.2014</p>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.1.2015</p>
                     <p>Dokončená práca na kompilovaní a vypisovaní výsledkov testov. V ďalšej časti treba vytvoriť zadávanie testov a preniesť funkcionalitu testovania na virtuálny stroj pre zabezpečenie servera.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
-                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.1.2014</p>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.1.2015</p>
                     <p>Spustenie testu online z php a vypísanie jeho naformátovaných výsledkov. V ďalšej fáze bude skompilovanie programu z php. Keďže skripty už mám pripravené, tak by to nemalo byť náročné.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
-                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 27.1.2014</p>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 27.1.2015</p>
                     <p>Vybral som si vhodný framework na UnitTesty (gtest) a podarilo sa mi skompilovať a odchytiť výsledky z prvého testu cez konzolu.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
-                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 8.1.2014</p>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 8.1.2015</p>
                     <p>Dokončil som prácu na všetkých synchrónnych veciach- editor, shoutbox. Spravil som rozhranie, ktoré umožní ďalšie veľmi ľahké pridávanie častí aplikácie, ktoré majú byť synchrónne medzi užívateľmi.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
-                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 6.1.2014 - 7.1.2014</p>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 6.1.2015 - 7.1.2015</p>
                     <p>Vytvoril som aplikáciu, rozbehal server, sfunkčnil redis databázu, vytvoril funkcionalitu pre viac editorov naraz, skompiloval .cpp súbor cez php.</p>
                 </div>
                 <div class="thumbnail">
