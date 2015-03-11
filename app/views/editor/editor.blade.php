@@ -113,15 +113,14 @@ var addEditor = function(node_id, name){
             e.preventDefault();
             var l = Ladda.create(this);
             l.start();
-            doc.shout(toggleEditor() ? 'true' : 'false');
             var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
             for (var key in editors) {
                 var val = editors[key];
                 data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
             };
             $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            doc.shout('load');
             $('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
-                doc.shout('load');
                 toggleEditor();
                 l.stop();
             });
@@ -129,6 +128,7 @@ var addEditor = function(node_id, name){
 
         doc.on('shout', function (msg) {
             toggleEditor();
+            console.log(msg);
             if(msg == 'load'){
                 var l = Ladda.create(document.getElementById('test'));
                 l.start();
