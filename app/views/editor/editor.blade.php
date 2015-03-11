@@ -122,6 +122,7 @@ var addEditor = function(node_id, name){
             $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             $('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
                 doc.shout('load');
+                toggleEditor();
                 l.stop();
             });
         });
