@@ -124,6 +124,7 @@ var addEditor = function(node_id, name){
             $.ajax({
                 'url': '{{ URL::action('SolutionController@add') }}',
                 'method': 'post',
+                'dataType': 'text',
                 'data': data,
                 'success': function(result){
                     console.log('ahoj');
