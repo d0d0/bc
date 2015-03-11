@@ -35,8 +35,9 @@ class SolutionController extends BaseController {
         if (Request::ajax()) {
             $input = Input::all();
             $includefiles = '';
-            if (!File::exists(storage_path() . '/' . $input['task_id'] . $input['group_id'])) {
-                File::makeDirectory(storage_path() . '/' . $input['task_id'] . $input['group_id']);
+            $path = storage_path() . '/' . $input['task_id'] . $input['group_id'];
+            if (!File::exists($path)) {
+                File::makeDirectory($path);
             }
             foreach ($input['files'] as $file) {
                 $filedata = array(
@@ -47,32 +48,17 @@ class SolutionController extends BaseController {
                     'version' => 1,
                 );
                 (new SolutionFile($filedata))->save();
-                $includefiles .= storage_path() . '/' . $input['task_id'] . $input['group_id'] . '/' . $file['name'] . ' ';
-                File::put(storage_path() . '/' . $input['task_id'] . $input['group_id'] . '/' . $file['name'], $file['text']);
+                $includefiles .= $path . '/' . $file['name'] . ' ';
+                File::put($path . '/' . $file['name'], $file['text']);
             }
             $testfile = TestFileGenerator::generate($input['task_id'], $input['group_id']);
-            if (File::exists('/home/jduc/gtest-1.7.0/samples/main')) {
-                File::delete('/home/jduc/gtest-1.7.0/samples/main');
-            }
-            if (File::exists(storage_path() . '/test.html')) {
-                File::delete(storage_path() . '/test.html');
-            }
-            File::put(storage_path() . '/test.html', '');
-            echo shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -o /home/jduc/gtest-1.7.0/samples/main 2>&1 1>/dev/null');
-            shell_exec('/home/jduc/gtest-1.7.0/samples/main --gtest_color=yes | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . storage_path() . '/test.html');
-            return View::make('compiler.compiler');
+            File::put($path . '/test.html', '');
+            echo shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -o ' . $path . '/main 2>&1 1>/dev/null');
+            shell_exec($path . '/main --gtest_color=yes | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
+            return View::make('compiler.compiler', array(
+                        'path' => $path
+            ));
         }
-    }
-
-    public function getResult() {
-        $input = Input::all();
-        $includefiles = '';
-        foreach ($input['files'] as $file) {
-            $includefiles .= storage_path() . '/' . $input['task_id'] . $input['group_id'] . '/' . $file['name'] . ' ';
-        }
-        $testfile = TestFileGenerator::generate($input['task_id'], $input['group_id']);
-        echo shell_exec('g++ ' . $includefiles . ' ' . $testfile . ' -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc -lgtest -lpthread -o /home/jduc/gtest-1.7.0/samples/main 2>&1 1>/dev/null');
-        return View::make('compiler.compiler');
     }
 
     public function deletedFiles() {
