@@ -136,6 +136,7 @@ var addEditor = function(node_id, name){
             if(msg == 'start'){
                 var l = Ladda.create(document.getElementById('test'));
                 l.start();
+                $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             }
             if(msg == 'loaded'){
                 var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
