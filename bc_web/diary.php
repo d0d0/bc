@@ -34,7 +34,7 @@
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 7.3.2015 - 11.3.2014</p>
-                    <p>Doprogramoval som kľúčové časti aplikácie- vytváranie zadaní vrátane unit testov, kompilácia riešenia, spúšťanie riešenia a zmigroval ju nový, rýchlejší server. Zároveň som sa stretol so školiteľom a dohodli sme sa, že aplikáciu odtestujeme v reálne prevádzke 24.3. na hodine extrémneho programovania a toto by mal konečný termín, do ktorého bude aplikácia v hotovom stave.</p>
+                    <p>Doprogramoval som kľúčové časti aplikácie- vytváranie zadaní vrátane unit testov, kompilácia riešenia, spúšťanie riešenia a zmigroval ju nový, rýchlejší server. Zároveň som sa stretol so školiteľom a dohodli sme sa, že aplikáciu odtestujeme v reálnej prevádzke 24.3. na hodine extrémneho programovania a toto by mal konečný termín, do ktorého bude aplikácia v hotovom stave.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Písanie textu</h3>
