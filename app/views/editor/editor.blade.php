@@ -121,11 +121,22 @@ var addEditor = function(node_id, name){
             $('#result').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             doc.shout('start');
             toggleEditor();
-            $('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
-                toggleEditor();
-                doc.shout('loaded');
-                l.stop();
+            $.ajax({
+                url: '{{ URL::action('SolutionController@add') }}',
+                method: 'post',
+                dataType: 'json',
+                data: data,
+                success: function(data){
+                    $('#result').text(data);
+                    toggleEditor();
+                    doc.shout('loaded');
+                }
             });
+            
+            
+            /*$('#result').load('{{ URL::action('SolutionController@add') }}', data, function(){
+                l.stop();
+            });*/
         });
 
         doc.on('shout', function (msg) {
