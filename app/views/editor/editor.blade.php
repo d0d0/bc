@@ -138,8 +138,13 @@ var addEditor = function(node_id, name){
                 l.start();
             }
             if(msg == 'loaded'){
+                var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
+                for (var key in editors) {
+                    var val = editors[key];
+                    data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });
+                };
                 var l = Ladda.create(document.getElementById('test'));
-                $('#result').load('{{ URL::action('SolutionController@getResult') }}', function(){
+                $('#result').load('{{ URL::action('SolutionController@getResult') }}', data, function(){
                     l.stop();
                 });
             }
