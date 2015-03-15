@@ -57,7 +57,7 @@ class SolutionController extends BaseController {
             if ($error) {
                 return '<pre style="color: red">' . $error . '<pre>';
             }
-            shell_exec('timeout 20s ' . $path . '/main --gtest_color=yes | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
+            shell_exec('timeout 20s ' . $path . '/main --gtest_color=yes --gtest_break_on_failure | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
             return View::make('compiler.compiler', array(
                         'path' => $path
             ));
