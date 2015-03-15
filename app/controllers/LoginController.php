@@ -12,7 +12,7 @@ class LoginController extends Controller {
     public function getLogout() {
         Auth::logout();
         return Redirect::action('HomeController@showWelcome')
-                        ->with('message', Lang::get('common.logout_successful'));
+                        ->with('message', Lang::get('Odhlásenie prebehlo úspešne'));
     }
 
     /**

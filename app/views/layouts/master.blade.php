@@ -46,80 +46,82 @@
     <body>    
         <div class="container-fluid">
             @if(Auth::check())
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        {{ HTML::linkAction('HomeController@showWelcome', '.Home', array(), array('class' => 'navbar-brand')) }}
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            {{ HTML::linkAction('HomeController@showWelcome', 'Home', array(), array('class' => 'navbar-brand')) }}
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" id="lastSubjectDropdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" {{ Auth::user()->lastSubject ? '' : 'style="color:#843534"' }}>
+                                    @if(Auth::user()->lastSubject)
+                                        {{{ Auth::user()->lastSubject->name }}}
+                                    @else
+                                        Nie je vybratý žiadny predmet
+                                    @endif
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    @if(!Auth::user()->subjects()->withoutselected()->get()->isEmpty())
+                                        @foreach(Auth::user()->subjects()->withoutselected()->get() as $subject)
+                                            <li>
+                                                {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li><a href="javascript:void(0)">Žiadny predmet na výber</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>{{ HTML::linkAction('UserController@show', Auth::user()->getFullName()) }}</li>
+                            <li>{{ HTML::linkAction('LoginController@getLogout', 'Odhlásenie') }}</li>
+                        </ul>
                     </div>
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" id="lastSubjectDropdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" {{ Auth::user()->lastSubject ? '' : 'style="color:#843534"' }}>
-                                @if(Auth::user()->lastSubject)
-                                    {{{ Auth::user()->lastSubject->name }}}
-                                @else
-                                .Nie je vybratý žiadny predmet
-                                @endif
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" role="menu">
-                                @if(!Auth::user()->subjects()->withoutselected()->get()->isEmpty())
-                                    @foreach(Auth::user()->subjects()->withoutselected()->get() as $subject)
-                                        <li>
-                                            {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
-                                        </li>
-                                    @endforeach
-                                @else
-                                    <li><a href="javascript:void(0)">.Žiadny predmet</a></li>
-                                @endif
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>{{ HTML::linkAction('UserController@show', Auth::user()->getFullName()) }}</li>
-                        <li>{{ HTML::linkAction('LoginController@getLogout', '.Odhlásenie') }}</li>
-                    </ul>
-                </div>
-            </nav>
-            @yield('top_row')
+                </nav>
+                @yield('top_row')
             @endif
             @if(Auth::check())
-            <div class="row">
-                <div class="col-md-2" id="leftMenu">
-                    <ul class="nav nav-pills nav-stacked" style="text-align: center">
-                        <li>{{ HTML::linkAction('SubjectController@create', '.Vytvor predmet', array()) }}</li>
-                        <li>{{ HTML::linkAction('TaskController@create', '.Vytvor zadanie', array()) }}</li>
-                        <li>{{ HTML::linkAction('GroupController@create', '.Vytvor skupinu', array()) }}</li>
-                        <li>{{ HTML::linkAction('TaskController@all', '.Všetky zadania', array()) }}</li>
-                    </ul>
-                    <p class="lead"></p>
-                    <div class="thumbnail">
+                <div class="row">
+                    <div class="col-md-2" id="leftMenu">
+                        <ul class="nav nav-pills nav-stacked" style="text-align: center">
+                            <li>{{ HTML::linkAction('SubjectController@create', 'Vytvor predmet', array()) }}</li>
+                            <li>{{ HTML::linkAction('TaskController@create', 'Vytvor zadanie', array()) }}</li>
+                            <li>{{ HTML::linkAction('GroupController@create', '.ytvor skupinu', array()) }}</li>
+                            <li>{{ HTML::linkAction('TaskController@all', 'Všetky zadania', array()) }}</li>
+                        </ul>
+                        <p class="lead"></p>
+                        <div class="thumbnail">
 
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        @if(Session::has('error'))
+                        <div class="alert alert-danger" role="alert">{{Session::get('error')}}</div>
+                        @endif
+                        @if(Session::has('warning'))
+                        <div class="alert alert-warning" role="alert">{{Session::get('warning')}}</div>
+                        @endif
+                        @if(Session::has('message'))
+                        <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
+                        @endif
+                        @yield('content')
                     </div>
                 </div>
-                <div class="col-md-10">
+            @else
+                <div style="margin-top: 1em">
                     @if(Session::has('error'))
-                    <div class="alert alert-danger" role="alert">{{Session::get('error')}}</div>
+                        <div class="alert alert-danger" role="alert">{{Session::get('error')}}</div>
                     @endif
                     @if(Session::has('warning'))
-                    <div class="alert alert-warning" role="alert">{{Session::get('warning')}}</div>
+                        <div class="alert alert-warning" role="alert">{{Session::get('warning')}}</div>
                     @endif
                     @if(Session::has('message'))
-                    <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
+                        <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
                     @endif
-                    @yield('content')
                 </div>
-            </div>
-            @else
-                @if(Session::has('error'))
-                <div class="alert alert-danger" role="alert">{{Session::get('error')}}</div>
-                @endif
-                @if(Session::has('warning'))
-                <div class="alert alert-warning" role="alert">{{Session::get('warning')}}</div>
-                @endif
-                @if(Session::has('message'))
-                <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
-                @endif
-            @yield('content')
+                @yield('content')
             @endif
         </div>
         @yield('last')
