@@ -1,7 +1,7 @@
 @extends('layouts.center_content')
 
 @section('center')
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3" style="margin-top: 5em">
     {{ Form::open(array('action' => 'RemindersController@postReset', 'class' => 'form-horizontal', 'method' => 'post', 'role' => 'form')) }}
     {{ Form::hidden('token', $token) }}     
     <div class="form-group thumbnail">

@@ -13,6 +13,9 @@
 
 Route::get('/', 'HomeController@showWelcome');
 
+Route::post('/register', 'RegistrationController@postRegister');
+Route::get('/register', 'RegistrationController@getRegister');
+
 Route::get('/compiler', 'CompilerController@run');
 
 Route::group(array('before' => 'guest'), function() {

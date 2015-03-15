@@ -32,7 +32,7 @@ class LoginController extends Controller {
                         'email', 'password'
         );
         $rules = array(
-            'email' => 'required|email|exists:users,email,confirmed,1',
+            'email' => 'required|email|exists:users,email', //TODO: ,confirmed,1',
             'password' => 'required|min:6'
         );
         $validator = Validator::make($input, $rules);
@@ -40,15 +40,16 @@ class LoginController extends Controller {
             return Redirect::back()
                             ->withErrors($validator)
                             ->withInput(Input::except('password'))
-                            ->with('error', Lang::get('common.login_failed'));
+                            ->with('error', Lang::get('Nepodarilo sa prihlásenie'));
         }
         if (Auth::attempt(array(
                     'email' => Input::get('email'),
                     'password' => Input::get('password'),
-                    'confirmed' => 1
+                        //TODO: 
+                        //'confirmed' => 1
                         ), Input::get('remember'))) {
             return Redirect::action('HomeController@showWelcome')
-                            ->with('message', Lang::get('common.login_successful'));
+                            ->with('message', Lang::get('Prihlásenie prebehlo úspešne.'));
         }
         return Redirect::back()
                         ->withErrors($validator)

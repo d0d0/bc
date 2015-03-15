@@ -19,7 +19,7 @@ class RegistrationController extends BaseController {
      */
     public function postRegister() {
         $input = Input::only(
-                        'name', 'surname', 'address', 'phone', 'password', 'password_confirmation', 'email', 'division', 'rank'
+                        'name', 'surname', 'password', 'password_confirmation', 'email'
         );
         $rules = array(
             'name' => 'required',
@@ -42,15 +42,17 @@ class RegistrationController extends BaseController {
                     'surname' => Input::get('surname'),
                     'email' => Input::get('email'),
                     'password' => Hash::make(Input::get('password')),
-                    'confirmation_code' => $confirmation_code,
+                   // 'confirmation_code' => $confirmation_code,
+                    //TODO: odstranit a nechat mail
+                    'confirmed' => 1
                 ))->id;
 
-        Mail::send('emails.auth.verify', array('confirmation_code' => $confirmation_code), function($message) {
-            $message->to(Input::get('email'), Input::get('name'))
-                    ->subject(Lang::get('emails.verify_email'));
-        });
+        /* Mail::send('emails.auth.verify', array('confirmation_code' => $confirmation_code), function($message) {
+          $message->to(Input::get('email'), Input::get('name'))
+          ->subject(Lang::get('emails.verify_email'));
+          }); */
         return Redirect::action('HomeController@showWelcome')
-                        ->with('message', Lang::get('common.thank_for_sign'));
+                        ->with('message', Lang::get('Regitrácia prebehla úspešne'));
     }
 
     /**

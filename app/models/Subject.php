@@ -46,7 +46,7 @@ class Subject extends Eloquent {
     }
 
     public function scopeWithoutselected($query) {
-        return $query->where('id', '<>', Auth::user()->last_subject);
+        return $query->where('subjects.id', '<>', Auth::user()->last_subject);
     }
 
 }

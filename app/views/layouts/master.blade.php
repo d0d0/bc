@@ -43,7 +43,7 @@
             });
         </script>
     </head>
-    <body>
+    <body>    
         <div class="container-fluid">
             @if(Auth::check())
             <nav class="navbar navbar-default">
@@ -62,13 +62,15 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                @forelse(Auth::user()->subjects()->withoutselected()->get() as $subject)
-                                    <li>
-                                        {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
-                                    </li>
-                                @empty
+                                @if(!Auth::user()->subjects()->withoutselected()->get()->isEmpty())
+                                    @foreach(Auth::user()->subjects()->withoutselected()->get() as $subject)
+                                        <li>
+                                            {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
+                                        </li>
+                                    @endforeach
+                                @else
                                     <li><a href="javascript:void(0)">.Žiadny predmet</a></li>
-                                @endforelse
+                                @endif
                             </ul>
                         </li>
                     </ul>
