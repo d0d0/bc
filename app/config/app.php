@@ -108,6 +108,7 @@ return array(
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Workbench\WorkbenchServiceProvider',
         'Liebig\Cron\CronServiceProvider',
+        'Nathanmac\Utilities\Parser\ParserServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------

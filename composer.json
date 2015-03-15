@@ -12,7 +12,8 @@
         "iron-io/iron_mq": "dev-master",
         "liebig/cron": "dev-master",
         "venturecraft/revisionable": "1.*",
-        "watson/validating": "0.*"
+        "watson/validating": "0.*",
+        "Nathanmac/Parser": "2.*"
     },
     "autoload": {
         "classmap": [

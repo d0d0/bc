@@ -29,7 +29,7 @@ class TestFileGenerator {
                 $content .= self::prepareString($section->name) . ") {" . PHP_EOL;
                 $tests = $section->tests()->get();
                 foreach ($tests as $test) {
-                    $content.="  " . $test->codebefore . PHP_EOL;
+                    $content .= "  " . $test->codebefore . PHP_EOL;
                     switch ($test->compare) {
                         case Test::EQUAL:
                             $content.="  EXPECT_EQ(";
@@ -39,9 +39,9 @@ class TestFileGenerator {
                             break;
                     }
                     $content .= self::prepareString($test->expected) . ", " . self::prepareString($test->testfunction) . ");" . PHP_EOL;
-                    $content.="  " . $test->codeafter . PHP_EOL;
+                    $content .= "  " . $test->codeafter . PHP_EOL;
                 }
-                $content.="}" . PHP_EOL . PHP_EOL;
+                $content .= "}" . PHP_EOL . PHP_EOL;
             }
         }
         File::put(storage_path() . '/' . $task_id . $group_id . '/test.cpp', $content);
