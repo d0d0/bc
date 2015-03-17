@@ -4,19 +4,19 @@
 <div class="col-md-12">
     <table class="table table-striped table-hover">
         <tr>
-            <th>.Názov</th>
-            <th>.Začiatok</th>
-            <th>.Koniec</th>
-            <th>.Bodov</th>
+            <th>Názov</th>
+            <th>Začiatok</th>
+            <th>Koniec</th>
+            <th>Bodov</th>
         </tr>
         @forelse($tasks as $task)
-        <tr {{ Carbon::parse($task->deadline) < Carbon::now() ? 'class="danger"' : '' }}>
+        <tr {{ $task->isAfterDeadline() ? 'class="danger"' : '' }}>
             <td>
                 {{ HTML::linkAction('SolutionController@show', $task->name, array('id' => $task->id)) }}
             </td>
             <td>{{{ $task->formattedStart() }}}</td>
             <td>{{{ $task->formattedDeadline() }}}</td>
-            <td>{{{ Carbon::now()->format('d.m.Y H:i') }}}</td>
+            <td>{{{ $task->points() }}}</td>
         </tr>
         @empty
         <tr>

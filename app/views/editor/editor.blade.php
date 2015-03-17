@@ -90,13 +90,11 @@ var addEditor = function(node_id, name){
     });
 };
 
-//TODO: group id
-var docName = null;
 @foreach($files as $file)
     addEditor('{{{ $file->node_id }}}', '{{{ $file->name }}}');
 @endforeach
 
-docName = '{{{ $task->id . 1 }}}';
+var docName = '{{{ $task->id . $group_id }}}';
 
 sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
     var toggleEditor = function () {
@@ -126,7 +124,7 @@ sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', 
         e.preventDefault();
         var l = Ladda.create(this);
         l.start();
-        var data = { 'task_id': {{{ $task->id }}}, 'group_id': 1, 'files': [] };
+        var data = { 'task_id': {{{ $task->id }}}, 'group_id': {{ $group_id }}, 'files': [] };
         for (var key in editors) {
             var val = editors[key];
             data['files'].push({ 'text': val.getSession().getValue()+'', 'name': val.name+'' });

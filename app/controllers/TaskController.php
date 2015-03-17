@@ -57,7 +57,7 @@ class TaskController extends BaseController {
                         } else {
                             try {
                                 TaskFile::whereIn('id', $filesforRevert)->delete();
-                            } catch (Exception $exc) {
+                            } catch (Exception $e) {
                                 
                             }
                             $task->delete();

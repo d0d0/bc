@@ -29,7 +29,7 @@ class Solution extends Eloquent {
     }
 
     public function task() {
-        return $this->hasOne('Group', 'id', 'task_id');
+        return $this->hasOne('Task', 'id', 'task_id');
     }
 
     public function scopeNotDeleted($query) {

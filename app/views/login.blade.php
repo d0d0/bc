@@ -15,7 +15,7 @@
         </div>
         <div class="form-group {{ $errors->has('password') ? "has-error" : "" }}">
             <div class="col-md-3">
-                {{ Form::label('password', 'Hesloeslo') }}
+                {{ Form::label('password', 'Heslo') }}
             </div>
             <div class="col-md-9">
                 {{ Form::password('password', array('class'=>'form-control', 'placeholder' => 'Heslo')) }}

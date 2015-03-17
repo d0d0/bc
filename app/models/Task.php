@@ -38,6 +38,10 @@ class Task extends Eloquent {
     }
 
     public function scopeAfterDeadline($query) {
+        return $query->whereRaw('deadline < now()');
+    }
+
+    public function scopeBeforeDeadline($query) {
         return $query->whereRaw('deadline > now()');
     }
 
@@ -56,9 +60,19 @@ class Task extends Eloquent {
     public function files() {
         return TaskFile::where('task_id', '=', $this->id);
     }
-    
-    public function blocks(){
+
+    public function blocks() {
         return Block::where('task_id', '=', $this->id);
+    }
+
+    public function points() {
+        $result = 0;
+        foreach ($this->blocks()->get() as $block) {
+            foreach ($block->sections()->get() as $section) {
+                $result += $section->points;
+            }
+        }
+        return $result;
     }
 
 }

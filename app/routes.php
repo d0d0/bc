@@ -65,6 +65,9 @@ Route::group(array('before' => 'auth'), function() {
     Route::group(array('prefix' => 'group'), function() {
         Route::get('/all', 'GroupController@all');
         Route::get('/show/{id?}', 'GroupController@show');
-        Route::get('/create', 'GroupController@create');
+        Route::get('/create/{id?}', 'GroupController@create');
+        Route::group(array('before' => 'csrf'), function() {
+            Route::post('/groups', 'GroupController@groups');
+        });
     });
 });
