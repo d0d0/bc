@@ -14,6 +14,9 @@ class UpdateGroupsTable extends Migration {
         Schema::table('groups', function(Blueprint $table) {
             $table->integer('task_id')->unsigned()->nullable();
             $table->foreign('task_id')->references('id')->on('tasks');
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->integer('state');
         });
     }
 
