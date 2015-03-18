@@ -33,6 +33,11 @@
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 12.3.2015 - 19.3.2014</p>
+                    <p>Predpripravil som si skripty na vytvorenie virtálneho stroja, na ktorom budú bežať skompilované programy kvôli bezpečnosti. Doprogramoval som všetku prácu so skupinou.</p>
+                </div>
+                <div class="thumbnail">
+                    <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 7.3.2015 - 11.3.2014</p>
                     <p>Doprogramoval som kľúčové časti aplikácie- vytváranie zadaní vrátane unit testov, kompilácia riešenia, spúšťanie riešenia a zmigroval ju nový, rýchlejší server. Zároveň som sa stretol so školiteľom a dohodli sme sa, že aplikáciu odtestujeme v reálnej prevádzke 24.3. na hodine extrémneho programovania a toto by mal konečný termín, do ktorého bude aplikácia v hotovom stave.</p>
                 </div>
