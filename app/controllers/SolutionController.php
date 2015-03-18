@@ -33,7 +33,7 @@ class SolutionController extends BaseController {
             return Redirect::action('GroupController@create', array('id' => $id));
         }
         $new = false;
-        if (Solution::where('task_id', '=', $id)->get()->isEmpty()) {
+        if (Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get()->isEmpty()) {
             SolutionHelper::addNewFile($id, $group_id);
             $new = true;
         }
