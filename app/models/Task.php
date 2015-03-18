@@ -74,5 +74,9 @@ class Task extends Eloquent {
         }
         return $result;
     }
+    
+    public function groups(){
+        return Group::where('task_id', '=', $this->id);
+    }
 
 }

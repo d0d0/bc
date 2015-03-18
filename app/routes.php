@@ -68,6 +68,11 @@ Route::group(array('before' => 'auth'), function() {
         Route::get('/create/{id?}', 'GroupController@create');
         Route::group(array('before' => 'csrf'), function() {
             Route::post('/groups', 'GroupController@groups');
+            Route::post('/groupsCreate', 'GroupController@createGroup');
+            Route::post('/delete', 'GroupController@delete');
+            Route::post('/join', 'GroupController@join');
+            Route::post('/leave', 'GroupController@leave');
+            Route::post('/approve', 'GroupController@approve');
         });
     });
 });

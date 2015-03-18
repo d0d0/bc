@@ -9,6 +9,9 @@ class Group extends Eloquent {
 
     use \Venturecraft\Revisionable\RevisionableTrait;
 
+    const CREATED = 0;
+    const APPROVED = 1;
+
     protected $table = 'groups';
     protected $fillable = array(
         'name',
@@ -19,6 +22,14 @@ class Group extends Eloquent {
         'created_at',
         'updated_at'
     );
+
+    public function scopeCreated($query) {
+        return $query->where('state', '=', $this::CREATED);
+    }
+
+    public function scopeApproved($query) {
+        return $query->where('state', '=', $this::APPROVED);
+    }
 
     public function members() {
         return User::whereIn('id', GroupMembers::where('group_id', '=', $this->id)->select('user_id')->get()->toArray());

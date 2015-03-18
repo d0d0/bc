@@ -8,7 +8,7 @@
 class SolutionController extends BaseController {
 
     public function show($id = null) {
-        $groups = Group::where('task_id', '=', $id)->get();
+        $groups = Group::where('task_id', '=', $id)->approved()->get();
         $has_group = false;
         $group_id = 0;
         foreach ($groups as $group) {
@@ -20,6 +20,15 @@ class SolutionController extends BaseController {
                 }
             }
         }
+        $task = Task::find($id);
+        $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
+        if ($task->isAfterDeadline()) {
+            return View::make('editor.code', array(
+                        'files' => $files,
+                        'task' => $task,
+                        'group_id' => $group_id
+            ));
+        }
         if (!$has_group) {
             return Redirect::action('GroupController@create', array('id' => $id));
         }
@@ -28,23 +37,13 @@ class SolutionController extends BaseController {
             SolutionHelper::addNewFile($id, $group_id);
             $new = true;
         }
-        $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
-        $task = Task::find($id);
-        if ($task->isAfterDeadline()) {
-            return View::make('editor.code', array(
-                        'files' => $files,
-                        'task' => $task,
-                        'group_id' => $group_id
-            ));
-        } else {
-            return View::make('editor.editor', array(
-                        'id' => $id,
-                        'files' => $files,
-                        'task' => $task,
-                        'new' => $new,
-                        'group_id' => $group_id
-            ));
-        }
+        return View::make('editor.editor', array(
+                    'id' => $id,
+                    'files' => $files,
+                    'task' => $task,
+                    'new' => $new,
+                    'group_id' => $group_id
+        ));
     }
 
     public function add() {
