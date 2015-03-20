@@ -21,7 +21,13 @@ class SolutionController extends BaseController {
             }
         }
         $task = Task::find($id);
-        $files = Solution::where('task_id', '=', $id)->notDeleted()->get();
+        $new = false;
+        if (Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get()->isEmpty()) {
+            SolutionHelper::addNewFile($id, $group_id);
+            $new = true;
+        }
+        $files = Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get();
+        //TODO: ak nie je task
         if ($task->isAfterDeadline()) {
             return View::make('editor.code', array(
                         'files' => $files,
@@ -31,11 +37,6 @@ class SolutionController extends BaseController {
         }
         if (!$has_group) {
             return Redirect::action('GroupController@create', array('id' => $id));
-        }
-        $new = false;
-        if (Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get()->isEmpty()) {
-            SolutionHelper::addNewFile($id, $group_id);
-            $new = true;
         }
         return View::make('editor.editor', array(
                     'id' => $id,
@@ -80,21 +81,25 @@ class SolutionController extends BaseController {
         }
     }
 
-    public function deletedFiles() {
-        $files = Solution::where('task_id', '=', Input::all()['id'])->where('deleted', '=', Solution::DELETED)->get();
-        return View::make('editor.deleted', array(
-                    'files' => $files
-        ));
-    }
-
     public function getText() {
         return Response::json(Solution::where('node_id', '=', Input::get('node_id'))->select('text')->get());
     }
 
-    public function deleteFile() {
-        SolutionHelper::deleteFile(Input::all()['node_id']);
+    public function getOwnTests() {
+        if (Request::ajax()) {
+            return Response::json();
+        }
+    }
+
+    public function addOwnTest() {
+        if (Request::ajax()) {
+            $input = Input::all();
+            return Response::json(array(
+                        'result' => true
+            ));
+        }
         return Response::json(array(
-                    'result' => true
+                    'result' => false
         ));
     }
 

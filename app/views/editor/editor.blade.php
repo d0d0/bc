@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
 @section('js')
-{{ HTML::script('js/ace/ace.js') }}
-{{ HTML::script('js/ace/ext-language_tools.js') }}
-{{ HTML::script('js/ace/ext-themelist.js') }}
-{{ HTML::script('js/bcsocket-uncompressed.js') }}
-{{ HTML::script('js/share.uncompressed.js') }}
-{{ HTML::script('js/ace_c.js') }}
-{{ HTML::script('js/spin.min.js') }}
-{{ HTML::script('js/ladda.min.js') }}
-{{ HTML::style('css/ladda-themeless.min.css') }}
+    {{ HTML::script('js/ace/ace.js') }}
+    {{ HTML::script('js/ace/ext-language_tools.js') }}
+    {{ HTML::script('js/ace/ext-themelist.js') }}
+    {{ HTML::script('js/bcsocket-uncompressed.js') }}
+    {{ HTML::script('js/share.uncompressed.js') }}
+    {{ HTML::script('js/ace_c.js') }}
+    {{ HTML::script('js/spin.min.js') }}
+    {{ HTML::script('js/ladda.min.js') }}
+    {{ HTML::style('css/ladda-themeless.min.css') }}
 @stop
 
 @section('style')
@@ -214,6 +214,44 @@ sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     onChangeTab(e);
 });
+
+var reload = function(){
+        
+};
+
+sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
+    $('#add').on('click', function(){
+        $('#addTest').modal('show');
+    });
+
+    $('#addTestButton').on('click', function(){
+        $.ajax({
+            'url': '{{ URL::action('SolutionController@addOwnTest') }}',
+            'method': 'post',
+            'dataType': 'json',
+            'data': {
+                'task_id' : {{ $task->id }},
+                'group_id' : {{ $group_id }},
+                'codebefore' : $('#codebefore').val(),
+                'testfunction' : $('#testfunction').val(),
+                'compare' : $('#compare').val(),
+                'expected' : $('#expected').val(),
+                'codeafter' : $('#codeafter').val(),
+            },
+            'success': function(result){
+                if(result.result){
+                    doc.shout({'msg': 'reload'});
+                }
+            }
+        });
+        
+        doc.on('shout', function (msg) {
+            if(msg.msg == 'reload'){
+                reload();
+            }
+        });
+    });
+});
 @stop
 
 @section('content')
@@ -242,6 +280,13 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 </a>
             </li>
             @endforeach
+            <li class="pull-right" style="margin-right: 15px; margin-top: 4px">
+                <div>
+                    <button class="btn btn-primary ladda-button" id="test" data-style="zoom-in">
+                        <span class="ladda-label">{{ Lang::get('Otestuj') }}</span>
+                    </button>
+                </div>
+            </li>
         </ul>
         <div class="tab-content">
             <?php $i = 0; ?>
@@ -255,10 +300,28 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         </div>
     </div>
 </div>
-<div>
-    <button class="btn btn-primary ladda-button" id="test" data-style="zoom-in">
-        <span class="ladda-label">{{ Lang::get('Otestuj') }}</span>
-    </button>
+<div class="panel panel-default noselect">
+    <div class="panel-heading">
+        <h3 class="panel-title">Vlastné testy</h3>
+    </div>
+    <div class="panel-body">
+        <table id="owntests" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Testovaná funkcia</th>
+                    <th>Porovnanie</th>
+                    <th>Očakávaná hodnota</th>
+                    <th>Kód po</th>
+                    <th>
+                        <button type="button" class="btn btn-success btn-sm" id="add">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 <div>
     <input type="text" id="input" placeholder="Shout something&hellip;"/>
@@ -266,4 +329,37 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     <dl id="shouts" class="dl-horizontal"></dl>
 </div>
 <div id="result"></div>
+<div class="modal fade" id="addTest" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Pridanie testu</h4>
+            </div>
+            <div class="modal-body" id="addTestBody">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="codebefore" class="control-label">{{ Lang::get('Kód pred') }}:</label>
+                        <input type="text" class="form-control" id="codebefore">
+                        <label for="testfunction" class="control-label">{{ Lang::get('Testovacia funkcia') }}:</label>
+                        <input type="text" class="form-control" id="testfunction">
+                        <label for="compare" class="control-label">{{ Lang::get('Porovnanie') }}:</label>
+                        <select class="form-control" id="compare">
+                            <option value="{{ Test::EQUAL }}">==</option>
+                            <option value="{{ Test::NON_EQUAL }}">!=</option>
+                        </select>
+                        <label for="expected" class="control-label">{{ Lang::get('Očakávaná hodnota') }}:</label>
+                        <input type="text" class="form-control" id="expected">
+                        <label for="codeafter" class="control-label">{{ Lang::get('Kód po') }}:</label>
+                        <input type="text" class="form-control" id="codeafter">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zavrieť</button>
+                <button type="button" class="btn btn-primary" id="addTestButton">Pridaj test</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop

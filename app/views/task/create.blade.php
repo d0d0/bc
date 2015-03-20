@@ -200,7 +200,14 @@
                         .append($('<td />').text(param['testfunction']))
                         .append($('<td />').attr({
                             'class': 'text-center'
-                        }).text(param['compare']))
+                        }).text(function(){
+                            switch(param['compare']){
+                                case "{{ Test::EQUAL }}":
+                                    return '==';
+                                case "{{ Test::NON_EQUAL }}":
+                                    return '!=';
+                            };
+                        }))
                         .append($('<td />').text(param['expected']))
                         .append($('<td />').text(param['codeafter']))
                         .append($('<td />').attr({
@@ -269,7 +276,7 @@
         var table = $('<table />').attr({
             'class': 'table table-striped ' + blockId + param['id']
             }).append($('<thead />').append($('<tr />').append($('<th />').text('Kód pred'))
-            .append($('<th />').text('Testovacia funkcia'))
+            .append($('<th />').text('Testovaná funkcia'))
             .append($('<th />').text('Porovnanie').attr({ 'class': 'text-center' }))
             .append($('<th />').text('Očakávaná hodnota'))
             .append($('<th />').text('Kód po'))
