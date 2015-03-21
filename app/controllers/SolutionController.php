@@ -8,6 +8,9 @@
 class SolutionController extends BaseController {
 
     public function show($id = null) {
+        if (!$task = Task::find($id)) {
+            return Redirect::action('HomeController@showWelcome');
+        }
         $groups = Group::where('task_id', '=', $id)->approved()->get();
         $has_group = false;
         $group_id = 0;
@@ -20,14 +23,12 @@ class SolutionController extends BaseController {
                 }
             }
         }
-        $task = Task::find($id);
         $new = false;
         if (Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get()->isEmpty()) {
             SolutionHelper::addNewFile($id, $group_id);
             $new = true;
         }
         $files = Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get();
-        //TODO: ak nie je task
         if ($task->isAfterDeadline()) {
             return View::make('editor.code', array(
                         'files' => $files,
@@ -36,7 +37,9 @@ class SolutionController extends BaseController {
             ));
         }
         if (!$has_group) {
-            return Redirect::action('GroupController@create', array('id' => $id));
+            return Redirect::action('GroupController@create', array(
+                        'id' => $id
+            ));
         }
         return View::make('editor.editor', array(
                     'id' => $id,
