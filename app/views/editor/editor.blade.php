@@ -478,5 +478,4 @@ $('#chat .panel-heading').on('click', function(){
         </div>
     </div>
 </div>
-
 @stop
