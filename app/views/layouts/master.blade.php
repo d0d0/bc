@@ -62,8 +62,8 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    @if(!Auth::user()->subjects()->withoutselected()->get()->isEmpty())
-                                        @foreach(Auth::user()->subjects()->withoutselected()->get() as $subject)
+                                    @if(!Subject::withoutselected()->get()->isEmpty())
+                                        @foreach(Subject::withoutselected()->get() as $subject)
                                             <li>
                                                 {{ HTML::linkAction('UserController@setSelectedSubject', $subject->name . ' ' . $subject->bothYears() . ' ' . $subject->sessionString(), array('id' => $subject->id)) }}
                                             </li>
