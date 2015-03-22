@@ -107,13 +107,17 @@ class GroupController extends BaseController {
     public function join() {
         if (Request::ajax()) {
             $input = Input::all();
-            GroupMembers::create(array(
-                'group_id' => $input['id'],
-                'user_id' => Auth::id()
-            ));
-            return Response::json(array(
-                        'result' => true
-            ));
+            $size = Group::find($input['id'])->task()->groupsize;
+            $actualsize = GroupMembers::where('group_id', '=', $input['id'])->get()->count();
+            if ($actualsize < $size) {
+                GroupMembers::create(array(
+                    'group_id' => $input['id'],
+                    'user_id' => Auth::id()
+                ));
+                return Response::json(array(
+                            'result' => true
+                ));
+            }
         }
         return Response::json(array(
                     'result' => false
