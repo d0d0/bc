@@ -39,16 +39,6 @@ class UserTableSeeder extends Seeder {
             'admin' => 1,
             'teacher' => 1,
         ));
-        Subject::create(array(
-            'teacher' => 101,
-            'year' => 2010,
-            'session' => 0,
-            'name' => 'Test'
-        ));
-        Group::create(array(
-            'subject_id' => 1,
-            'name' => 'Test'
-        ));
     }
 
 }
