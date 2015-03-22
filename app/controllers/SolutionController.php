@@ -79,8 +79,10 @@ class SolutionController extends BaseController {
             }
             shell_exec('timeout 5s ' . $path . '/main --gtest_color=yes --gtest_output=xml:' . $path . '/s.xml | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
             $result = File::get($path . '/s.xml');
+            $parser = new Parser();
+            $parsed = $parser->xml($result);
             File::deleteDirectory($path);
-            return $result;
+            return $parsed;
             return View::make('compiler.compiler', array(
                         'path' => $path
             ));
