@@ -19,7 +19,7 @@ class OwnTest extends Eloquent {
     const EQUAL = 0;
     const NON_EQUAL = 1;
 
-    protected $table = 'owntests';
+    protected $table = 'ownTests';
     protected $fillable = array(
         'group_id',
         'task_id',
