@@ -50,23 +50,26 @@ Route::group(array('before' => 'auth'), function() {
     Route::group(array('prefix' => 'task'), function() {
         Route::get('/all', 'TaskController@all');
         Route::get('/show/{id?}', 'TaskController@show');
-        Route::get('/create', 'TaskController@create');
-        Route::group(array('before' => 'csrf'), function() {
-            Route::post('/add', 'TaskController@add');
+        Route::group(array('before' => 'teacher'), function() {
+            Route::get('/create', 'TaskController@create');
+            Route::group(array('before' => 'csrf'), function() {
+                Route::post('/add', 'TaskController@add');
+            });
         });
     });
 
     Route::group(array('prefix' => 'subject'), function() {
         Route::get('/all', 'SubjectController@all');
         Route::get('/show/{id?}', 'SubjectController@show');
-        Route::get('/create', 'SubjectController@create');
-        Route::group(array('before' => 'csrf'), function() {
-            Route::post('/add', 'SubjectController@add');
+        Route::group(array('before' => 'teacher'), function() {
+            Route::get('/create', 'SubjectController@create');
+            Route::group(array('before' => 'csrf'), function() {
+                Route::post('/add', 'SubjectController@add');
+            });
         });
     });
 
     Route::group(array('prefix' => 'group'), function() {
-        Route::get('/all', 'GroupController@all');
         Route::get('/show/{id?}', 'GroupController@show');
         Route::get('/create/{id?}', 'GroupController@create');
         Route::group(array('before' => 'csrf'), function() {

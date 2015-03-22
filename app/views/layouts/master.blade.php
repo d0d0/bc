@@ -86,9 +86,13 @@
                 <div class="row">
                     <div class="col-md-2" id="leftMenu">
                         <ul class="nav nav-pills nav-stacked" style="text-align: center">
-                            <li>{{ HTML::linkAction('TaskController@create', 'Vytvor zadanie', array()) }}</li>
+                            @if(Auth::user()->isTeacher())
+                                <li>{{ HTML::linkAction('TaskController@create', 'Vytvor zadanie', array()) }}</li>
+                            @endif
                             <li>{{ HTML::linkAction('TaskController@all', 'Všetky zadania', array()) }}</li>
-                            <li>{{ HTML::linkAction('SubjectController@create', 'Vytvor predmet', array()) }}</li>
+                            @if(Auth::user()->isTeacher())
+                                <li>{{ HTML::linkAction('SubjectController@create', 'Vytvor predmet', array()) }}</li>
+                            @endif
                         </ul>
                         <p class="lead"></p>
                         <div class="thumbnail">

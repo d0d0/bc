@@ -81,3 +81,10 @@ Route::filter('csrf', function() {
     if (Session::token() != $token)
         throw new Illuminate\Session\TokenMismatchException;
 });
+
+Route::filter('teacher', function() {
+    if (Auth::check() && !Auth::user()->isTeacher()) {
+        return Redirect::action('HomeController@showWelcome')
+                        ->with('warning', Lang::get('common.acces_denied'));
+    }
+});
