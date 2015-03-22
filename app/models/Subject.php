@@ -30,7 +30,7 @@ class Subject extends Eloquent {
     );
 
     public function sessionString() {
-        return $this->session == self::WINTER ? '.Zima' : '.Leto';
+        return $this->session == self::WINTER ? 'Zima' : 'Leto';
     }
 
     public function bothYears() {
