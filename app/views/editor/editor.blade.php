@@ -372,6 +372,8 @@ $('#chat .panel-heading').on('click', function(){
     $('#chat .panel-primary').css({
         'border-color': '#337ab7'
     });
+    var objDiv = document.getElementById('chat_panel');
+    objDiv.scrollTop = objDiv.scrollHeight;
 });
 
 $('#chat .panel-body, #chat .panel-footer').on('click', function(){
