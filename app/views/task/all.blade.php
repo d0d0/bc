@@ -9,6 +9,9 @@
                 <th>Začiatok</th>
                 <th>Koniec</th>
                 <th>Bodov</th>
+                @if(Auth::user()->isTeacher())
+                    <th class="text-center">Edituj</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -21,11 +24,16 @@
                 <td>{{{ $task->formattedStart() }}}</td>
                 <td>{{{ $task->formattedDeadline() }}}</td>
                 <td>{{{ $task->points() }}}</td>
+                @if(Auth::user()->isTeacher())
+                    <td class="text-center text-info">
+                        <a href="{{ action('TaskController@edit', array('id' => $task->id)) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    </td>
+                @endif
             </tr>
             <?php $points += $task->points() ?>
             @empty
             <tr>
-                <td colspan="4">
+                <td colspan="{{ Auth::user()->isTeacher() ? 5 : 4 }}">
                     Nič na zobrazenie
                 </td>
             </tr>
@@ -37,6 +45,7 @@
                 <th></th>
                 <th></th>
                 <th>{{{ $points }}}</th>
+                <th></th>
             </tr>
         </tfoot>
     </table>

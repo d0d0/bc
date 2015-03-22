@@ -52,6 +52,7 @@ Route::group(array('before' => 'auth'), function() {
         Route::get('/show/{id?}', 'TaskController@show');
         Route::group(array('before' => 'teacher'), function() {
             Route::get('/create', 'TaskController@create');
+            Route::get('/edit/{id?}', 'TaskController@edit');
             Route::group(array('before' => 'csrf'), function() {
                 Route::post('/add', 'TaskController@add');
             });

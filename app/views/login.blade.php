@@ -30,6 +30,9 @@
             <div class="col-md-6 text-right">
                 {{ HTML::linkAction('RemindersController@getRemind', 'Zabudol som heslo') }}
             </div>
+            <div class="col-md-6 text-right">
+                {{ HTML::linkAction('RegistrationController@getRegister', 'Registrácia') }}
+            </div>
         </div>
         {{Form::submit('Prihlás', array('class'=>'btn btn-default'))}}
     </div>

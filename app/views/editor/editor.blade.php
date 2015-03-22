@@ -13,6 +13,37 @@
 @stop
 
 @section('style')
+#chat .chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#chat .chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+#chat .chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+#chat .panel .slidedown .glyphicon,#chat  .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+#chat .panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
@@ -164,22 +195,30 @@ sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', 
 });
 
 sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
-    function addShout(msg) {
-        var dt = $('<dt />').text(msg.name);
-        var dd = $('<dd />').text(msg.text);
-        $('#shouts').append(dt).append(dd);
+    function addShout(msg) {        
+        $('.chat').append('<li class="clearfix">' +
+                            '<div class="chat-body clearfix">' +
+                                '<div class="header">' +
+                                    '<strong class="primary-font">' + msg.name + '</strong>' +
+                                '</div>' +
+                                '<p>' + msg.text + '</p>' +
+                            '</div>' +
+                        '</li>'
+        );
+        var objDiv = document.getElementById('chat_panel');
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
 
     function shoutOut(value) {
         var s;
         if (value) {
             s = value;
-        } else if ($.trim($('#input').val())) {
-            s = $.trim($('#input').val());
+        } else if ($.trim($('#btn-input').val())) {
+            s = $.trim($('#btn-input').val());
         } else {
             return false;
         }
-        $('#input').val('');
+        $('#btn-input').val('');
         var msg = {
             'name': '{{ Auth::user()->name }}',
             'text': s
@@ -190,11 +229,7 @@ sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
         }
     }
 
-    $('#shout').on('click', function () {
-        shoutOut();
-    });
-
-    $('#input').keyup(function (e) {
+    $('#btn-input').keyup(function (e) {
         if (e.keyCode == 13) {
             shoutOut();
         }
@@ -313,6 +348,10 @@ sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
     });
     reload();
 });
+
+$('#chat .panel-heading').on('click', function(){
+    $('#chat .panel-body, #chat .panel-footer').toggle();
+});
 @stop
 
 @section('content')
@@ -361,7 +400,7 @@ sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
         </div>
     </div>
 </div>
-<div class="panel panel-default noselect">
+<div class="panel panel-default noselect" style="margin-bottom: 50px;">
     <div class="panel-heading">
         <h3 class="panel-title">Vlastné testy</h3>
     </div>
@@ -385,11 +424,13 @@ sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
         </table>
     </div>
 </div>
+
 <div>
     <input type="text" id="input" placeholder="Shout something&hellip;"/>
     <input type="button" id="shout" value="shout"/>
     <dl id="shouts" class="dl-horizontal"></dl>
 </div>
+
 <div id="result"></div>
 <div class="modal fade" id="addTest" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -424,4 +465,25 @@ sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
         </div>
     </div>
 </div>
+@stop
+
+@section('last')
+<div id="chat" class="container" style="position: fixed; bottom: 0; right: 0; z-index: 999">
+    <div class="row">
+        <div class="col-md-5 col-md-offset-7">
+            <div class="panel panel-primary" style="margin: 0">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                </div>
+                <div class="panel-body" style="display: none; margin-right: 1px" id="chat_panel">
+                    <ul class="chat"></ul>
+                </div>
+                <div class="panel-footer" style="display: none">
+                    <input id="btn-input" type="text" class="form-control input-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @stop

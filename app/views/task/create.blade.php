@@ -42,7 +42,7 @@
         if(!last_subject){
             var div = $('<div />').attr({
                 'class': 'col-md-10'
-            }).append($('<div />').attr('class', 'alert alert-danger alert-dismissible fade in').attr('role', 'alert').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>.Nie je vybraty predmet'));
+            }).append($('<div />').attr('class', 'alert alert-danger alert-dismissible fade in').attr('role', 'alert').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>Nie je vybratý predmet'));
             $('#leftMenu').after(div)
             return;
         }

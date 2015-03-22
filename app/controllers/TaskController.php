@@ -31,6 +31,16 @@ class TaskController extends BaseController {
         return View::make('task.create');
     }
 
+    public function edit($id = null) {
+        if (Task::find($id)) {
+            return View::make('task.create', array(
+                        'id' => $id
+            ));
+        }
+        return Redirect::action('HomeController@showWelcome')
+                        ->with('warning', Lang::get('common.acces_denied'));
+    }
+
     public function add() {
         if (Request::ajax()) {
             $input = Input::all();
