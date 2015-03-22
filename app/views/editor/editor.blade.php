@@ -205,6 +205,21 @@ sharejs.open("shout:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
                             '</div>' +
                         '</li>'
         );
+        if(!$('#chat .panel-body').is(':visible')){
+            $('#chat .panel-heading').css({
+                'background-color': '#d9534f'
+            });
+            $('#chat .panel-primary').css({
+                'border-color': '#d43f3a'
+            });
+        }else{
+            $('#chat .panel-heading').css({
+                'background-color': '#337ab7'
+            });
+            $('#chat .panel-primary').css({
+                'border-color': '#337ab7'
+            });
+        }
         var objDiv = document.getElementById('chat_panel');
         objDiv.scrollTop = objDiv.scrollHeight;
     }
@@ -351,6 +366,12 @@ sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
 
 $('#chat .panel-heading').on('click', function(){
     $('#chat .panel-body, #chat .panel-footer').toggle();
+    $('#chat .panel-heading').css({
+        'background-color': '#337ab7'
+    });
+    $('#chat .panel-primary').css({
+        'border-color': '#337ab7'
+    });
 });
 
 $('#chat .panel-body, #chat .panel-footer').on('click', function(){
