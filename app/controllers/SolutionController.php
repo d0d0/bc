@@ -6,8 +6,7 @@
  * @author Jozef Dúc
  */
 class SolutionController extends BaseController {
-
-    use Nathanmac\Utilities\Parser\Parser;
+    
 
     public function show($id = null) {
         if (!$task = Task::find($id)) {
@@ -81,8 +80,7 @@ class SolutionController extends BaseController {
             }
             shell_exec('timeout 5s ' . $path . '/main --gtest_color=yes --gtest_output=xml:' . $path . '/s.xml | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
             $result = File::get($path . '/s.xml');
-            $parser = new Parser();
-            $parsed = $parser->xml($result);
+            $parsed = Parser::xml($result);
             File::deleteDirectory($path);
             return $parsed;
             return View::make('compiler.compiler', array(
