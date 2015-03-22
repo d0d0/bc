@@ -44,7 +44,8 @@ class TestFileGenerator {
                 $content .= "}" . PHP_EOL . PHP_EOL;
             }
         }
-        if ($ownTests = OwnTest::where('group_id', '=', $group_id)->where('task_id', '=', $task_id)->get()) {
+        $ownTests = OwnTest::where('group_id', '=', $group_id)->where('task_id', '=', $task_id)->get();
+        if ($ownTests->count() > 0) {
             $content .= "TEST(VLASTNE, TESTY) {" . PHP_EOL;
             foreach ($ownTests as $test) {
                 $content .= "  " . $test->codebefore . PHP_EOL;
