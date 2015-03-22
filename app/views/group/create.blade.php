@@ -175,14 +175,14 @@ reload($('#task_id').val());
     <form class="form-horizontal clearfix" role="form">
         <div class="form-group thumbnail">
             <div class="form-group">
-                <label for="name" class="col-md-1 control-label">{{ Lang::get('Meno skupiny') }}</label>
-                <div class="col-md-11">
+                <label for="name" class="col-md-2 control-label">{{ Lang::get('Meno skupiny') }}</label>
+                <div class="col-md-10">
                     <input type="text" id="name" placeholder="{{ Lang::get('Meno skupiny') }}" class="form-control" value="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="name" class="col-md-1 control-label">{{ Lang::get('Zadanie') }}</label>
-                <div class="col-md-11">
+                <label for="name" class="col-md-2 control-label">{{ Lang::get('Zadanie') }}</label>
+                <div class="col-md-10">
                     <select class="form-control" id="task_id">
                         @if(Auth::user()->lastSubject)
                             @foreach($tasks as $task)

@@ -107,7 +107,7 @@ class GroupController extends BaseController {
     public function join() {
         if (Request::ajax()) {
             $input = Input::all();
-            $size = Group::find($input['id'])->task()->groupsize;
+            $size = Group::find($input['id'])->task->groupsize;
             $actualsize = GroupMembers::where('group_id', '=', $input['id'])->get()->count();
             if ($actualsize < $size) {
                 GroupMembers::create(array(
