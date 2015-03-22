@@ -13,33 +13,32 @@
 @stop
 
 @section('style')
-#chat .chat
-{
+#chat .panel-heading{
+    cursor: pointer;
+}
+
+#chat .chat {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-#chat .chat li
-{
+#chat .chat li {
     margin-bottom: 10px;
     padding-bottom: 5px;
     border-bottom: 1px dotted #B3A9A9;
 }
 
-#chat .chat li .chat-body p
-{
+#chat .chat li .chat-body p {
     margin: 0;
     color: #777777;
 }
 
-#chat .panel .slidedown .glyphicon,#chat  .chat .glyphicon
-{
+#chat .panel .slidedown .glyphicon,#chat  .chat .glyphicon {
     margin-right: 5px;
 }
 
-#chat .panel-body
-{
+#chat .panel-body {
     overflow-y: scroll;
     height: 250px;
 }
