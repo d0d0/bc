@@ -424,14 +424,7 @@ $('#chat .panel-heading').on('click', function(){
         </table>
     </div>
 </div>
-
-<div>
-    <input type="text" id="input" placeholder="Shout something&hellip;"/>
-    <input type="button" id="shout" value="shout"/>
-    <dl id="shouts" class="dl-horizontal"></dl>
-</div>
-
-<div id="result"></div>
+<div id="result" style="margin-bottom: 50px;"></div>
 <div class="modal fade" id="addTest" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
