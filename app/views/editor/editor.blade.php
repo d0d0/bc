@@ -352,6 +352,10 @@ sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
 $('#chat .panel-heading').on('click', function(){
     $('#chat .panel-body, #chat .panel-footer').toggle();
 });
+
+$('#chat .panel-body, #chat .panel-footer').on('click', function(){
+    $('#btn-input').focus();
+});
 @stop
 
 @section('content')
