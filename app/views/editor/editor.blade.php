@@ -463,7 +463,7 @@ $('#chat .panel-heading').on('click', function(){
 @section('last')
 <div id="chat" class="container" style="position: fixed; bottom: 0; right: 0; z-index: 999">
     <div class="row">
-        <div class="col-md-5 col-md-offset-7">
+        <div class="col-md-3 col-md-offset-9">
             <div class="panel panel-primary" style="margin: 0">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-comment"></span> Chat
