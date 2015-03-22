@@ -97,6 +97,30 @@ class SolutionController extends BaseController {
     public function addOwnTest() {
         if (Request::ajax()) {
             $input = Input::all();
+            $ownTest = OwnTest::create($input);
+            return Response::json(array(
+                        'result' => $ownTest->save()
+            ));
+        }
+        return Response::json(array(
+                    'result' => false
+        ));
+    }
+
+    public function getOwnTest() {
+        if (Request::ajax()) {
+            $input = Input::all();
+            return Response::json(OwnTest::where('group_id', '=', $input['group_id'])->where('task_id', '=', $input['task_id'])->get());
+        }
+        return Response::json(array(
+                    'result' => false
+        ));
+    }
+
+    public function deleteOwnTest() {
+        if (Request::ajax()) {
+            $input = Input::all();
+            OwnTest::find($input['id'])->delete();
             return Response::json(array(
                         'result' => true
             ));

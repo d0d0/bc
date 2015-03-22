@@ -215,42 +215,103 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     onChangeTab(e);
 });
 
-var reload = function(){
-        
-};
-
 sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', function (error, doc) {
     $('#add').on('click', function(){
         $('#addTest').modal('show');
     });
 
     $('#addTestButton').on('click', function(){
+        if($('#testfunction').val() && $('#expected').val() != ''){
+            $.ajax({
+                'url': '{{ URL::action('SolutionController@addOwnTest') }}',
+                'method': 'post',
+                'dataType': 'json',
+                'data': {
+                    'task_id' : {{ $task->id }},
+                    'group_id' : {{ $group_id }},
+                    'codebefore' : $('#codebefore').val(),
+                    'testfunction' : $('#testfunction').val(),
+                    'compare' : $('#compare').val(),
+                    'expected' : $('#expected').val(),
+                    'codeafter' : $('#codeafter').val(),
+                },
+                'success': function(result){
+                    if(result['result']){
+                        doc.shout({'msg': 'reload'});
+                        reload();
+                        $('#addTest').modal('hide');
+                    }
+                }
+            });
+        }
+    });
+    
+    var deleteTest = function(id){
         $.ajax({
-            'url': '{{ URL::action('SolutionController@addOwnTest') }}',
+            'url': '{{ URL::action('SolutionController@deleteOwnTest') }}',
+            'method': 'post',
+            'dataType': 'json',
+            'data': {
+                'id' : id
+            },
+            'success': function(result){
+                reload();
+                doc.shout({'msg': 'reload'});
+            }
+        });
+    };
+    
+    var reload = function(){
+        $.ajax({
+            'url': '{{ URL::action('SolutionController@getOwnTest') }}',
             'method': 'post',
             'dataType': 'json',
             'data': {
                 'task_id' : {{ $task->id }},
-                'group_id' : {{ $group_id }},
-                'codebefore' : $('#codebefore').val(),
-                'testfunction' : $('#testfunction').val(),
-                'compare' : $('#compare').val(),
-                'expected' : $('#expected').val(),
-                'codeafter' : $('#codeafter').val(),
+                'group_id' : {{ $group_id }}
             },
             'success': function(result){
-                if(result.result){
-                    doc.shout({'msg': 'reload'});
-                }
+                $('#owntests tbody').empty();
+                result.forEach(function(val){
+                    $('#owntests tbody').append($('<tr />').append($('<td />').text(val['codebefore']))
+                        .append($('<td />').text(val['testfunction']))
+                        .append($('<td />').text(function(){
+                            switch(val['compare']){
+                                case "{{ Test::EQUAL }}":
+                                    return '==';
+                                case "{{ Test::NON_EQUAL }}":
+                                    return '!=';
+                            };
+                        }))
+                        .append($('<td />').text(val['expected']))
+                        .append($('<td />').text(val['codeafter']))
+                        .append($('<td />').html(function(){
+                            var delete_button = $('<button />').on('click', function(){
+                                $(this).attr({
+                                    'disabled': 'disabled'
+                                });
+                                deleteTest(val['id']);
+                            }).attr({
+                                'class': 'btn btn-danger btn-sm',
+                                'type': 'button'
+                             }).append($('<span />').attr({
+                                'class': 'glyphicon glyphicon-remove',
+                                'aria-hidden': 'true'
+                             }));
+                            return delete_button
+                        }))
+                    );
+                });
             }
         });
-        
-        doc.on('shout', function (msg) {
-            if(msg.msg == 'reload'){
-                reload();
-            }
-        });
+    };
+    
+    doc.on('shout', function (msg) {
+        if(msg.msg == 'reload'){
+            reload();
+        }
     });
+    reload();
 });
 @stop
 
@@ -308,6 +369,7 @@ sharejs.open("tests:" + docName, 'text', 'http://46.229.238.230:8000/channel', f
         <table id="owntests" class="table table-striped">
             <thead>
                 <tr>
+                    <th>Kód pred</th>
                     <th>Testovaná funkcia</th>
                     <th>Porovnanie</th>
                     <th>Očakávaná hodnota</th>

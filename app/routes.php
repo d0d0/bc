@@ -39,8 +39,12 @@ Route::group(array('before' => 'auth'), function() {
     Route::group(array('prefix' => 'solution'), function() {
         Route::get('/show/{id?}', 'SolutionController@show');
         Route::post('/add', 'SolutionController@add');
-        Route::post('/getText', 'SolutionController@getText');
-        Route::post('/addTest', 'SolutionController@addOwnTest');
+        Route::group(array('before' => 'csrf'), function() {
+            Route::post('/getText', 'SolutionController@getText');
+            Route::post('/addTest', 'SolutionController@addOwnTest');
+            Route::post('/getTest', 'SolutionController@getOwnTest');
+            Route::post('/deleteTest', 'SolutionController@deleteOwnTest');
+        });
     });
 
     Route::group(array('prefix' => 'task'), function() {

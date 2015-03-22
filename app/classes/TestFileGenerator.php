@@ -32,10 +32,10 @@ class TestFileGenerator {
                     $content .= "  " . $test->codebefore . PHP_EOL;
                     switch ($test->compare) {
                         case Test::EQUAL:
-                            $content.="  EXPECT_EQ(";
+                            $content .= "  EXPECT_EQ(";
                             break;
                         case Test::NON_EQUAL:
-                            $content.="  EXPECT_NE(";
+                            $content .= "  EXPECT_NE(";
                             break;
                     }
                     $content .= self::prepareString($test->expected) . ", " . self::prepareString($test->testfunction) . ");" . PHP_EOL;
@@ -43,6 +43,23 @@ class TestFileGenerator {
                 }
                 $content .= "}" . PHP_EOL . PHP_EOL;
             }
+        }
+        if ($ownTests = OwnTest::where('group_id', '=', $group_id)->where('task_id', '=', $task_id)->get()) {
+            $content .= "TEST(VLASTNE, TESTY) {" . PHP_EOL;
+            foreach ($ownTests as $test) {
+                $content .= "  " . $test->codebefore . PHP_EOL;
+                switch ($test->compare) {
+                    case Test::EQUAL:
+                        $content .= "  EXPECT_EQ(";
+                        break;
+                    case Test::NON_EQUAL:
+                        $content .= "  EXPECT_NE(";
+                        break;
+                }
+                $content .= self::prepareString($test->expected) . ", " . self::prepareString($test->testfunction) . ");" . PHP_EOL;
+                $content .= "  " . $test->codeafter . PHP_EOL;
+            }
+            $content .= "}" . PHP_EOL . PHP_EOL;
         }
         File::put(storage_path() . '/' . $task_id . $group_id . '/test.cpp', $content);
         return storage_path() . '/' . $task_id . $group_id . '/test.cpp';
