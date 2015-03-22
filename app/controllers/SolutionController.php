@@ -7,6 +7,8 @@
  */
 class SolutionController extends BaseController {
 
+    use Nathanmac\Utilities\Parser\Parser;
+
     public function show($id = null) {
         if (!$task = Task::find($id)) {
             return Redirect::action('HomeController@showWelcome');
