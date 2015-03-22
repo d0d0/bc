@@ -23,7 +23,7 @@ class DropColumnLoginUsers extends Migration {
      */
     public function down() {
         Schema::table('users', function(Blueprint $table) {
-            $table->string('login')->unique();
+            
         });
     }
 
