@@ -23,6 +23,11 @@ class SolutionController extends BaseController {
                 }
             }
         }
+        if (!$has_group) {
+            return Redirect::action('GroupController@create', array(
+                        'id' => $id
+            ));
+        }
         $new = false;
         if (Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get()->isEmpty()) {
             SolutionHelper::addNewFile($id, $group_id);
@@ -34,11 +39,6 @@ class SolutionController extends BaseController {
                         'files' => $files,
                         'task' => $task,
                         'group_id' => $group_id
-            ));
-        }
-        if (!$has_group) {
-            return Redirect::action('GroupController@create', array(
-                        'id' => $id
             ));
         }
         return View::make('editor.editor', array(
