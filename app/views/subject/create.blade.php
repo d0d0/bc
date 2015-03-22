@@ -41,7 +41,7 @@
             <div class="col-md-9">
                 <select id="teacher" name="teacher" class="form-control">
                     @foreach(User::teachers()->orderBy('surname')->get() as $user)
-                        <option value="{{ $user->id }}" @if($user-id == Auth::id()) selected @endif>{{{ $user->getSurnameName() }}}</option>
+                        <option value="{{ $user->id }}" @if($user->id == Auth::id()) selected @endif>{{{ $user->getSurnameName() }}}</option>
                     @endforeach
                 </select>
                 {{ Form::errorMsg('teacher') }}
