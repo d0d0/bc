@@ -30,6 +30,8 @@ Route::group(array('before' => 'guest'), function() {
 
 
 Route::group(array('before' => 'auth'), function() {
+    Route::get('/anketa', 'AnketaController@getAnketa');
+    Route::post('/anketa', 'AnketaController@postAnketa');
     Route::group(array('prefix' => 'user'), function() {
         Route::get('/show/{id?}', 'UserController@show');
         Route::get('/setSubject/{id?}', 'UserController@setSelectedSubject');
