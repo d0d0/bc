@@ -90,21 +90,21 @@ class SolutionController extends BaseController {
                 if (isset($suite['testcase'])) {
                     //dd($suite['testcase']);
                     //dd($suite['testcase']['failure']);
+                    $result .= $suite['testcase']['@attributes']['name'] . PHP_EOL;
                     if (isset($suite['testcase']['failure'])) {
                         if (gettype($suite['testcase']['failure']) == 'array') {
                             foreach ($suite['testcase']['failure'] as $case) {
-                                $result .= $case;
+                                $result .= '<pre style="color: red">' . $case . '<pre>' . PHP_EOL;
                                 if ($suite['testcase']['@attributes']['name'] != 'TESTY') {
                                     break;
                                 }
                             }
                         } else {
-                            $result .= $suite['testcase']['failure'];
+                            $result .= '<pre style="color: red">' . $suite['testcase']['failure'] . '<pre>' . PHP_EOL;
                         }
                     } else {
-                        $result .= 'nie je chyba';
+                        $result .= '<pre style="color: green">Všetko ok</pre>';
                     }
-                    $result .= $suite['testcase']['@attributes']['name'];
                 }
             }
             File::deleteDirectory($path);
