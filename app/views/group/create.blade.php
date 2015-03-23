@@ -34,7 +34,7 @@ sharejs.open("groups", 'text', 'http://46.229.238.230:8000/channel', function (e
                             buttons[0] = $('<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>').on('click', function(){
                                 delete_group(val.id);
                             });
-                            buttons[1] = $(' <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>').on('click', function(){
+                            buttons[1] = $('&nbsp;<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>').on('click', function(){
                                 approve(val.id);
                             });
                         }else if(!answer.allow_join){
