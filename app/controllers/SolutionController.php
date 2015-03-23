@@ -79,29 +79,33 @@ class SolutionController extends BaseController {
             }
             shell_exec('timeout 5s ' . $path . '/main --gtest_color=yes --gtest_output=xml:' . $path . '/s.xml | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
 
-            $result = File::get($path . '/s.xml');
-            $parsed = Parser::xml($result);
-            $result = "";
-            foreach ($parsed['testsuite'] as $suite) {
-                if (isset($suite['testcase'])) {
-                    $result .= 'BLOK: ' . $suite['testcase']['@attributes']['name'] . PHP_EOL;
-                    if (isset($suite['testcase']['failure'])) {
-                        if (gettype($suite['testcase']['failure']) == 'array') {
-                            foreach ($suite['testcase']['failure'] as $case) {
-                                $result .= '<pre style="color: red">' . $case . '</pre>' . PHP_EOL;
-                                if ($suite['testcase']['@attributes']['name'] != 'TESTY') {
-                                    break;
+            if (File::exists($path . '/s.xml')) {
+                $result = File::get($path . '/s.xml');
+                $parsed = Parser::xml($result);
+                $result = "";
+                foreach ($parsed['testsuite'] as $suite) {
+                    if (isset($suite['testcase'])) {
+                        $result .= 'BLOK: ' . $suite['testcase']['@attributes']['name'] . PHP_EOL;
+                        if (isset($suite['testcase']['failure'])) {
+                            if (gettype($suite['testcase']['failure']) == 'array') {
+                                foreach ($suite['testcase']['failure'] as $case) {
+                                    $result .= '<pre style="color: red">' . $case . '</pre>' . PHP_EOL;
+                                    if ($suite['testcase']['@attributes']['name'] != 'TESTY') {
+                                        break;
+                                    }
                                 }
+                            } else {
+                                $result .= '<pre style="color: red">' . $suite['testcase']['failure'] . '</pre>' . PHP_EOL;
                             }
                         } else {
-                            $result .= '<pre style="color: red">' . $suite['testcase']['failure'] . '</pre>' . PHP_EOL;
+                            $result .= '<pre style="color: green">Všetko ok</pre>';
                         }
-                    } else {
-                        $result .= '<pre style="color: green">Všetko ok</pre>';
                     }
                 }
+                File::deleteDirectory($path);
+            } else {
+                $result = '<pre style="color: red">Time limit. Skontroluj nekonečné while cykly alebo neefektívny algortimus.</pre>';
             }
-            File::deleteDirectory($path);
             return $result;
         }
     }
