@@ -82,15 +82,9 @@ class SolutionController extends BaseController {
             $result = File::get($path . '/s.xml');
             $parsed = Parser::xml($result);
             $result = "";
-            $error = false;
-            //dd($parsed);
             foreach ($parsed['testsuite'] as $suite) {
-                //dd($suite);
-                $suiteError = false;
                 if (isset($suite['testcase'])) {
-                    //dd($suite['testcase']);
-                    //dd($suite['testcase']['failure']);
-                    $result .= $suite['testcase']['@attributes']['name'] . PHP_EOL;
+                    $result .= 'BLOK: '.$suite['testcase']['@attributes']['name'] . PHP_EOL;
                     if (isset($suite['testcase']['failure'])) {
                         if (gettype($suite['testcase']['failure']) == 'array') {
                             foreach ($suite['testcase']['failure'] as $case) {
