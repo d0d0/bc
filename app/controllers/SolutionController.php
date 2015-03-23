@@ -84,7 +84,7 @@ class SolutionController extends BaseController {
             $result = "";
             foreach ($parsed['testsuite'] as $suite) {
                 if (isset($suite['testcase'])) {
-                    $result .= 'BLOK: '.$suite['testcase']['@attributes']['name'] . PHP_EOL;
+                    $result .= 'BLOK: ' . $suite['testcase']['@attributes']['name'] . PHP_EOL;
                     if (isset($suite['testcase']['failure'])) {
                         if (gettype($suite['testcase']['failure']) == 'array') {
                             foreach ($suite['testcase']['failure'] as $case) {
