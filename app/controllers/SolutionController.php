@@ -75,7 +75,7 @@ class SolutionController extends BaseController {
             File::put($path . '/test.html', '');
             $error = shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -o ' . $path . '/main 2>&1 1>/dev/null');
             if ($error) {
-                return '<pre style="color: red">' . $error . '<pre>';
+                return '<pre style="color: red">' . $error . '</pre>';
             }
             shell_exec('timeout 5s ' . $path . '/main --gtest_color=yes --gtest_output=xml:' . $path . '/s.xml | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
 
