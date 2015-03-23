@@ -79,7 +79,7 @@ class SolutionController extends BaseController {
             }
             shell_exec('timeout 5s ' . $path . '/main --gtest_color=yes --gtest_output=xml:' . $path . '/s.xml | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
 
-            $result = File::get($path . '/.xml');
+            $result = File::get($path . '/s.xml');
             $parsed = Parser::xml($result);
             $result = "";
             $error = false;
@@ -97,7 +97,7 @@ class SolutionController extends BaseController {
                     }
                 }
             }
-            File::deleteDirectory($path);
+            //File::deleteDirectory($path);
             return $result;
             return View::make('compiler.compiler', array(
                         'path' => $path
