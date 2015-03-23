@@ -97,11 +97,12 @@ class SolutionController extends BaseController {
                                 break;
                             }
                         } else {
-                            $result .= ($suite['testcase']['failure']);
+                            $result .= $suite['testcase']['failure'];
                         }
                     } else {
                         $result .= 'nie je chyba';
                     }
+                    $result .=$suite['testcase']['name'];
                 }
             }
             File::deleteDirectory($path);
