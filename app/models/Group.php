@@ -47,4 +47,8 @@ class Group extends Eloquent {
         return $this->hasOne('User', 'id', 'created_by');
     }
 
+    public function isApproved() {
+        return $this->state == $this::APPROVED;
+    }
+
 }

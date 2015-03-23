@@ -127,7 +127,7 @@ class GroupController extends BaseController {
     public function groups() {
         if (Request::ajax()) {
             $input = Input::all();
-            $groups = Group::where('task_id', '=', $input['id'])->orderBy('name')->created()->get();
+            $groups = Group::where('task_id', '=', $input['id'])->orderBy('name')->get();
             $allow_join = false;
             $result = [];
             $is_member_g = false;
@@ -141,6 +141,7 @@ class GroupController extends BaseController {
                 $group['is_member'] = $is_member;
                 $group['members'] = $members;
                 $group['can_edit'] = $group->created_by == Auth::id();
+                $group['approved'] = $group->isApproved();
                 $allow_join |= $group['can_edit'];
                 $is_member_g |= $is_member;
                 $result['groups'][] = $group;
