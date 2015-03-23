@@ -102,8 +102,7 @@ class SolutionController extends BaseController {
                     } else {
                         $result .= 'nie je chyba';
                     }
-                    dd($suite);
-                    $result .= $suite['name'];
+                    $result .= $suite['testcase']['@attributes'] . $suite['testcase']['@attributes']['name'];
                 }
             }
             File::deleteDirectory($path);
