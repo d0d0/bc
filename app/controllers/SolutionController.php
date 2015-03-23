@@ -93,7 +93,7 @@ class SolutionController extends BaseController {
                     if (isset($suite['testcase']['failure'])) {
                         if (gettype($suite['testcase']['failure']) == 'array') {
                             foreach ($suite['testcase']['failure'] as $case) {
-                                $result .= ($case);
+                                $result .= $case;
                                 break;
                             }
                         } else {
@@ -102,6 +102,7 @@ class SolutionController extends BaseController {
                     } else {
                         $result .= 'nie je chyba';
                     }
+                    dd($suite);
                     $result .= $suite['name'];
                 }
             }
