@@ -93,23 +93,11 @@ class SolutionController extends BaseController {
                     $result .= $suite['testcase']['@attributes']['name'] . PHP_EOL;
                     if (isset($suite['testcase']['failure'])) {
                         if (gettype($suite['testcase']['failure']) == 'array') {
-                            if ($suite['testcase']['@attributes']['name'] == 'TESTY') {
-                                $result .= '<pre style="color: red">';
-                            }
-                            $break = false;
                             foreach ($suite['testcase']['failure'] as $case) {
-                                if($break){
-                                    continue;
+                                $result .= '<pre style="color: red">' . $case . '</pre>' . PHP_EOL;
+                                if ($suite['testcase']['@attributes']['name'] != 'TESTY') {
+                                    break;
                                 }
-                                if ($suite['testcase']['@attributes']['name'] == 'TESTY') {
-                                    $result .= $case;
-                                } else {
-                                    $result .= '<pre style="color: red">' . $case . '</pre>' . PHP_EOL;
-                                    $break = true;
-                                }
-                            }
-                            if ($suite['testcase']['@attributes']['name'] == 'TESTY') {
-                                $result .= '</pre>';
                             }
                         } else {
                             $result .= '<pre style="color: red">' . $suite['testcase']['failure'] . '</pre>' . PHP_EOL;
