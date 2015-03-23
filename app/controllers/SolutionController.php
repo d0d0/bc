@@ -94,7 +94,9 @@ class SolutionController extends BaseController {
                         if (gettype($suite['testcase']['failure']) == 'array') {
                             foreach ($suite['testcase']['failure'] as $case) {
                                 $result .= $case;
-                                break;
+                                if ($suite['testcase']['@attributes']['name'] != 'TESTY') {
+                                    break;
+                                }
                             }
                         } else {
                             $result .= $suite['testcase']['failure'];
