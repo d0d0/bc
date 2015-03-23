@@ -19,7 +19,11 @@ class GroupController extends BaseController {
         $tasks = [];
         if (Auth::user()->lastSubject) {
             $subject = Auth::user()->lastSubject;
-            $tasks = $subject->task()->afterStart()->beforedeadline()->orderBy('deadline')->get();
+            $tasks = $subject->task();
+            if (!Auth::user()->isTeacher()) {
+                $tasks = $tasks->afterStart()->beforedeadline();
+            }
+            $tasks = $tasks->orderBy('deadline')->get();
         }
         return View::make('group.create', array(
                     'tasks' => $tasks,
