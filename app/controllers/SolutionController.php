@@ -96,12 +96,16 @@ class SolutionController extends BaseController {
                             if ($suite['testcase']['@attributes']['name'] = 'TESTY') {
                                 $result .= '<pre style="color: red">';
                             }
+                            $break = false;
                             foreach ($suite['testcase']['failure'] as $case) {
+                                if($break){
+                                    continue;
+                                }
                                 if ($suite['testcase']['@attributes']['name'] == 'TESTY') {
                                     $result .= $case;
                                 } else {
                                     $result .= '<pre style="color: red">' . $case . '</pre>' . PHP_EOL;
-                                    break;
+                                    $break = true;
                                 }
                             }
                             if ($suite['testcase']['@attributes']['name'] = 'TESTY') {
