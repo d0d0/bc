@@ -184,36 +184,26 @@ sharejs.open("groups", 'text', 'http://46.229.238.230:8000/channel', function (e
 @stop
 
 @section('center')
-<div class="col-md-6 col-md-offset-3">
-    <form class="form-horizontal clearfix" role="form">
-        <div class="form-group thumbnail">
-            <div class="form-group">
-                <label for="name" class="col-md-2 control-label">{{ Lang::get('Meno skupiny') }}</label>
-                <div class="col-md-10">
-                    <input type="text" id="name" placeholder="{{ Lang::get('Meno skupiny') }}" class="form-control" value="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-md-2 control-label">{{ Lang::get('Zadanie') }}</label>
-                <div class="col-md-10">
-                    <select class="form-control" id="task_id">
-                        @if(Auth::user()->lastSubject)
-                            @foreach($tasks as $task)
-                                <option value="{{ $task->id }}" @if($task->id == $id) selected @endif>{{{ $task->name }}}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-1 col-md-offset-10">
-                    <button class="btn btn-primary ladda-button" id="save" data-style="zoom-in" @if(!Auth::user()->lastSubject) disabled @endif>
-                            <span class="ladda-label">{{ Lang::get('Ulož') }}</span>
-                    </button>
-                </div>
-            </div>
+<div>
+    <form class="form-inline clearfix thumbnail text-center col-md-6 col-md-offset-3">
+        <div class="form-group">
+            <label for="name">Názov skupiny</label>
+            <input type="text" id="name" placeholder="{{ Lang::get('Názov skupiny') }}" class="form-control" value="">
         </div>
-    </form>
+        <div class="form-group">
+            <label for="task_id">Zadanie</label>
+            <select class="form-control" id="task_id">
+                @if(Auth::user()->lastSubject)
+                    @foreach($tasks as $task)
+                        <option value="{{ $task->id }}" @if($task->id == $id) selected @endif>{{{ $task->name }}}</option>
+                    @endforeach
+                @endif
+            </select>
+        </div>
+        <button class="btn btn-primary ladda-button" id="save" data-style="zoom-in" @if(!Auth::user()->lastSubject) disabled @endif>
+            <span class="ladda-label">{{ Lang::get('Vytvor skupinu') }}</span>
+        </button>
+      </form>
 </div>
 <table class="table table-striped table-hover">
     <thead>
