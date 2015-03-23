@@ -15,7 +15,7 @@
     {{ Form::textarea('question5') }}
     <p class="text-muted">Nájdené chyby</p>
     {{ Form::textarea('question6') }}
-    <p class="text-muted">Dala by sa aplikácia vylepšiť tak, aby poskytovala lepší používateľský konfort?</p>
+    <p class="text-muted">Dala by sa aplikácia vylepšiť tak, aby poskytovala lepší používateľský komfort?</p>
     {{ Form::textarea('question7') }}
     <p class="text-muted">Iné... (môžete vyjadriť svoj názor na svet)</p>
     {{ Form::textarea('question8') }}

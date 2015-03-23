@@ -83,25 +83,29 @@ class SolutionController extends BaseController {
             $parsed = Parser::xml($result);
             $result = "";
             $error = false;
+            //dd($parsed);
             foreach ($parsed['testsuite'] as $suite) {
+                //dd($suite);
                 $suiteError = false;
-                foreach ($suite['testcase'] as $testCase) {
-                    if (isset($testCase['failure'])) {
-                        if (isset($testCase['failure'][0])) {
-                            $result .= $testCase['failure'][0]['@attributes']['message'];
+                if (isset($suite['testcase'])) {
+                    //dd($suite['testcase']);
+                    //dd($suite['testcase']['failure']);
+                    if (isset($suite['testcase']['failure'])) {
+                        if (gettype($suite['testcase']['failure']) == 'array') {
+                            foreach ($suite['testcase']['failure'] as $case) {
+                                $result .= ($case);
+                                break;
+                            }
                         } else {
-                            $result .= $testCase['failure']['@attributes']['message'];
+                            $result .= ($suite['testcase']['failure']);
                         }
-                        $suiteError = true;
-                        break;
+                    } else {
+                        $result .= 'nie je chyba';
                     }
                 }
             }
-            //File::deleteDirectory($path);
+            File::deleteDirectory($path);
             return $result;
-            return View::make('compiler.compiler', array(
-                        'path' => $path
-            ));
         }
     }
 
