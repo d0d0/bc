@@ -14,7 +14,7 @@ class SolutionController extends BaseController {
         $groups = Group::where('task_id', '=', $id)->approved()->get();
         $has_group = false;
         $group_id = 0;
-        foreach ($groups as $group) {
+        fo reach ($groups as $group) {
             foreach ($group->members()->get() as $user) {
                 if ($user->id == Auth::id()) {
                     $has_group = true;
