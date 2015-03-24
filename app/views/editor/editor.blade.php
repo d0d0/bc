@@ -172,7 +172,7 @@ sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', 
                 doc.shout({'msg': 'loaded', 'result': result});
             },
             'error': function(){
-                var result = '<pre color="red">Nastala chyba pri spracovaní údajov.</pre>';
+                var result = '<pre style="color:red">Nastala chyba pri spracovaní údajov.</pre>';
                 $('#result').html(result);
                 doc.shout({'msg': 'loaded', 'result': result});
             
