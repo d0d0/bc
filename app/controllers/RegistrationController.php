@@ -52,7 +52,7 @@ class RegistrationController extends BaseController {
           ->subject(Lang::get('emails.verify_email'));
           }); */
         return Redirect::action('HomeController@showWelcome')
-                        ->with('message', Lang::get('Regitrácia prebehla úspešne'));
+                        ->with('message', Lang::get('Registrácia prebehla úspešne'));
     }
 
     /**
