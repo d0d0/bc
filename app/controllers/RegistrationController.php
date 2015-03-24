@@ -42,7 +42,7 @@ class RegistrationController extends BaseController {
                     'surname' => Input::get('surname'),
                     'email' => Input::get('email'),
                     'password' => Hash::make(Input::get('password')),
-                   // 'confirmation_code' => $confirmation_code,
+                    // 'confirmation_code' => $confirmation_code,
                     //TODO: odstranit a nechat mail
                     'confirmed' => 1
                 ))->id;
