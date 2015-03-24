@@ -116,12 +116,6 @@ class SolutionController extends BaseController {
         return Response::json(Solution::where('node_id', '=', Input::get('node_id'))->select('text')->get());
     }
 
-    public function getOwnTests() {
-        if (Request::ajax()) {
-            return Response::json();
-        }
-    }
-
     public function addOwnTest() {
         if (Request::ajax()) {
             $input = Input::all();
