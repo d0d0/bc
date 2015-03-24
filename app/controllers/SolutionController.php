@@ -78,7 +78,7 @@ class SolutionController extends BaseController {
                 $error = str_replace($path, '', $error);
                 return '<pre style="color: red">' . $error . '</pre>';
             }
-            shell_exec('timeout 5s ' . $path . '/main --gtest_color=yes --gtest_output=xml:' . $path . '/s.xml | sh /home/jduc/gtest-1.7.0/samples/ansi2html.sh > ' . $path . '/test.html');
+            shell_exec('timeout 5s ' . $path . '/main --gtest_output=xml:' . $path . '/s.xml');
 
             if (File::exists($path . '/s.xml')) {
                 $result = File::get($path . '/s.xml');
