@@ -169,10 +169,16 @@ sharejs.open("toggle:" + docName, 'text', 'http://46.229.238.230:8000/channel', 
             'data': data,
             'success': function(result){
                 $('#result').html(result);
-                toggleEditor();
                 doc.shout({'msg': 'loaded', 'result': result});
+            },
+            'error': function(){
+                var result = '<pre color="red">Nastala chyba pri spracovaní údajov.</pre>';
+                $('#result').html(result);
+                doc.shout({'msg': 'loaded', 'result': result});
+            
             }
         }).always(function(){
+            toggleEditor();
             l.stop();
         });
     });
