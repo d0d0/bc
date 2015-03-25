@@ -5,8 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bakalárska práca</title>
-
-        <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -31,6 +29,11 @@
                 </ul>
             </div>
             <div class="col-md-9" style="margin-bottom: 2em">
+                <div class="thumbnail">
+                    <h3>Programovanie a testovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 23.3.2015 - 24.3.2014</p>
+                    <p>Dokončil som celú aplikáciu a otestoval som ju na hodine Extrémneho programovania. Žiaci našli zopár minor bugov, ktoré som opravil na mieste. Požiadal som všetkých, ktorí testovali aplikáciu, aby vyplnili krátku anketu. Podľa ohlasov je možné, že ešte niektoré časti budem trochu upravovať, aby bol viac user-friendly.</p>
+                </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 12.3.2015 - 19.3.2014</p>
