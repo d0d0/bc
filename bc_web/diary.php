@@ -32,7 +32,7 @@
                 <div class="thumbnail">
                     <h3>Programovanie a testovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 23.3.2015 - 24.3.2015</p>
-                    <p>Dokončil som celú aplikáciu a otestoval som ju na hodine Extrémneho programovania. Žiaci našli zopár minor bugov, ktoré som opravil na mieste. Požiadal som všetkých, ktorí testovali aplikáciu, aby vyplnili krátku anketu. Podľa ohlasov je možné, že ešte niektoré časti budem trochu upravovať, aby bol viac user-friendly.</p>
+                    <p>Dokončil som celú aplikáciu a otestoval som ju na hodine Extrémneho programovania. Žiaci našli zopár minor bugov, ktoré som opravil na mieste. Požiadal som všetkých, ktorí testovali aplikáciu, aby vyplnili krátku anketu. Podľa ohlasov je možné, že ešte niektoré časti budem trochu upravovať, aby boli viac user-friendly.</p>
                 </div>
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
