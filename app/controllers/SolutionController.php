@@ -59,13 +59,17 @@ class SolutionController extends BaseController {
                 File::deleteDirectory($path);
             }
             File::makeDirectory($path);
+            $version = DB::table('files')->where('group_id', '=', $input['group_id'])->max('version');
+            if ($version == NULL) {
+                $version = 0;
+            }
             foreach ($input['files'] as $file) {
                 $filedata = array(
                     'task_id' => $input['task_id'],
                     'group_id' => $input['group_id'],
                     'name' => $file['name'],
                     'text' => $file['text'],
-                    'version' => 1,
+                    'version' => ($version + 1),
                 );
                 (new SolutionFile($filedata))->save();
                 $includefiles .= $path . '/' . $file['name'] . ' ';
