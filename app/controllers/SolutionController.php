@@ -35,7 +35,7 @@ class SolutionController extends BaseController {
         }
         if ($task->isAfterDeadline()) {
             $files = SolutionFile::where('group_id', '=', $group_id)
-                            ->whereRaw('id = (select max(`id`) from files where group_id = ' . $group_id . ')')->get();
+                            ->whereRaw('version = (select max(`version`) from files where group_id = ' . $group_id . ')')->get();
             return View::make('editor.code', array(
                         'files' => $files,
                         'task' => $task,
