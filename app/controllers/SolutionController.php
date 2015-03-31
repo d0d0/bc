@@ -33,14 +33,16 @@ class SolutionController extends BaseController {
             SolutionHelper::addNewFile($id, $group_id);
             $new = true;
         }
-        $files = Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get();
         if ($task->isAfterDeadline()) {
+            $files = SolutionFile::where('group_id', '=', $group_id)
+                            ->whereRaw('id = (select max(`id`) from files where group_id = ' . $group_id . ')')->get();
             return View::make('editor.code', array(
                         'files' => $files,
                         'task' => $task,
                         'group_id' => $group_id
             ));
         }
+        $files = Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get();
         return View::make('editor.editor', array(
                     'id' => $id,
                     'files' => $files,

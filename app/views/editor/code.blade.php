@@ -51,7 +51,7 @@ dd{
             <?php $i = 0; ?>
             @foreach($files as $file)
             <li role="presentation" {{ $i++ == 0 ? 'class="active"' : '' }}>
-                <a href="#{{{ $file->node_id }}}" aria-controls="{{{ $file->node_id }}}" role="tab" data-toggle="tab">
+                <a href="#{{{ $file->id }}}" aria-controls="{{{ $file->id }}}" role="tab" data-toggle="tab">
                     {{{ $file->name }}}
                 </a>
             </li>
@@ -60,7 +60,7 @@ dd{
         <div class="tab-content">
             <?php $i = 0; ?>
             @foreach($files as $file)
-            <div role="tabpanel" class="tab-pane {{ $i++ == 0 ? 'active' : '' }}" id="{{{ $file->node_id }}}">
+            <div role="tabpanel" class="tab-pane {{ $i++ == 0 ? 'active' : '' }}" id="{{{ $file->id }}}">
                 <div class="panel-body">
                     <pre class="prettyprint lang-cc">{{{ $file->text }}}</pre>
                 </div>
