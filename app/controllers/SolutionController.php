@@ -23,6 +23,21 @@ class SolutionController extends BaseController {
                 }
             }
         }
+        if ($task->isAfterDeadline()) {
+            if ($has_group) {
+                $files = SolutionFile::where('group_id', '=', $group_id)
+                                ->where(function($query) use($group_id) {
+                                    return $query->where('version', '=', SolutionFile::where('group_id', '=', $group_id)->max('version'));
+                                })->get();
+            } else {
+                $files = TaskFile::where('task_id', '=', $id)->get();
+            }
+            return View::make('editor.code', array(
+                        'files' => $files,
+                        'task' => $task,
+                        'group_id' => $group_id
+            ));
+        }
         if (!$has_group) {
             return Redirect::action('GroupController@create', array(
                         'id' => $id
@@ -32,17 +47,6 @@ class SolutionController extends BaseController {
         if (Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get()->isEmpty()) {
             SolutionHelper::addNewFile($id, $group_id);
             $new = true;
-        }
-        if ($task->isAfterDeadline()) {
-            $files = SolutionFile::where('group_id', '=', $group_id)
-                            ->where(function($query) use($group_id) {
-                                return $query->where('version', '=', SolutionFile::where('group_id', '=', $group_id)->max('version'));
-                            })->get();
-            return View::make('editor.code', array(
-                        'files' => $files,
-                        'task' => $task,
-                        'group_id' => $group_id
-            ));
         }
         $files = Solution::where('task_id', '=', $id)->where('group_id', '=', $group_id)->get();
         return View::make('editor.editor', array(
