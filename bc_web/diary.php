@@ -30,6 +30,11 @@
             </div>
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
+                    <h3>Písanie textu</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 25.3.2015 - 8.4.2015</p>
+                    <p>Začal som pracovať na texte, spísal som si kostru kapitoly Návrh.</p>
+                </div>
+                <div class="thumbnail">
                     <h3>Programovanie a testovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 23.3.2015 - 24.3.2015</p>
                     <p>Dokončil som celú aplikáciu a otestoval som ju na hodine Extrémneho programovania. Žiaci našli zopár minor bugov, ktoré som opravil na mieste. Požiadal som všetkých, ktorí testovali aplikáciu, aby vyplnili krátku anketu. Podľa ohlasov je možné, že ešte niektoré časti budem trochu upravovať, aby boli viac user-friendly.</p>
