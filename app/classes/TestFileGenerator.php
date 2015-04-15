@@ -8,7 +8,7 @@
 class TestFileGenerator {
 
     private static function prepareString($string) {
-        return trim(str_replace(' ', '', iconv('UTF-8', 'ASCII//TRANSLIT', $string)));
+        return trim(iconv('UTF-8', 'ASCII//TRANSLIT', $string));
     }
 
     public static function generate($task_id, $group_id) {
@@ -25,8 +25,7 @@ class TestFileGenerator {
         foreach ($blocks as $block) {
             $sections = $block->sections()->get();
             foreach ($sections as $section) {
-                $content .= "TEST(" . self::prepareString($block->name) . ", ";
-                $content .= self::prepareString($section->name) . ") {" . PHP_EOL;
+                $content .= "TEST(" . self::prepareString($block->name) . ", " . self::prepareString($section->name) . ") {" . PHP_EOL;
                 $tests = $section->tests()->get();
                 foreach ($tests as $test) {
                     $content .= "  " . $test->codebefore . PHP_EOL;
