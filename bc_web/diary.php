@@ -31,6 +31,11 @@
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Písanie textu</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 16.4.2015 - 22.4.2015</p>
+                    <p>Takmer hotový text práce, poslal som ho na skontrolovanie školitelovi.</p>
+                </div>
+                <div class="thumbnail">
+                    <h3>Písanie textu</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 9.4.2015 - 15.4.2015</p>
                     <p>Napísal som takmer celú kapitolu Implementácia (ešte chýba časť o Virtuálnom serveri), pokročil som v kapitole Návrh a vo východiskovej kapitole mi ešte chýbajú dokončiť sekcie o E-learningu a malá časť z použitých technológii.</p>
                 </div>
