@@ -93,7 +93,6 @@
                             @if(Auth::user()->isTeacher())
                                 <li>{{ HTML::linkAction('SubjectController@create', 'Vytvor predmet', array()) }}</li>
                             @endif
-                            <li>{{ HTML::linkAction('AnketaController@getAnketa', 'Anketa', array()) }}</li>
                         </ul>
                         <p class="lead"></p>
                         <div class="thumbnail">
