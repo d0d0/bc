@@ -10,12 +10,13 @@
                 <th>Koniec</th>
                 <th>Bodov</th>
                 @if(Auth::user()->isTeacher())
-                    <th class="text-center">Edituj</th>
+                <th class="text-center">Edituj</th>
                 @endif
             </tr>
         </thead>
         <tbody>
             <?php $points = 0 ?>
+            <?php $total_points = 0 ?>
             @forelse($tasks as $task)
             <tr {{ $task->isAfterDeadline() ? 'class="danger"' : '' }}>
                 <td>
@@ -23,14 +24,15 @@
                 </td>
                 <td>{{{ $task->formattedStart() }}}</td>
                 <td>{{{ $task->formattedDeadline() }}}</td>
-                <td>{{{ $task->points() }}}</td>
+                <td>{{{ $task->groupPoints() . ' / ' . $task->points() }}}</td>
                 @if(Auth::user()->isTeacher())
-                    <td class="text-center text-info">
-                        <a href="{{ action('TaskController@edit', array('id' => $task->id)) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    </td>
+                <td class="text-center text-info">
+                    <a href="{{ action('TaskController@edit', array('id' => $task->id)) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                </td>
                 @endif
             </tr>
             <?php $points += $task->points() ?>
+            <?php $total_points += $task->groupPoints() ?>
             @empty
             <tr>
                 <td colspan="{{ Auth::user()->isTeacher() ? 5 : 4 }}">
@@ -44,7 +46,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>{{{ $points }}}</th>
+                <th>{{{ $total_points . ' / ' . $points }}}</th>
                 <th></th>
             </tr>
         </tfoot>

@@ -74,9 +74,19 @@ class Task extends Eloquent {
         }
         return $result;
     }
-    
-    public function groups(){
+
+    public function groups() {
         return Group::where('task_id', '=', $this->id);
+    }
+
+    public function groupPoints() {
+        try {
+            $groups = Group::where('task_id', '=', $this->id)->get(['id'])->toArray();
+            $group_id = GroupMembers::where('user_id', '=', Auth::id())->whereIn('group_id', $groups)->first()->group_id;
+            return Point::where('task_id', '=', $this->id)->where('group_id', '=', $group_id)->first()->points;
+        } catch (Exception $e) {
+            return 0;
+        }
     }
 
 }

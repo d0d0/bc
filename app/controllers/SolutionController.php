@@ -96,6 +96,7 @@ class SolutionController extends BaseController {
                 $result = File::get($path . '/s.xml');
                 $parsed = Parser::xml($result);
                 $result = "";
+                $points = 0;
                 foreach ($parsed['testsuite'] as $suite) {
                     if (isset($suite['testcase'])) {
                         $result .= 'BLOK: ' . $suite['testcase']['@attributes']['name'] . PHP_EOL;
@@ -114,10 +115,21 @@ class SolutionController extends BaseController {
                             $task = Task::find($input['task_id']);
                             $block = $task->blocks()->get(['id'])->toArray();
                             $section = Section::whereIn('block_id', $block)->where('name', '=', $suite['testcase']['@attributes']['name'])->first();
+                            $points+= $section->points;
                             $result .= $section->points . '<pre style="color: green">Všetko ok</pre>';
                         }
                     }
                 }
+                if ($point = Point::where('task_id', '=', $input['task_id'])->where('group_id', '=', $input['group_id'])->first()) {
+                    $point->points = $points;
+                } else {
+                    $point = Point::create(array(
+                                'task_id' => $input['task_id'],
+                                'group_id' => $input['group_id'],
+                                'points' => $points
+                    ));
+                }
+                $point->save();
                 File::deleteDirectory($path);
             } else {
                 $result = '<pre style="color: red">Time limit. Skontroluj nekonečné while cykly alebo neefektívny algoritmus.</pre>';
