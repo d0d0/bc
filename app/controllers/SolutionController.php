@@ -111,13 +111,16 @@ class SolutionController extends BaseController {
                                 $result .= '<pre style="color: red">' . $suite['testcase']['failure'] . '</pre>' . PHP_EOL;
                             }
                         } else {
-                            $result .= '<pre style="color: green">Všetko ok</pre>';
+                            $task = Task::find($input['task_id']);
+                            $block = $task->blocks()->get(['id'])->toArray();
+                            $section = Section::whereIn('block_id', $block)->where('name', '=', $suite['testcase']['@attributes']['name'])->first();
+                            $result .= $section->points . '<pre style="color: green">Všetko ok</pre>';
                         }
                     }
                 }
                 File::deleteDirectory($path);
             } else {
-                $result = '<pre style="color: red">Time limit. Skontroluj nekonečné while cykly alebo neefektívny algortimus.</pre>';
+                $result = '<pre style="color: red">Time limit. Skontroluj nekonečné while cykly alebo neefektívny algoritmus.</pre>';
             }
             $result = str_replace($path, '', $result);
             return $result;
