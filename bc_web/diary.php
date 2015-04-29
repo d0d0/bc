@@ -30,6 +30,11 @@
             </div>
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
+                    <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.4.2015 - 29.4.2015</p>
+                    <p>Doprogramované automatické bodové ohodnotenie testov.</p>
+                </div>
+                <div class="thumbnail">
                     <h3>Písanie textu</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 16.4.2015 - 22.4.2015</p>
                     <p>Takmer hotový text práce, poslal som ho na skontrolovanie školitelovi.</p>
