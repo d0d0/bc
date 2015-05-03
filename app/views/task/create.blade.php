@@ -133,6 +133,7 @@
         editors[id]['name'] = name;
         if(text){
             editors[id].setValue(text, 1);
+            editors[id].focus();
         }
     };
 
