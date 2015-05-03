@@ -85,15 +85,14 @@ class SolutionController extends BaseController {
             }
             $testfile = TestFileGenerator::generate($input['task_id'], $input['group_id']);
             shell_exec('cp ' . storage_path() . '/test -r ' . $path);
-            $error = shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -std=c++11 -o ' . $path . '/main.out 2>&1 1>/dev/null');
+            $error = shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -std=c++11 -o ' . $path . '/test/tmp/main.out 2>&1 1>/dev/null');
             if ($error) {
                 $error = str_replace($path, '', $error);
                 return '<pre style="color: red">' . $error . '</pre>';
             }
-            shell_exec('timeout 5s ' . $path . '/main.out --gtest_output=xml:' . $path . '/s.xml');
-/*
-            if (File::exists($path . '/s.xml')) {
-                $result = File::get($path . '/s.xml');
+            shell_exec('timeout 5s ' . $path . '/main.out --gtest_output=xml:' . $path . '/test/tmp/s.xml');
+            /*if (File::exists($path . '/test/tmp/s.xml')) {
+                $result = File::get($path . '/test/tmp/s.xml');
                 $parsed = Parser::xml($result);
                 $result = "";
                 $points = 0;
