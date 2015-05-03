@@ -135,6 +135,35 @@ class TaskController extends BaseController {
                 'text' => $task->text,
             ];
             $result['files'] = $task->taskFiles()->get();
+            $blocks = $task->blocks()->get();
+            $blocks_array = [];
+            foreach ($blocks as $block) {
+                $sections = $block->sections()->get();
+                $sections_array = [];
+                foreach ($sections as $section) {
+                    $test_array = [];
+                    $tests = $section->tests()->get();
+                    foreach ($tests as $test) {
+                        $test_array[] = [
+                            'codebefore' => $test->codebefore,
+                            'testfunction' => $test->testfunction,
+                            'compare' => $test->compare,
+                            'expected' => $test->expected,
+                            'codeafter' => $test->codeafter
+                        ];
+                    }
+                    $sections_array[] = [
+                        'name' => $section->name,
+                        'points' => $section->points,
+                        'tests' => $test_array
+                    ];
+                }
+                $blocks_array[] = [
+                    'name' => $block->name,
+                    'sections' => $sections_array
+                ];
+            }
+            $result['blocks'] = $blocks_array;
             return Response::json($result);
         }
     }

@@ -435,6 +435,24 @@
                         appendFile(obj);
                         max++;
                     });
+                    data.blocks.forEach(function(val){
+                        var param = { 'name': val.name, 'id': block_id, 'section': [], 'max': 0 };
+                        appendBlock(param);
+                        val.sections.forEach(function(section){
+                            var param = { 'id': block_id, 'name': section.name, 'points': section.points, 'tests': [], 'max': 0 };
+                            addSection(param);
+                            section.tests.forEach(function(test){
+                                var param = block_id;
+                                param['codebefore'] = test.codebefore;
+                                param['testfunction'] = test.testfunction;
+                                param['compare'] = test.compare;
+                                param['expected'] = test.expected;
+                                param['codeafter'] = test.codeafter;
+                                addTest(param);
+                            });
+                        });
+                        block_id++;
+                    });
                 }
             });
         };
