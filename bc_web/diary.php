@@ -31,6 +31,11 @@
             <div class="col-md-9" style="margin-bottom: 2em">
                 <div class="thumbnail">
                     <h3>Programovanie</h3>
+                    <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 30.4.2015 - 6.5.2015</p>
+                    <p>Sfinalizované posledné detaily na aplikácii ako je editácia zadania a spúšťanie testov pod virtuálnym strojom. Zostáva už len dopísať kapitolu v texte, skontrolovať, vytlačiť a vyložiť si nohy.</p>
+                </div>
+                <div class="thumbnail">
+                    <h3>Programovanie</h3>
                     <p class="text-muted"><span class="glyphicon glyphicon-calendar"></span> 29.4.2015 - 29.4.2015</p>
                     <p>Doprogramované automatické bodové ohodnotenie testov.</p>
                 </div>
