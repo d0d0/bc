@@ -436,19 +436,19 @@
                         max++;
                     });
                     data.blocks.forEach(function(val){
-                        var param = { 'name': val.name, 'id': block_id, 'section': [], 'max': 0 };
-                        appendBlock(param);
+                        var param0 = { 'name': val.name, 'id': block_id, 'section': [], 'max': 0 };
+                        appendBlock(param0);
                         val.sections.forEach(function(section){
-                            var param = { 'id': block_id, 'name': section.name, 'points': section.points, 'tests': [], 'max': 0 };
-                            addSection(param);
+                            var param1 = { 'id': block_id, 'name': section.name, 'points': section.points, 'tests': [], 'max': 0 };
+                            addSection(param1);
                             section.tests.forEach(function(test){
-                                var param = block_id;
-                                param['codebefore'] = test.codebefore;
-                                param['testfunction'] = test.testfunction;
-                                param['compare'] = test.compare;
-                                param['expected'] = test.expected;
-                                param['codeafter'] = test.codeafter;
-                                addTest(param);
+                                var param2 = { 'blockid': block_id, 'id': param1.max };
+                                param2['codebefore'] = test.codebefore;
+                                param2['testfunction'] = test.testfunction;
+                                param2['compare'] = test.compare;
+                                param2['expected'] = test.expected;
+                                param2['codeafter'] = test.codeafter;
+                                addTest(param2);
                             });
                         });
                         block_id++;
