@@ -84,14 +84,14 @@ class SolutionController extends BaseController {
                 File::put($path . '/' . $file['name'], $file['text']);
             }
             $testfile = TestFileGenerator::generate($input['task_id'], $input['group_id']);
-            File::put($path . '/test.html', '');
+            shell_exec('cp ' . storage_path() . '/test -r ' . $path);
             $error = shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -std=c++11 -o ' . $path . '/main.out 2>&1 1>/dev/null');
             if ($error) {
                 $error = str_replace($path, '', $error);
                 return '<pre style="color: red">' . $error . '</pre>';
             }
             shell_exec('timeout 5s ' . $path . '/main.out --gtest_output=xml:' . $path . '/s.xml');
-
+/*
             if (File::exists($path . '/s.xml')) {
                 $result = File::get($path . '/s.xml');
                 $parsed = Parser::xml($result);
@@ -116,7 +116,7 @@ class SolutionController extends BaseController {
                             $block = $task->blocks()->get(['id'])->toArray();
                             $section = Section::whereIn('block_id', $block)->where('name', '=', $suite['testcase']['@attributes']['name'])->first();
                             $points+= $section->points;
-                            $result .= '<strong>'. $section->points .' bodov</strong><pre style="color: green">Všetko ok</pre>';
+                            $result .= '<strong>' . $section->points . ' bodov</strong><pre style="color: green">Všetko ok</pre>';
                         }
                     }
                 }
@@ -134,7 +134,7 @@ class SolutionController extends BaseController {
             } else {
                 $result = '<pre style="color: red">Time limit. Skontroluj nekonečné while cykly alebo neefektívny algoritmus.</pre>';
             }
-            $result = str_replace($path, '', $result);
+            $result = str_replace($path, '', $result);*/
             return $result;
         }
     }
