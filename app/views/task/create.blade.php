@@ -119,7 +119,7 @@
         editors.splice(i, 1);
     };
 
-    var addEditor = function(id, name){
+    var addEditor = function(id, name, text){
         editors[id] = ace.edit('editor' + id);
 
         editors[id].setOptions({
@@ -131,6 +131,9 @@
         editors[id].$blockScrolling = Infinity;
         editors[id]['id'] = id;
         editors[id]['name'] = name;
+        if(text){
+            editors[id].setValue(text, 1);
+        }
     };
 
     var appendFile = function(param){
@@ -167,7 +170,7 @@
         })));
         $('#editors').append(div);
 
-        addEditor(param['id'], param['name']);
+        addEditor(param['id'], param['name'], param['text']);
     };
 
     $('#addFileButton').on('click', function(){
@@ -426,7 +429,7 @@
                     $('#groupsize').val(data.groupsize);
                     $('.summernote').code(data.text);
                     data.files.forEach(function(val){
-                        var obj = { 'id': max, 'name': val.name, 'header': val.header };
+                        var obj = { 'id': max, 'name': val.name, 'header': val.header, 'text': val.text };
                         files.push(obj);
                         appendFile(obj);
                         max++;
