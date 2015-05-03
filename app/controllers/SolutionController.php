@@ -90,6 +90,7 @@ class SolutionController extends BaseController {
                 $error = str_replace($path, '', $error);
                 return '<pre style="color: red">' . $error . '</pre>';
             }
+            dd('timeout 5s linux rootfstype=hostfs rootflags=' . $path . '/test rw mem=48M > ' . $path . '/test/tmp/log 2>&1; echo $?>' . $path . 'test/tmp/exitcode.err');
             shell_exec('timeout 5s linux rootfstype=hostfs rootflags=' . $path . '/test rw mem=48M > ' . $path . '/test/tmp/log 2>&1; echo $?>' . $path . 'test/tmp/exitcode.err');
             //shell_exec('timeout 5s ' . $path . '/main.out --gtest_output=xml:' . $path . '/test/tmp/s.xml');
             if (File::exists($path . '/test/tmp/s.xml')) {
