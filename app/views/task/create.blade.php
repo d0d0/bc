@@ -298,6 +298,7 @@
             })))))).append($('<tbody />'));
         block.append(h3);
         block.append(table);
+        return { 'blockid': blockId, 'id': param['id'] };
     };
     
     var deleteBlock = function(id){
@@ -440,9 +441,9 @@
                         appendBlock(param0);
                         val.sections.forEach(function(section){
                             var param1 = { 'id': block_id, 'name': section.name, 'points': section.points, 'tests': [], 'max': 0 };
-                            addSection(param1);
+                            tmp = addSection(param1);
                             section.tests.forEach(function(test){
-                                var param2 = { 'blockid': block_id, 'id': param1.max };
+                                var param2 = tmp;
                                 param2['codebefore'] = test.codebefore;
                                 param2['testfunction'] = test.testfunction;
                                 param2['compare'] = test.compare;
