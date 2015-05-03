@@ -409,6 +409,33 @@
             return false;
         }
     });
+    
+    @if(isset($id))
+        var loadData = function(){
+            $.ajax({
+                'url': "{{ action('TaskController@loadData') }}",
+                'method': 'post',
+                'dataType': 'json',
+                'data': {
+                    'id': {{ $id }}
+                },
+                'success': function(data){
+                    $('#name').val(data.name);
+                    $('#start').val(data.start);
+                    $('#deadline').val(data.deadline);
+                    $('#groupsize').val(data.groupsize);
+                    $('.summernote').code(data.text);
+                    data.files.forEach(function(val){
+                        var obj = { 'id': max, 'name': val.name, 'header': val.header };
+                        files.push(obj);
+                        appendFile(obj);
+                        max++;
+                    });
+                }
+            });
+        };
+        loadData();
+    @endif
 @stop
 
 @section('center')

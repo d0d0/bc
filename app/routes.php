@@ -57,6 +57,7 @@ Route::group(array('before' => 'auth'), function() {
             Route::get('/edit/{id?}', 'TaskController@edit');
             Route::group(array('before' => 'csrf'), function() {
                 Route::post('/add', 'TaskController@add');
+                Route::post('/loadData', 'TaskController@loadData');
             });
         });
     });

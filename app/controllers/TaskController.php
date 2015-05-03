@@ -123,4 +123,20 @@ class TaskController extends BaseController {
         ));
     }
 
+    public function loadData() {
+        if (Request::ajax()) {
+            $input = Input::all();
+            $task = Task::find($input['id']);
+            $result = [
+                'name' => $task->name,
+                'start' => $task->formattedStart(),
+                'deadline' => $task->formattedDeadline(),
+                'groupsize' => $task->groupsize,
+                'text' => $task->text,
+            ];
+            $result['files'] = $task->taskFiles()->get();
+            return Response::json($result);
+        }
+    }
+
 }

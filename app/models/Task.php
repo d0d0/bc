@@ -89,4 +89,8 @@ class Task extends Eloquent {
         }
     }
 
+    public function taskFiles() {
+        return $this->hasMany('TaskFile', 'task_id', 'id');
+    }
+
 }

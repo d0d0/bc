@@ -116,7 +116,7 @@ class SolutionController extends BaseController {
                             $block = $task->blocks()->get(['id'])->toArray();
                             $section = Section::whereIn('block_id', $block)->where('name', '=', $suite['testcase']['@attributes']['name'])->first();
                             $points+= $section->points;
-                            $result .= $section->points . '<pre style="color: green">Všetko ok</pre>';
+                            $result .= '<strong>'. $section->points .' bodov</strong><pre style="color: green">Všetko ok</pre>';
                         }
                     }
                 }
