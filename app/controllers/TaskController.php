@@ -145,11 +145,11 @@ class TaskController extends BaseController {
                     $tests = $section->tests()->get();
                     foreach ($tests as $test) {
                         $test_array[] = [
+                            'expected' => $test->expected,
+                            'codeafter' => $test->codeafter,
                             'codebefore' => $test->codebefore,
                             'testfunction' => $test->testfunction,
-                            'compare' => $test->compare,
-                            'expected' => $test->expected,
-                            'codeafter' => $test->codeafter
+                            'compare' => $test->compare
                         ];
                     }
                     $sections_array[] = [

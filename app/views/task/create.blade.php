@@ -129,12 +129,11 @@
         editors[id].setTheme("ace/theme/merbivore");
         editors[id].getSession().setMode("ace/mode/c_cpp");
         editors[id].$blockScrolling = Infinity;
+        if(text){
+            editors[id].setValue(text);
+        }
         editors[id]['id'] = id;
         editors[id]['name'] = name;
-        if(text){
-            editors[id].setValue(text, 1);
-            editors[id].focus();
-        }
     };
 
     var appendFile = function(param){
@@ -359,7 +358,6 @@
             'aria-hidden': 'true'
         })))));
         tests.push(param);
-        console.log(tests);
         $('#blocks').append(div);
     };
     
