@@ -46,7 +46,26 @@ class Subject extends Eloquent {
     }
 
     public function scopeWithoutselected($query) {
-        return $query->where('subjects.id', '<>', Auth::user()->last_subject);
+        if (Auth::user()->isTeacher()) {
+            return $query->where('subjects.id', '<>', Auth::user()->last_subject);
+        }
+        return $query->where('subjects.id', '<>', Auth::user()->last_subject)->whereIn('subjects.id', Participant::where('user_id', '=', Auth::id())->where('state', '=', Participant::ACCEPTED)->get(['subject_id'])->toArray());
+    }
+
+    public function participants() {
+        return $this->hasMany('Participant', 'subject_id', 'id');
+    }
+
+    public function isActive() {
+        $now = Carbon::now();
+        if ($this->session == self::WINTER) {
+            $dateFrom = Carbon::createFromDate($this->year, 9, 1);
+            $dateTo = Carbon::createFromDate($this->year + 1, 2, 1);
+        } else {
+            $dateFrom = Carbon::createFromDate($this->year + 1, 1, 1);
+            $dateTo = Carbon::createFromDate($this->year + 1, 7, 1);
+        }
+        return $dateFrom <= $now && $now <= $dateTo;
     }
 
 }

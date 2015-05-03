@@ -89,15 +89,27 @@
                             @if(Auth::user()->isTeacher())
                                 <li>{{ HTML::linkAction('TaskController@create', 'Vytvor zadanie', array()) }}</li>
                             @endif
+                            @if(!Auth::user()->isTeacher())
+                                <li>{{ HTML::linkAction('SubjectController@join', 'Prihlás na predmet', array()) }}</li>
+                            @endif
                             <li>{{ HTML::linkAction('TaskController@all', 'Všetky zadania', array()) }}</li>
                             @if(Auth::user()->isTeacher())
+                                <li>{{ HTML::linkAction('SubjectController@manage', 'Správa študentov', array()) }}</li>
                                 <li>{{ HTML::linkAction('SubjectController@create', 'Vytvor predmet', array()) }}</li>
                             @endif
                         </ul>
+                        @if(Auth::user()->lastSubject)
                         <p class="lead"></p>
                         <div class="thumbnail">
-
+                            <?php $points = 0 ?>
+                            <?php $total_points = 0 ?>
+                            @foreach(Auth::user()->lastSubject->task()->afterStart()->get() as $task)
+                                <?php $points += $task->points() ?>
+                                <?php $total_points += $task->groupPoints() ?>
+                            @endforeach
+                            Body: {{{ $total_points . ' / ' . $points }}}
                         </div>
+                        @endif
                     </div>
                     <div class="col-md-10">
                         @if(Session::has('error'))

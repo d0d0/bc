@@ -1,5 +1,9 @@
 @extends('layouts.center_content')
 
+@section('ready_js')
+    $("a.tooltipLink").tooltip();
+@stop
+
 @section('center')
 <div class="col-md-6 col-md-offset-3">
     {{ Form::open(array('action' => 'SubjectController@add', 'class' => 'form-horizontal', 'method' => 'post', 'role' => 'form')) }}
@@ -16,6 +20,9 @@
         <div class="form-group {{ $errors->has('year') ? "has-error" : "" }}">
             <div class="col-md-3">
                 {{ Form::label('year', 'Rok') }}
+                <a data-toggle="tooltip" class="tooltipLink" data-original-title="Rok vyučovania predmetu. Ak je akademický rok napríklad 2014/2015, tak sa zadáva len 2014.">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                </a>
             </div>
             <div class="col-md-9">
                 {{ Form::text('year', '', array('class'=>'form-control', 'placeholder' => 'Rok')) }}
@@ -41,7 +48,7 @@
             <div class="col-md-9">
                 <select id="teacher" name="teacher" class="form-control">
                     @foreach(User::teachers()->orderBy('surname')->get() as $user)
-                        <option value="{{ $user->id }}" @if($user->id == Auth::id()) selected @endif>{{{ $user->getSurnameName() }}}</option>
+                    <option value="{{ $user->id }}" @if($user->id == Auth::id()) selected @endif>{{{ $user->getSurnameName() }}}</option>
                     @endforeach
                 </select>
                 {{ Form::errorMsg('teacher') }}

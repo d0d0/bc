@@ -64,11 +64,19 @@ Route::group(array('before' => 'auth'), function() {
     Route::group(array('prefix' => 'subject'), function() {
         Route::get('/all', 'SubjectController@all');
         Route::get('/show/{id?}', 'SubjectController@show');
+        Route::get('/join', 'SubjectController@join');
         Route::group(array('before' => 'teacher'), function() {
             Route::get('/create', 'SubjectController@create');
+            Route::get('/manage', 'SubjectController@manage');
             Route::group(array('before' => 'csrf'), function() {
                 Route::post('/add', 'SubjectController@add');
+                Route::post('/getUsers', 'SubjectController@getUsers');
+                Route::post('/updateUser', 'SubjectController@updateUser');
             });
+        });
+        Route::group(array('before' => 'csrf'), function() {
+            Route::post('/getSubjects', 'SubjectController@getSubjects');
+            Route::post('/joinSubject', 'SubjectController@joinSubject');
         });
     });
 

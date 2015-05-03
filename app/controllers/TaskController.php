@@ -28,7 +28,10 @@ class TaskController extends BaseController {
     }
 
     public function create() {
-        return View::make('task.create');
+        if ($subject = Auth::user()->lastSubject) {
+            return View::make('task.create');
+        }
+        return Redirect::action('SubjectController@create');
     }
 
     public function edit($id = null) {
