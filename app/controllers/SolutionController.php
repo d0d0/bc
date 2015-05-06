@@ -88,6 +88,11 @@ class SolutionController extends BaseController {
             $error = shell_exec('g++ -I/home/jduc/gtest-1.7.0/include -L/home/jduc/gtest-1.7.0/ /home/jduc/gtest-1.7.0/src/gtest_main.cc ' . $includefiles . ' ' . $testfile . ' -lgtest -lpthread -std=c++11 -o ' . $path . '/test/tmp/main.out 2>&1 1>/dev/null');
             if ($error) {
                 $error = str_replace($path, '', $error);
+                try {
+                    File::deleteDirectory($path);
+                } catch (Exception $e) {
+                    
+                }
                 return '<pre style="color: red">' . $error . '</pre>';
             }
             shell_exec('timeout 7s linux rootfstype=hostfs uml_dir=' . $path . ' rootflags=' . $path . '/test rw mem=48M > ' . $path . '/test/tmp/log 2>&1; echo $?>' . $path . 'test/tmp/exitcode.err');
@@ -129,11 +134,15 @@ class SolutionController extends BaseController {
                     ));
                 }
                 $point->save();
-                File::deleteDirectory($path);
             } else {
                 $result = '<pre style="color: red">Time limit. Skontroluj nekonečné while cykly alebo neefektívny algoritmus.</pre>';
             }
             $result = str_replace($path, '', $result);
+            try {
+                File::deleteDirectory($path);
+            } catch (Exception $e) {
+                
+            }
             return $result;
         }
     }
