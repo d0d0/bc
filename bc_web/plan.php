@@ -38,7 +38,7 @@
                 </div>
                 <div class="thumbnail">
                     <h3>Február 2015</h3>
-                    Začiatie prác na unit testoch
+                    Začatie prác na unit testoch
                 </div>
                 <div class="thumbnail">
                     <h3>Marec 2015</h3>
