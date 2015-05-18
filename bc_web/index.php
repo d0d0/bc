@@ -17,7 +17,7 @@
         </script>
     </head>
     <body class="container">
-        <h1 style="text-align: center">Vývojové prostredie pre online programovanie v skupine</h1>
+        <h1 style="text-align: center">Vývojové prostredie na online programovanie v skupine</h1>
         <div class="row">
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked" style="text-align: center">
@@ -39,7 +39,7 @@
                     </p>
                     <p class="lead">
                     <dt>Názov práce:</dt>
-                    <dd>Vývojové prostredie pre online programovanie v skupine</dd> 
+                    <dd>Vývojové prostredie na online programovanie v skupine</dd> 
                     </p>
                     <p class="lead">
                     <dt>Školiteľ:</dt>
