@@ -1,5 +1,6 @@
 /nbproject
 /bootstrap/compiled.php
+/.idea
 /vendor
 composer.phar
 composer.lock
