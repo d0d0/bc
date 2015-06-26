@@ -116,7 +116,7 @@ class SolutionController extends BaseController {
                                 $result .= '<pre style="color: red">' . $suite['testcase']['failure'] . '</pre>' . PHP_EOL;
                             }
                         } else {
-                            if ($suite['testcase']['@attributes']['name'] != 'TESTY') {
+                            if ($suite['testcase']['@attributes']['name'] == 'TESTY') {
                                 $result .= '<strong>Vlastné testy</strong><pre style="color: green">Všetko ok</pre>';
                             }else {
                                 $task = Task::find($input['task_id']);
