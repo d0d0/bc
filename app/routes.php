@@ -18,7 +18,7 @@ Route::get('/register', 'RegistrationController@getRegister');
 
 Route::get('/compiler', 'CompilerController@run');
 
-Route::group(array('before' => 'guest'), function() {
+Route::group(array('before' => 'guest'), function () {
     Route::get('/login', 'LoginController@getLogin');
     Route::post('/login', 'LoginController@postLogin');
 
@@ -29,19 +29,19 @@ Route::group(array('before' => 'guest'), function() {
 });
 
 
-Route::group(array('before' => 'auth'), function() {
+Route::group(array('before' => 'auth'), function () {
     Route::get('/anketa', 'AnketaController@getAnketa');
     Route::post('/anketa', 'AnketaController@postAnketa');
-    Route::group(array('prefix' => 'user'), function() {
+    Route::group(array('prefix' => 'user'), function () {
         Route::get('/show/{id?}', 'UserController@show');
         Route::get('/setSubject/{id?}', 'UserController@setSelectedSubject');
         Route::get('/logout', 'LoginController@getLogout');
     });
 
-    Route::group(array('prefix' => 'solution'), function() {
+    Route::group(array('prefix' => 'solution'), function () {
         Route::get('/show/{id?}', 'SolutionController@show');
         Route::post('/add', 'SolutionController@add');
-        Route::group(array('before' => 'csrf'), function() {
+        Route::group(array('before' => 'csrf'), function () {
             Route::post('/getText', 'SolutionController@getText');
             Route::post('/addTest', 'SolutionController@addOwnTest');
             Route::post('/getTest', 'SolutionController@getOwnTest');
@@ -49,42 +49,42 @@ Route::group(array('before' => 'auth'), function() {
         });
     });
 
-    Route::group(array('prefix' => 'task'), function() {
+    Route::group(array('prefix' => 'task'), function () {
         Route::get('/all', 'TaskController@all');
         Route::get('/show/{id?}', 'TaskController@show');
-        Route::group(array('before' => 'teacher'), function() {
+        Route::group(array('before' => 'teacher'), function () {
             Route::get('/create', 'TaskController@create');
             Route::get('/edit/{id?}', 'TaskController@edit');
-            Route::group(array('before' => 'csrf'), function() {
+            Route::group(array('before' => 'csrf'), function () {
                 Route::post('/add', 'TaskController@add');
                 Route::post('/loadData', 'TaskController@loadData');
             });
         });
     });
 
-    Route::group(array('prefix' => 'subject'), function() {
+    Route::group(array('prefix' => 'subject'), function () {
         Route::get('/all', 'SubjectController@all');
         Route::get('/show/{id?}', 'SubjectController@show');
         Route::get('/join', 'SubjectController@join');
-        Route::group(array('before' => 'teacher'), function() {
+        Route::group(array('before' => 'teacher'), function () {
             Route::get('/create', 'SubjectController@create');
             Route::get('/manage', 'SubjectController@manage');
-            Route::group(array('before' => 'csrf'), function() {
+            Route::group(array('before' => 'csrf'), function () {
                 Route::post('/add', 'SubjectController@add');
                 Route::post('/getUsers', 'SubjectController@getUsers');
                 Route::post('/updateUser', 'SubjectController@updateUser');
             });
         });
-        Route::group(array('before' => 'csrf'), function() {
+        Route::group(array('before' => 'csrf'), function () {
             Route::post('/getSubjects', 'SubjectController@getSubjects');
             Route::post('/joinSubject', 'SubjectController@joinSubject');
         });
     });
 
-    Route::group(array('prefix' => 'group'), function() {
+    Route::group(array('prefix' => 'group'), function () {
         Route::get('/show/{id?}', 'GroupController@show');
         Route::get('/create/{id?}', 'GroupController@create');
-        Route::group(array('before' => 'csrf'), function() {
+        Route::group(array('before' => 'csrf'), function () {
             Route::post('/groups', 'GroupController@groups');
             Route::post('/groupsCreate', 'GroupController@createGroup');
             Route::post('/delete', 'GroupController@delete');

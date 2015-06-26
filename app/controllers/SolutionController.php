@@ -116,11 +116,15 @@ class SolutionController extends BaseController {
                                 $result .= '<pre style="color: red">' . $suite['testcase']['failure'] . '</pre>' . PHP_EOL;
                             }
                         } else {
-                            $task = Task::find($input['task_id']);
-                            $block = $task->blocks()->get(['id'])->toArray();
-                            $section = Section::whereIn('block_id', $block)->where('name', '=', $suite['testcase']['@attributes']['name'])->first();
-                            $points+= $section->points;
-                            $result .= '<strong>' . $section->points . ' bodov</strong><pre style="color: green">Všetko ok</pre>';
+                            if ($suite['testcase']['@attributes']['name'] != 'TESTY') {
+                                $result .= '<strong>Vlastné testy</strong><pre style="color: green">Všetko ok</pre>';
+                            }else {
+                                $task = Task::find($input['task_id']);
+                                $block = $task->blocks()->get(['id'])->toArray();
+                                $section = Section::whereIn('block_id', $block)->where('name', '=', $suite['testcase']['@attributes']['name'])->first();
+                                $points += $section->points;
+                                $result .= '<strong>' . $section->points . ' bodov</strong><pre style="color: green">Všetko ok</pre>';
+                            }
                         }
                     }
                 }
